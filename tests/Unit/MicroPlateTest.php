@@ -17,7 +17,7 @@ use PHPUnit\Framework;
 
 class MicroPlateTest extends Framework\TestCase
 {
-    public function testThrowsWhenAddingWellWithWrongCoordinateSystem() {
+    public function testThrowsWhenAddingWellWithWrongCoordinateSystem(): void {
         $microPlateWith96WellSystem = new MicroPlate(new CoordinateSystem96Well());
         $microPlateCoordinateOn12WellCoordinateSystem = new Coordinate('A', 2, new CoordinateSystem12Well());
 
@@ -25,7 +25,7 @@ class MicroPlateTest extends Framework\TestCase
         $microPlateWith96WellSystem->addWell($microPlateCoordinateOn12WellCoordinateSystem, 'foo');
     }
 
-    public function testCanAddAndRetriedWellBasedOnCoordinateSystem() {
+    public function testCanAddAndRetriedWellBasedOnCoordinateSystem(): void {
         $coordinateSystem = new CoordinateSystem96Well();
 
         $microPlate = new MicroPlate($coordinateSystem);
@@ -39,7 +39,7 @@ class MicroPlateTest extends Framework\TestCase
         $wellContent2 = 'bar';
         $microPlate->addWell($microPlateCoordinate2, $wellContent2);
 
-        $this->assertEquals([$microPlateCoordinate1, $wellContent1], $microPlate->getWells()[0]);
-        $this->assertEquals([$microPlateCoordinate2, $wellContent2], $microPlate->getWells()[1]);
+        self::assertEquals([$microPlateCoordinate1, $wellContent1], $microPlate->getWells()[0]);
+        self::assertEquals([$microPlateCoordinate2, $wellContent2], $microPlate->getWells()[1]);
     }
 }

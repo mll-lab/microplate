@@ -11,6 +11,9 @@ class MicroPlate
 {
     private CoordinateSystem $coordinateSystem;
 
+    /**
+     * @var Collection<array<int, mixed>>
+     */
     private Collection $wells;
 
     public function __construct(CoordinateSystem $coordinateSystem)
@@ -19,6 +22,11 @@ class MicroPlate
         $this->coordinateSystem = $coordinateSystem;
     }
 
+    /**
+     * @param Coordinate $coodinate
+     * @param mixed $content
+     * @throws IncompatibleCoordinateSystemException
+     */
     public function addWell(Coordinate $coodinate, $content) : void {
         if (get_class($coodinate->coordinateSystem) !== get_class($this->coordinateSystem)) {
             throw new IncompatibleCoordinateSystemException('Can not add a content to a well with CoordinateSystem "' . $coodinate->coordinateSystem . '" to the plate with CoordinateSystem "'  . $this->coordinateSystem . '"');
@@ -26,6 +34,9 @@ class MicroPlate
         $this->wells->add([$coodinate, $content]);
     }
 
+    /**
+     * @return Collection<array<int, mixed>>
+     */
     public function getWells(): Collection
     {
         return $this->wells;

@@ -20,18 +20,18 @@ class Coordinate implements Stringable
     {
         $this->coordinateSystem = $coordinateSystem;
 
-        if (! in_array($row, $coordinateSystem->rowCoordinates())) {
+        if (! in_array($row, $coordinateSystem->rowCoordinates(), true)) {
             throw new InvalidArgumentException("Expected a row with value of {$this->rowList()}, got {$row}.");
         }
         $this->row = $row;
 
-        if (! in_array($column, $this->coordinateSystem->columnCoordinates())) {
+        if (! in_array($column, $this->coordinateSystem->columnCoordinates(), true)) {
             throw new InvalidArgumentException("Expected a column with value of {$this->columnList()}, got {$column}.");
         }
         $this->column = $column;
     }
 
-    public static function fromString(string $coordinateString, CoordinateSystem96Well $coordinateSystem)
+    public static function fromString(string $coordinateString, CoordinateSystem96Well $coordinateSystem): self
     {
         $valid = \Safe\preg_match(
             '/^(' . implode('|', $coordinateSystem->rowCoordinates()) . ')(' . implode('|', $coordinateSystem->columnCoordinates()) . ')$/',
@@ -44,7 +44,6 @@ class Coordinate implements Stringable
         }
 
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
-
     }
 
     public function __toString()
@@ -77,8 +76,12 @@ class Coordinate implements Stringable
 
     public function position(FlowDirection $direction): int
     {
-        $rowIndex = array_search($this->row, $this->coordinateSystem->rowCoordinates());
-        $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates());
+        $rowIndex = array_search($this->row, $this->coordinateSystem->rowCoordinates(), true);
+        $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
+
+        if (!is_int($rowIndex) || ! is_int($columnIndex)) {
+            throw new \InvalidArgumentException('rowIndex and columnIndex need to be integers: values are:' . $rowIndex . ' '. $columnIndex);
+        }
 
         switch ($direction->getValue()) {
             case FlowDirection::ROW()->getValue():
@@ -93,7 +96,7 @@ class Coordinate implements Stringable
     private static function assertPositionInRange(CoordinateSystem $coordinateSystem, int $position): void
     {
         $maxPosition = count($coordinateSystem->columnCoordinates()) * count($coordinateSystem->rowCoordinates());
-        if (!in_array($position, range(self::MIN_POSITION, $maxPosition))) {
+        if (!in_array($position, range(self::MIN_POSITION, $maxPosition), true)) {
             throw new InvalidArgumentException("Expected a position between 1-96, got: {$position}.");
         }
     }

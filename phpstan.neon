@@ -1,6 +1,7 @@
 parameters:
 	level: max
 	inferPrivatePropertyTypeFromConstructor: true
+	checkGenericClassInNonGenericObjectType: false
 	paths:
 	- src/
 	- tests/

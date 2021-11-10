@@ -21,7 +21,7 @@ class CoordinateTest extends Framework\TestCase
     {
         $coordinate96Well = new Coordinate($row, $column, new CoordinateSystem96Well());
 
-        $this->assertSame($row . $column, $coordinate96Well->__toString());
+        self::assertSame($row . $column, (string) $coordinate96Well);
     }
 
     /**
@@ -35,8 +35,8 @@ class CoordinateTest extends Framework\TestCase
             FlowDirection::COLUMN(),
             new CoordinateSystem96Well()
         );
-        $this->assertSame($row, $coordinates->row);
-        $this->assertSame($column, $coordinates->column);
+        self::assertSame($row, $coordinates->row);
+        self::assertSame($column, $coordinates->column);
 
         // test for Row-FlowDirection
         $coordinates = Coordinate::fromPosition(
@@ -44,8 +44,8 @@ class CoordinateTest extends Framework\TestCase
             FlowDirection::ROW(),
             new CoordinateSystem96Well()
         );
-        $this->assertSame($row, $coordinates->row);
-        $this->assertSame($column, $coordinates->column);
+        self::assertSame($row, $coordinates->row);
+        self::assertSame($column, $coordinates->column);
     }
 
     /**
@@ -54,8 +54,8 @@ class CoordinateTest extends Framework\TestCase
     public function testFromCoordinatesString(string $row, int $column): void
     {
         $coordinates = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
-        $this->assertSame($row, $coordinates->row);
-        $this->assertSame($column, $coordinates->column);
+        self::assertSame($row, $coordinates->row);
+        self::assertSame($column, $coordinates->column);
     }
 
     /**
@@ -64,8 +64,8 @@ class CoordinateTest extends Framework\TestCase
     public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
         $coordinates = new Coordinate($row, $column, new CoordinateSystem96Well());
-        $this->assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
-        $this->assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
+        self::assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
+        self::assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
     }
 
     /**
@@ -153,8 +153,8 @@ class CoordinateTest extends Framework\TestCase
     public function testPosition12Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
         $coordinates = new Coordinate($row, $column, new CoordinateSystem12Well());
-        $this->assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
-        $this->assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
+        self::assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
+        self::assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
     }
 
     /**
