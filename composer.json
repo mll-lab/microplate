@@ -31,25 +31,6 @@
     "symfony/var-dumper": "^5",
     "thecodingmachine/phpstan-safe-rule": "dev-master#a630c7bf9f3060b6e3dc74a4d9ef5edc0feec052"
   },
-  "repositories": [
-    {
-    "type": "package",
-    "package": {
-      "name": "thecodingmachine/phpstan-safe-rule",
-      "type": "library",
-      "version": "dev-master",
-      "dist": {
-        "url": "https://codeload.github.com/thecodingmachine/phpstan-safe-rule/legacy.zip/a630c7bf9f3060b6e3dc74a4d9ef5edc0feec052",
-        "type": "zip"
-      },
-      "autoload": {
-        "psr-4": {
-          "TheCodingMachine\\Safe\\PHPStan\\": "src/"
-        }
-      }
-    }
-  }
-  ],
   "config": {
     "platform": {
       "php": "7.4.24"
@@ -70,6 +51,25 @@
       "vendor/symfony/var-dumper/Resources/functions/dump.php"
     ]
   },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "thecodingmachine/phpstan-safe-rule",
+        "type": "library",
+        "version": "dev-master",
+        "dist": {
+          "url": "https://codeload.github.com/thecodingmachine/phpstan-safe-rule/legacy.zip/a630c7bf9f3060b6e3dc74a4d9ef5edc0feec052",
+          "type": "zip"
+        },
+        "autoload": {
+          "psr-4": {
+            "TheCodingMachine\\Safe\\PHPStan\\": "src/"
+          }
+        }
+      }
+    }
+  ],
   "support": {
     "issues": "https://github.com/mll-lab/microplate/issues",
     "source": "https://github.com/mll-lab/microplate"
