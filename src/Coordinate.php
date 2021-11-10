@@ -7,6 +7,9 @@ use Mll\Microplate\Enums\FlowDirection;
 use Stringable;
 use UnexpectedValueException;
 
+/**
+ * @template TCoordinateSystem of CoordinateSystem
+ */
 class Coordinate implements Stringable
 {
     private const MIN_POSITION = 1;
@@ -15,8 +18,14 @@ class Coordinate implements Stringable
 
     public int $column;
 
+    /**
+     * @var TCoordinateSystem
+     */
     public CoordinateSystem $coordinateSystem;
 
+    /**
+     * @param TCoordinateSystem $coordinateSystem
+     */
     public function __construct(string $row, int $column, CoordinateSystem $coordinateSystem)
     {
         $rows = $coordinateSystem->rows();
@@ -36,6 +45,11 @@ class Coordinate implements Stringable
         $this->coordinateSystem = $coordinateSystem;
     }
 
+    /**
+     * @param TCoordinateSystem $coordinateSystem
+     *
+     * @return static<TCoordinateSystem>
+     */
     public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem): self
     {
         $rows = $coordinateSystem->rows();
@@ -58,11 +72,16 @@ class Coordinate implements Stringable
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->row . $this->column;
     }
 
+    /**
+     * @param TCoordinateSystem $coordinateSystem
+     *
+     * @return static<TCoordinateSystem>
+     */
     public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): self
     {
         self::assertPositionInRange($coordinateSystem, $position);

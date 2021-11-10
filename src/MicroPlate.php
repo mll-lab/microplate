@@ -3,41 +3,40 @@
 namespace Mll\Microplate;
 
 use Illuminate\Support\Collection;
-use Mll\Microplate\Exceptions\IncompatibleCoordinateSystemException;
 
+/**
+ * @template TWell
+ * @template TCoordinateSystem of CoordinateSystem
+ */
 class MicroPlate
 {
-    private CoordinateSystem $coordinateSystem;
+    /**
+     * @var TCoordinateSystem
+     */
+    public CoordinateSystem $coordinateSystem;
 
     /**
-     * @var Collection<array<int, mixed>>
+     * @var Collection<array{Coordinate<TCoordinateSystem>, TWell}>
      */
-    private Collection $wells;
+    public Collection $wells;
 
+    /**
+     * @param TCoordinateSystem $coordinateSystem
+     */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
-        $this->wells = collect([]);
+        $this->wells = new Collection([]);
         $this->coordinateSystem = $coordinateSystem;
     }
 
     /**
-     * @phpstan-param mixed $content
+     * TODO how to deal with duplicates?
      *
-     * @throws IncompatibleCoordinateSystemException
+     * @param Coordinate<TCoordinateSystem> $coordinate
+     * @param TWell $content
      */
-    public function addWell(Coordinate $coodinate, $content): void
+    public function addWell(Coordinate $coordinate, $content): void
     {
-        if (get_class($coodinate->coordinateSystem) !== get_class($this->coordinateSystem)) {
-            throw new IncompatibleCoordinateSystemException('Can not add a content to a well with CoordinateSystem "' . $coodinate->coordinateSystem . '" to the plate with CoordinateSystem "' . $this->coordinateSystem . '"');
-        }
-        $this->wells->add([$coodinate, $content]);
-    }
-
-    /**
-     * @return Collection<array<int, mixed>>
-     */
-    public function getWells(): Collection
-    {
-        return $this->wells;
+        $this->wells->add([$coordinate, $content]);
     }
 }
