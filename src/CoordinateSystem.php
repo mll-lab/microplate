@@ -7,31 +7,31 @@ abstract class CoordinateSystem implements \Stringable
     /**
      * @return list<string>
      */
-    abstract public function rowCoordinates(): array;
+    abstract public function rows(): array;
 
     /**
      * @return list<int>
      */
-    abstract public function columnCoordinates(): array;
+    abstract public function columns(): array;
 
     public function rowForRowFlowPosition(int $position): string
     {
-        return $this->rowCoordinates()[floor(($position - 1) / count($this->columnCoordinates()))];
+        return $this->rows()[floor(($position - 1) / count($this->columns()))];
     }
 
     public function rowForColumnFlowPosition(int $position): string
     {
-        return $this->rowCoordinates()[($position - 1) % count($this->rowCoordinates())];
+        return $this->rows()[($position - 1) % count($this->rows())];
     }
 
     public function columnForRowFlowPosition(int $position): int
     {
-        return $this->columnCoordinates()[($position - 1) % count($this->columnCoordinates())];
+        return $this->columns()[($position - 1) % count($this->columns())];
     }
 
     public function columnForColumnFlowPosition(int $position): int
     {
-        return $this->columnCoordinates()[floor(($position - 1) / count($this->rowCoordinates()))];
+        return $this->columns()[floor(($position - 1) / count($this->rows()))];
     }
 
     public function __toString()

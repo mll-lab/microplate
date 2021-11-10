@@ -4,12 +4,12 @@ namespace Mll\Microplate;
 
 class CoordinateSystem12Well extends CoordinateSystem
 {
-    public function rowCoordinates(): array
+    public function rows(): array
     {
         return range('A', 'C');
     }
 
-    public function columnCoordinates(): array
+    public function columns(): array
     {
         return range(1, 4);
     }
