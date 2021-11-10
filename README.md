@@ -8,12 +8,6 @@
 
 PHP package to easily convert and work with microplate data
 
-# Remove this section after cloning
-
-Link the package at https://packagist.org
-
-# Remove this section after cloning
-
 ## Installation
 
 Install through composer
