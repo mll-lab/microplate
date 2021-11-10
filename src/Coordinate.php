@@ -90,14 +90,11 @@ class Coordinate implements Stringable
 
     public function position(FlowDirection $direction): int
     {
+        /** @var int $rowIndex Must be found, since __construct enforces $this->row is valid */
         $rowIndex = array_search($this->row, $this->coordinateSystem->rowCoordinates(), true);
-        $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
 
-        // @codeCoverageIgnoreStart rowCoordinates & columnCoordinates are both lists<T> and will return an int as result of array_search
-        if (! is_int($rowIndex) || ! is_int($columnIndex)) {
-            throw new UnexpectedValueException('rowIndex and columnIndex need to be integers: values are:' . $rowIndex . ' ' . $columnIndex);
-        }
-        // @codeCoverageIgnoreEnd
+        /** @var int $columnIndex Must be found, since __construct enforces $this->column is valid */
+        $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
 
         switch ($direction->getValue()) {
             case FlowDirection::ROW()->getValue():
