@@ -7,6 +7,7 @@ namespace Mll\Microplate\Tests\Unit;
 use InvalidArgumentException;
 
 use Mll\Microplate\Coordinate;
+use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
 use PHPUnit\Framework;
@@ -60,7 +61,7 @@ class CoordinateTest extends Framework\TestCase
     /**
      * @dataProvider dataProvider96Well
      */
-    public function testPosition(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
+    public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
         $coordinates = new Coordinate($row, $column, new CoordinateSystem96Well());
         $this->assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
@@ -143,6 +144,109 @@ class CoordinateTest extends Framework\TestCase
                 'columnFlowPosition'=> 95,
 
             ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProvider12Well
+     */
+    public function testPosition12Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
+    {
+        $coordinates = new Coordinate($row, $column, new CoordinateSystem12Well());
+        $this->assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
+        $this->assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
+    }
+
+    /**
+     * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
+     */
+    public function dataProvider12Well(): array
+    {
+        return [
+            [
+                'row'=> 'A',
+                'column'=> 1,
+                'rowFlowPosition'=> 1,
+                'columnFlowPosition'=> 1,
+
+            ],
+            [
+                'row'=> 'A',
+                'column'=> 2,
+                'rowFlowPosition'=> 2,
+                'columnFlowPosition'=> 4,
+
+            ],
+            [
+                'row'=> 'A',
+                'column'=> 3,
+                'rowFlowPosition'=> 3,
+                'columnFlowPosition'=> 7,
+
+            ],
+            [
+                'row'=> 'A',
+                'column'=> 4,
+                'rowFlowPosition'=> 4,
+                'columnFlowPosition'=> 10,
+
+            ],
+            [
+                'row'=> 'B',
+                'column'=> 1,
+                'rowFlowPosition'=> 5,
+                'columnFlowPosition'=> 2,
+
+            ],
+            [
+                'row'=> 'B',
+                'column'=> 2,
+                'rowFlowPosition'=> 6,
+                'columnFlowPosition'=> 5,
+
+            ],
+            [
+                'row'=> 'B',
+                'column'=> 3,
+                'rowFlowPosition'=> 7,
+                'columnFlowPosition'=> 8,
+
+            ],
+            [
+                'row'=> 'B',
+                'column'=> 4,
+                'rowFlowPosition'=> 8,
+                'columnFlowPosition'=> 11,
+
+            ],
+            [
+                'row'=> 'C',
+                'column'=> 1,
+                'rowFlowPosition'=> 9,
+                'columnFlowPosition'=> 3,
+
+            ],
+            [
+                'row'=> 'C',
+                'column'=> 2,
+                'rowFlowPosition'=> 10,
+                'columnFlowPosition'=> 6,
+
+            ],
+            [
+                'row'=> 'C',
+                'column'=> 3,
+                'rowFlowPosition'=> 11,
+                'columnFlowPosition'=> 9,
+
+            ],
+            [
+                'row'=> 'C',
+                'column'=> 4,
+                'rowFlowPosition'=> 12,
+                'columnFlowPosition'=> 12,
+
+            ]
         ];
     }
 
