@@ -4,9 +4,9 @@ version: 1
 
 update_configs:
   - default_assignees:
-      - "spawnia"
+      - "mll"
     default_reviewers:
-      - "spawnia"
+      - "mll"
     directory: "/"
     package_manager: "php:composer"
     update_schedule: "live"

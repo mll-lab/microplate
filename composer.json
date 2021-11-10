@@ -1,17 +1,19 @@
 {
-  "name": "spawnia/php-package-template",
+  "name": "mll/microplate",
   "type": "library",
-  "description": "GitHub repository template for a PHP package",
-  "homepage": "https://github.com/spawnia/php-package-template",
+  "description": "PHP package to easily convert and work with microplate data",
+  "homepage": "https://github.com/mll/microplate",
   "license": "MIT",
   "authors": [
     {
-      "name": "Benedikt Franke",
-      "email": "benedikt@franke.tech"
+      "name": "Simon Bigelmayr",
+      "email": "s.bigelmayr@gmx.net"
     }
   ],
   "require": {
-    "php": "^7.4 || ^8",
+    "php": "^7.2 || ^8",
+    "laravel/framework": "^7.30",
+    "myclabs/php-enum": "^1.7",
     "thecodingmachine/safe": "^1"
   },
   "require-dev": {
@@ -36,19 +38,19 @@
   },
   "autoload": {
     "psr-4": {
-      "Spawnia\\PhpPackageTemplate\\": "src/"
+      "Mll\\Microplate\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Spawnia\\PhpPackageTemplate\\Tests\\": "tests/"
+      "Mll\\Microplate\\Tests\\": "tests/"
     },
     "files": [
       "vendor/symfony/var-dumper/Resources/functions/dump.php"
     ]
   },
   "support": {
-    "issues": "https://github.com/spawnia/php-package-template/issues",
-    "source": "https://github.com/spawnia/php-package-template"
+    "issues": "https://github.com/mll/microplate/issues",
+    "source": "https://github.com/mll/microplate"
   }
 }

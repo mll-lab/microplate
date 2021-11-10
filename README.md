@@ -1,34 +1,34 @@
-# php-package-template
+# microplate
 
-[![Continuous Integration](https://github.com/spawnia/php-package-template/workflows/Continuous%20Integration/badge.svg)](https://github.com/spawnia/php-package-template/actions)
-[![Code Coverage](https://codecov.io/gh/spawnia/php-package-template/branch/master/graph/badge.svg)](https://codecov.io/gh/spawnia/php-package-template)
+[![Continuous Integration](https://github.com/mll/microplate/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll/microplate/actions)
+[![Code Coverage](https://codecov.io/gh/mll/microplate/branch/master/graph/badge.svg)](https://codecov.io/gh/mll/microplate)
 [![StyleCI](https://github.styleci.io/repos/207373158/shield?branch=master)](https://github.styleci.io/repos/207373158)
 
-[![Latest Stable Version](https://poser.pugx.org/spawnia/php-package-template/v/stable)](https://packagist.org/packages/spawnia/php-package-template)
-[![Total Downloads](https://poser.pugx.org/spawnia/php-package-template/downloads)](https://packagist.org/packages/spawnia/php-package-template)
+[![Latest Stable Version](https://poser.pugx.org/mll/microplate/v/stable)](https://packagist.org/packages/mll/microplate)
+[![Total Downloads](https://poser.pugx.org/mll/microplate/downloads)](https://packagist.org/packages/mll/microplate)
 
-GitHub repository template for a PHP package
+PHP package to easily convert and work with microplate data
 
 # Remove this section after cloning
 
 Search & Replace with your title:
 
 ```
-GitHub repository template for a PHP package
+PHP package to easily convert and work with microplate data
 ```
 
 Search & Replace with your package name:
 
 ```
-php-package-template
-PhpPackageTemplate
+microplate
+Microplate
 ```
 
 Search & Replace with your username/vendor (match case):
 
 ```
-spawnia
-Spawnia
+mll
+Mll
 ```
 
 Set up StyleCI at https://github.styleci.io and replace the link in the badge.
@@ -37,7 +37,7 @@ Link the package at https://packagist.org
 
 Enable code coverage at https://codecov.io
 
-Thanks to @localheinz for providing the inspiration for this template: https://github.com/ergebnis/php-package-template
+Thanks to @localheinz for providing the inspiration for this template: https://github.com/ergebnis/microplate
 
 # Remove this section after cloning
 
@@ -46,7 +46,7 @@ Thanks to @localheinz for providing the inspiration for this template: https://g
 Install through composer
 
 ```sh
-composer require spawnia/php-package-template
+composer require mll/microplate
 ```
 
 ## Usage

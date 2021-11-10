@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mll\Microplate\Tests\Unit;
+
+use InvalidArgumentException;
+
+use Mll\Microplate\CoordinateSystem12Well;
+use Mll\Microplate\Exceptions\IncompatibleCoordinateSystemException;
+use Mll\Microplate\MicroPlate;
+use Mll\Microplate\Coordinate;
+use Mll\Microplate\CoordinateSystem96Well;
+use Mll\Microplate\Enums\FlowDirection;
+use Mll\Microplate\Well;
+use PHPUnit\Framework;
+
+class MicroPlateTest extends Framework\TestCase
+{
+    public function testThrowsWhenAddingWellWithWrongCoordinateSystem() {
+        $microPlateWith96WellSystem = new MicroPlate(new CoordinateSystem96Well());
+        $microPlateCoordinateOn12WellCoordinateSystem = new Coordinate('A', 2, new CoordinateSystem12Well());
+
+        $this->expectException(IncompatibleCoordinateSystemException::class);
+        $microPlateWith96WellSystem->addWell($microPlateCoordinateOn12WellCoordinateSystem, 'foo');
+    }
+
+    public function testCanAddAndRetriedWellBasedOnCoordinateSystem() {
+        $coordinateSystem = new CoordinateSystem96Well();
+
+        $microPlate = new MicroPlate($coordinateSystem);
+
+        $microPlateCoordinate1 = new Coordinate('A', 2, $coordinateSystem);
+        $microPlateCoordinate2 = new Coordinate('A', 3, $coordinateSystem);
+
+        $wellContent1 = 'foo';
+        $microPlate->addWell($microPlateCoordinate1, $wellContent1);
+
+        $wellContent2 = 'bar';
+        $microPlate->addWell($microPlateCoordinate2, $wellContent2);
+
+        $this->assertEquals([$microPlateCoordinate1, $wellContent1], $microPlate->getWells()[0]);
+        $this->assertEquals([$microPlateCoordinate2, $wellContent2], $microPlate->getWells()[1]);
+    }
+}
