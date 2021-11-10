@@ -7,6 +7,8 @@ namespace Mll\Microplate\Enums;
 use MyCLabs\Enum\Enum;
 
 /**
+ * @extends Enum<string>
+ *
  * @method static static ROW()
  * @method static static COLUMN()
  */
