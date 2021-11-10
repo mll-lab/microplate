@@ -97,9 +97,9 @@ class Coordinate implements Stringable
         $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
 
         switch ($direction->getValue()) {
-            case FlowDirection::ROW()->getValue():
+            case FlowDirection::ROW:
                 return $rowIndex * count($this->coordinateSystem->columnCoordinates()) + $columnIndex + 1;
-            case FlowDirection::COLUMN()->getValue():
+            case FlowDirection::COLUMN:
                 return $columnIndex * count($this->coordinateSystem->rowCoordinates()) + $rowIndex + 1;
             // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
