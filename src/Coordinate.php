@@ -7,6 +7,7 @@ namespace Mll\Microplate;
 use InvalidArgumentException;
 use Mll\Microplate\Enums\FlowDirection;
 use Stringable;
+use UnexpectedValueException;
 
 class Coordinate implements Stringable
 {
@@ -72,7 +73,7 @@ class Coordinate implements Stringable
                     $coordinateSystem
                 );
             default:
-                throw new \InvalidArgumentException('Unexpected flow direction value:' . $direction->getValue());
+                throw new UnexpectedValueException('Unexpected flow direction value:' . $direction->getValue());
         }
     }
 
@@ -82,7 +83,7 @@ class Coordinate implements Stringable
         $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
 
         if (! is_int($rowIndex) || ! is_int($columnIndex)) {
-            throw new \InvalidArgumentException('rowIndex and columnIndex need to be integers: values are:' . $rowIndex . ' ' . $columnIndex);
+            throw new UnexpectedValueException('rowIndex and columnIndex need to be integers: values are:' . $rowIndex . ' ' . $columnIndex);
         }
 
         switch ($direction->getValue()) {
@@ -91,7 +92,7 @@ class Coordinate implements Stringable
             case FlowDirection::COLUMN()->getValue():
                 return $columnIndex * count($this->coordinateSystem->rowCoordinates()) + $rowIndex + 1;
             default:
-                throw new \InvalidArgumentException('Unexpected flow direction value:' . $direction->getValue());
+                throw new UnexpectedValueException('Unexpected flow direction value:' . $direction->getValue());
         }
     }
 
