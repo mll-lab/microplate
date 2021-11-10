@@ -20,7 +20,7 @@ class CoordinateTest extends Framework\TestCase
     {
         $coordinate96Well = new Coordinate($row, $column, new CoordinateSystem96Well());
 
-        self::assertSame($row.$column, (string) $coordinate96Well);
+        self::assertSame($row . $column, (string) $coordinate96Well);
     }
 
     /**
@@ -52,7 +52,7 @@ class CoordinateTest extends Framework\TestCase
      */
     public function testFromCoordinatesString(string $row, int $column): void
     {
-        $coordinates = Coordinate::fromString($row.$column, new CoordinateSystem96Well());
+        $coordinates = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
         self::assertSame($row, $coordinates->row);
         self::assertSame($column, $coordinates->column);
     }
