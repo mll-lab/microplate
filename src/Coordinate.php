@@ -19,29 +19,40 @@ class Coordinate implements Stringable
 
     public function __construct(string $row, int $column, CoordinateSystem $coordinateSystem)
     {
-        $this->coordinateSystem = $coordinateSystem;
-
-        if (! in_array($row, $coordinateSystem->rowCoordinates(), true)) {
-            throw new InvalidArgumentException("Expected a row with value of {$this->rowList()}, got {$row}.");
+        $rowCoordinates = $coordinateSystem->rowCoordinates();
+        if (! in_array($row, $rowCoordinates, true)) {
+            $rows = implode(',', $rowCoordinates);
+            throw new InvalidArgumentException("Expected a row with value of {$rows}, got {$row}.");
         }
         $this->row = $row;
 
-        if (! in_array($column, $this->coordinateSystem->columnCoordinates(), true)) {
-            throw new InvalidArgumentException("Expected a column with value of {$this->columnList()}, got {$column}.");
+        $columnCoordinates = $coordinateSystem->columnCoordinates();
+        if (! in_array($column, $columnCoordinates, true)) {
+            $columns = implode(',', $columnCoordinates);
+            throw new InvalidArgumentException("Expected a column with value of {$columns}, got {$column}.");
         }
         $this->column = $column;
+
+        $this->coordinateSystem = $coordinateSystem;
     }
 
-    public static function fromString(string $coordinateString, CoordinateSystem96Well $coordinateSystem): self
+    public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem): self
     {
+        $rowCoordinates = $coordinateSystem->rowCoordinates();
+        $rowCoordinatesOptions = implode('|', $rowCoordinates);
+
+        $columnCoordinates = $coordinateSystem->columnCoordinates();
+        $columnCoordinatesOptions = implode('|', $columnCoordinates);
+
         $valid = \Safe\preg_match(
-            '/^(' . implode('|', $coordinateSystem->rowCoordinates()) . ')(' . implode('|', $coordinateSystem->columnCoordinates()) . ')$/',
+            "/^({$rowCoordinatesOptions})({$columnCoordinatesOptions})\$/",
             $coordinateString,
             $matches
         );
 
         if (0 === $valid) {
-            throw new InvalidArgumentException("Expected a coordinate such as A1 or F11, got: {$coordinateString}.");
+            $validExample = $columnCoordinates[0] . $columnCoordinates[0];
+            throw new InvalidArgumentException("Expected a coordinate such as {$validExample}, got: {$coordinateString}.");
         }
 
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
@@ -106,15 +117,5 @@ class Coordinate implements Stringable
         if (! in_array($position, range(self::MIN_POSITION, $maxPosition), true)) {
             throw new InvalidArgumentException("Expected a position between 1-{$maxPosition}, got: {$position}.");
         }
-    }
-
-    private function rowList(): string
-    {
-        return implode(',', $this->coordinateSystem->rowCoordinates());
-    }
-
-    private function columnList(): string
-    {
-        return implode(',', $this->coordinateSystem->columnCoordinates());
     }
 }
