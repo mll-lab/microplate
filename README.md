@@ -1,11 +1,11 @@
 # microplate
 
-[![Continuous Integration](https://github.com/mll/microplate/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll/microplate/actions)
-[![Code Coverage](https://codecov.io/gh/mll/microplate/branch/master/graph/badge.svg)](https://codecov.io/gh/mll/microplate)
+[![Continuous Integration](https://github.com/mll-lab/microplate/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/microplate/actions)
+[![Code Coverage](https://codecov.io/gh/mll-lab/microplate/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/microplate)
 [![StyleCI](https://github.styleci.io/repos/207373158/shield?branch=master)](https://github.styleci.io/repos/207373158)
 
-[![Latest Stable Version](https://poser.pugx.org/mll/microplate/v/stable)](https://packagist.org/packages/mll/microplate)
-[![Total Downloads](https://poser.pugx.org/mll/microplate/downloads)](https://packagist.org/packages/mll/microplate)
+[![Latest Stable Version](https://poser.pugx.org/mll-lab/microplate/v/stable)](https://packagist.org/packages/mll-lab/microplate)
+[![Total Downloads](https://poser.pugx.org/mll-lab/microplate/downloads)](https://packagist.org/packages/mll-lab/microplate)
 
 PHP package to easily convert and work with microplate data
 
@@ -46,7 +46,7 @@ Thanks to @localheinz for providing the inspiration for this template: https://g
 Install through composer
 
 ```sh
-composer require mll/microplate
+composer require mll-lab/microplate
 ```
 
 ## Usage

@@ -97,7 +97,7 @@ class Coordinate implements Stringable
     {
         $maxPosition = count($coordinateSystem->columnCoordinates()) * count($coordinateSystem->rowCoordinates());
         if (!in_array($position, range(self::MIN_POSITION, $maxPosition), true)) {
-            throw new InvalidArgumentException("Expected a position between 1-96, got: {$position}.");
+            throw new InvalidArgumentException("Expected a position between 1-{$maxPosition}, got: {$position}.");
         }
     }
 

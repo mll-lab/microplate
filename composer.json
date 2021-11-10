@@ -1,8 +1,8 @@
 {
-  "name": "mll/microplate",
+  "name": "mll-lab/microplate",
   "type": "library",
   "description": "PHP package to easily convert and work with microplate data",
-  "homepage": "https://github.com/mll/microplate",
+  "homepage": "https://github.com/mll-lab/microplate",
   "license": "MIT",
   "authors": [
     {
@@ -50,7 +50,7 @@
     ]
   },
   "support": {
-    "issues": "https://github.com/mll/microplate/issues",
-    "source": "https://github.com/mll/microplate"
+    "issues": "https://github.com/mll-lab/microplate/issues",
+    "source": "https://github.com/mll-lab/microplate"
   }
 }
