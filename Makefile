@@ -32,6 +32,6 @@ test: vendor ## Runs auto-review, unit, and integration tests with phpunit
 	vendor/bin/phpunit
 
 vendor: composer.json composer.lock
-	composer validate --strict
+	composer validate # --strict TODO reintroduce after https://github.com/thecodingmachine/phpstan-safe-rule/pull/26
 	composer install
 	composer normalize
