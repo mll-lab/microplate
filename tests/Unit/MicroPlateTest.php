@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Mll\Microplate\Tests\Unit;
 
-use InvalidArgumentException;
-
+use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem12Well;
+use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Exceptions\IncompatibleCoordinateSystemException;
 use Mll\Microplate\MicroPlate;
-use Mll\Microplate\Coordinate;
-use Mll\Microplate\CoordinateSystem96Well;
-use Mll\Microplate\Enums\FlowDirection;
-use Mll\Microplate\Well;
 use PHPUnit\Framework;
 
 class MicroPlateTest extends Framework\TestCase
 {
-    public function testThrowsWhenAddingWellWithWrongCoordinateSystem(): void {
+    public function testThrowsWhenAddingWellWithWrongCoordinateSystem(): void
+    {
         $microPlateWith96WellSystem = new MicroPlate(new CoordinateSystem96Well());
         $microPlateCoordinateOn12WellCoordinateSystem = new Coordinate('A', 2, new CoordinateSystem12Well());
 
@@ -25,7 +22,8 @@ class MicroPlateTest extends Framework\TestCase
         $microPlateWith96WellSystem->addWell($microPlateCoordinateOn12WellCoordinateSystem, 'foo');
     }
 
-    public function testCanAddAndRetriedWellBasedOnCoordinateSystem(): void {
+    public function testCanAddAndRetriedWellBasedOnCoordinateSystem(): void
+    {
         $coordinateSystem = new CoordinateSystem96Well();
 
         $microPlate = new MicroPlate($coordinateSystem);

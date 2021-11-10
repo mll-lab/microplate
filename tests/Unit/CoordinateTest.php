@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mll\Microplate\Tests\Unit;
 
 use InvalidArgumentException;
-
 use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
@@ -21,7 +20,7 @@ class CoordinateTest extends Framework\TestCase
     {
         $coordinate96Well = new Coordinate($row, $column, new CoordinateSystem96Well());
 
-        self::assertSame($row . $column, (string) $coordinate96Well);
+        self::assertSame($row.$column, (string) $coordinate96Well);
     }
 
     /**
@@ -53,7 +52,7 @@ class CoordinateTest extends Framework\TestCase
      */
     public function testFromCoordinatesString(string $row, int $column): void
     {
-        $coordinates = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
+        $coordinates = Coordinate::fromString($row.$column, new CoordinateSystem96Well());
         self::assertSame($row, $coordinates->row);
         self::assertSame($column, $coordinates->column);
     }
@@ -75,73 +74,73 @@ class CoordinateTest extends Framework\TestCase
     {
         return [
             [
-                'row'=> 'A',
-                'column'=> 1,
-                'rowFlowPosition'=> 1,
-                'columnFlowPosition'=> 1,
+                'row' => 'A',
+                'column' => 1,
+                'rowFlowPosition' => 1,
+                'columnFlowPosition' => 1,
 
             ],
             [
-                'row'=> 'A',
-                'column'=> 2,
-                'rowFlowPosition'=> 2,
-                'columnFlowPosition'=> 9,
+                'row' => 'A',
+                'column' => 2,
+                'rowFlowPosition' => 2,
+                'columnFlowPosition' => 9,
 
             ],
             [
-                'row'=> 'A',
-                'column'=> 3,
-                'rowFlowPosition'=> 3,
-                'columnFlowPosition'=> 17,
+                'row' => 'A',
+                'column' => 3,
+                'rowFlowPosition' => 3,
+                'columnFlowPosition' => 17,
 
             ],
             [
-                'row'=> 'A',
-                'column'=> 12,
-                'rowFlowPosition'=> 12,
-                'columnFlowPosition'=> 89,
+                'row' => 'A',
+                'column' => 12,
+                'rowFlowPosition' => 12,
+                'columnFlowPosition' => 89,
 
             ],
             [
-                'row'=> 'B',
-                'column'=> 1,
-                'rowFlowPosition'=> 13,
-                'columnFlowPosition'=> 2,
+                'row' => 'B',
+                'column' => 1,
+                'rowFlowPosition' => 13,
+                'columnFlowPosition' => 2,
 
             ],
             [
-                'row'=> 'C',
-                'column'=> 2,
-                'rowFlowPosition'=> 26,
-                'columnFlowPosition'=> 11,
+                'row' => 'C',
+                'column' => 2,
+                'rowFlowPosition' => 26,
+                'columnFlowPosition' => 11,
 
             ],
             [
-                'row'=> 'D',
-                'column'=> 6,
-                'rowFlowPosition'=> 42,
-                'columnFlowPosition'=> 44,
+                'row' => 'D',
+                'column' => 6,
+                'rowFlowPosition' => 42,
+                'columnFlowPosition' => 44,
 
             ],
             [
-                'row'=> 'H',
-                'column'=> 11,
-                'rowFlowPosition'=> 95,
-                'columnFlowPosition'=> 88,
+                'row' => 'H',
+                'column' => 11,
+                'rowFlowPosition' => 95,
+                'columnFlowPosition' => 88,
 
             ],
             [
-                'row'=> 'H',
-                'column'=> 12,
-                'rowFlowPosition'=> 96,
-                'columnFlowPosition'=> 96,
+                'row' => 'H',
+                'column' => 12,
+                'rowFlowPosition' => 96,
+                'columnFlowPosition' => 96,
 
             ],
             [
-                'row'=> 'G',
-                'column'=> 12,
-                'rowFlowPosition'=> 84,
-                'columnFlowPosition'=> 95,
+                'row' => 'G',
+                'column' => 12,
+                'rowFlowPosition' => 84,
+                'columnFlowPosition' => 95,
 
             ],
         ];
@@ -164,89 +163,89 @@ class CoordinateTest extends Framework\TestCase
     {
         return [
             [
-                'row'=> 'A',
-                'column'=> 1,
-                'rowFlowPosition'=> 1,
-                'columnFlowPosition'=> 1,
+                'row' => 'A',
+                'column' => 1,
+                'rowFlowPosition' => 1,
+                'columnFlowPosition' => 1,
 
             ],
             [
-                'row'=> 'A',
-                'column'=> 2,
-                'rowFlowPosition'=> 2,
-                'columnFlowPosition'=> 4,
+                'row' => 'A',
+                'column' => 2,
+                'rowFlowPosition' => 2,
+                'columnFlowPosition' => 4,
 
             ],
             [
-                'row'=> 'A',
-                'column'=> 3,
-                'rowFlowPosition'=> 3,
-                'columnFlowPosition'=> 7,
+                'row' => 'A',
+                'column' => 3,
+                'rowFlowPosition' => 3,
+                'columnFlowPosition' => 7,
 
             ],
             [
-                'row'=> 'A',
-                'column'=> 4,
-                'rowFlowPosition'=> 4,
-                'columnFlowPosition'=> 10,
+                'row' => 'A',
+                'column' => 4,
+                'rowFlowPosition' => 4,
+                'columnFlowPosition' => 10,
 
             ],
             [
-                'row'=> 'B',
-                'column'=> 1,
-                'rowFlowPosition'=> 5,
-                'columnFlowPosition'=> 2,
+                'row' => 'B',
+                'column' => 1,
+                'rowFlowPosition' => 5,
+                'columnFlowPosition' => 2,
 
             ],
             [
-                'row'=> 'B',
-                'column'=> 2,
-                'rowFlowPosition'=> 6,
-                'columnFlowPosition'=> 5,
+                'row' => 'B',
+                'column' => 2,
+                'rowFlowPosition' => 6,
+                'columnFlowPosition' => 5,
 
             ],
             [
-                'row'=> 'B',
-                'column'=> 3,
-                'rowFlowPosition'=> 7,
-                'columnFlowPosition'=> 8,
+                'row' => 'B',
+                'column' => 3,
+                'rowFlowPosition' => 7,
+                'columnFlowPosition' => 8,
 
             ],
             [
-                'row'=> 'B',
-                'column'=> 4,
-                'rowFlowPosition'=> 8,
-                'columnFlowPosition'=> 11,
+                'row' => 'B',
+                'column' => 4,
+                'rowFlowPosition' => 8,
+                'columnFlowPosition' => 11,
 
             ],
             [
-                'row'=> 'C',
-                'column'=> 1,
-                'rowFlowPosition'=> 9,
-                'columnFlowPosition'=> 3,
+                'row' => 'C',
+                'column' => 1,
+                'rowFlowPosition' => 9,
+                'columnFlowPosition' => 3,
 
             ],
             [
-                'row'=> 'C',
-                'column'=> 2,
-                'rowFlowPosition'=> 10,
-                'columnFlowPosition'=> 6,
+                'row' => 'C',
+                'column' => 2,
+                'rowFlowPosition' => 10,
+                'columnFlowPosition' => 6,
 
             ],
             [
-                'row'=> 'C',
-                'column'=> 3,
-                'rowFlowPosition'=> 11,
-                'columnFlowPosition'=> 9,
+                'row' => 'C',
+                'column' => 3,
+                'rowFlowPosition' => 11,
+                'columnFlowPosition' => 9,
 
             ],
             [
-                'row'=> 'C',
-                'column'=> 4,
-                'rowFlowPosition'=> 12,
-                'columnFlowPosition'=> 12,
+                'row' => 'C',
+                'column' => 4,
+                'rowFlowPosition' => 12,
+                'columnFlowPosition' => 12,
 
-            ]
+            ],
         ];
     }
 
