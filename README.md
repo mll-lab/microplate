@@ -1,57 +1,24 @@
-# php-package-template
+# microplate
 
-[![Continuous Integration](https://github.com/spawnia/php-package-template/workflows/Continuous%20Integration/badge.svg)](https://github.com/spawnia/php-package-template/actions)
-[![Code Coverage](https://codecov.io/gh/spawnia/php-package-template/branch/master/graph/badge.svg)](https://codecov.io/gh/spawnia/php-package-template)
-[![StyleCI](https://github.styleci.io/repos/207373158/shield?branch=master)](https://github.styleci.io/repos/207373158)
+[![Continuous Integration](https://github.com/mll-lab/microplate/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/microplate/actions)
+[![Code Coverage](https://codecov.io/gh/mll-lab/microplate/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/microplate)
 
-[![Latest Stable Version](https://poser.pugx.org/spawnia/php-package-template/v/stable)](https://packagist.org/packages/spawnia/php-package-template)
-[![Total Downloads](https://poser.pugx.org/spawnia/php-package-template/downloads)](https://packagist.org/packages/spawnia/php-package-template)
+[![Latest Stable Version](https://poser.pugx.org/mll-lab/microplate/v/stable)](https://packagist.org/packages/mll-lab/microplate)
+[![Total Downloads](https://poser.pugx.org/mll-lab/microplate/downloads)](https://packagist.org/packages/mll-lab/microplate)
 
-GitHub repository template for a PHP package
-
-# Remove this section after cloning
-
-Search & Replace with your title:
-
-```
-GitHub repository template for a PHP package
-```
-
-Search & Replace with your package name:
-
-```
-php-package-template
-PhpPackageTemplate
-```
-
-Search & Replace with your username/vendor (match case):
-
-```
-spawnia
-Spawnia
-```
-
-Set up StyleCI at https://github.styleci.io and replace the link in the badge.
-
-Link the package at https://packagist.org
-
-Enable code coverage at https://codecov.io
-
-Thanks to @localheinz for providing the inspiration for this template: https://github.com/ergebnis/php-package-template
-
-# Remove this section after cloning
+PHP package to easily convert and work with microplate data
 
 ## Installation
 
 Install through composer
 
 ```sh
-composer require spawnia/php-package-template
+composer require mll-lab/microplate
 ```
 
 ## Usage
 
-:bulb: This is a great place for showing a few usage examples!
+See [tests](tests).
 
 ## Changelog
 

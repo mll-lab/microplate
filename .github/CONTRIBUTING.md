@@ -6,7 +6,15 @@ For details, see [`workflows/continuous-integration.yml`](workflows/continuous-i
 
 ## Code Style
 
-The code style is automatically fixed through [StyleCI](https://styleci.io/).
+We are using [`friendsofphp/php-cs-fixer`](https://github.com/friendsofphp/php-cs-fixer) to automatically format the code.
+
+Run
+
+```bash
+make fix
+```
+
+to automatically format the code.
 
 ## Static Code Analysis
 

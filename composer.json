@@ -1,31 +1,35 @@
 {
-  "name": "spawnia/php-package-template",
+  "name": "mll-lab/microplate",
   "type": "library",
-  "description": "GitHub repository template for a PHP package",
-  "homepage": "https://github.com/spawnia/php-package-template",
+  "description": "PHP package to easily convert and work with microplate data",
+  "homepage": "https://github.com/mll-lab/microplate",
   "license": "MIT",
   "authors": [
     {
-      "name": "Benedikt Franke",
-      "email": "benedikt@franke.tech"
+      "name": "Simon Bigelmayr",
+      "email": "s.bigelmayr@gmx.net"
     }
   ],
   "require": {
     "php": "^7.4 || ^8",
+    "laravel/framework": "^7.30",
+    "myclabs/php-enum": "^1.7",
     "thecodingmachine/safe": "^1"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2",
     "infection/infection": "~0.25",
-    "jangregor/phpstan-prophecy": "~0.8",
+    "jangregor/phpstan-prophecy": "^1",
+    "mll-lab/php-cs-fixer-config": "^4.3",
     "phpstan/extension-installer": "^1",
-    "phpstan/phpstan": "~0.12",
-    "phpstan/phpstan-deprecation-rules": "~0.12",
-    "phpstan/phpstan-phpunit": "~0.12",
-    "phpstan/phpstan-strict-rules": "~0.12",
+    "phpstan/phpstan": "^1",
+    "phpstan/phpstan-deprecation-rules": "^1",
+    "phpstan/phpstan-phpunit": "^1",
+    "phpstan/phpstan-strict-rules": "^1",
     "phpunit/phpunit": "^9",
+    "rector/rector": "^0.12.2",
     "symfony/var-dumper": "^5",
-    "thecodingmachine/phpstan-safe-rule": "^1"
+    "thecodingmachine/phpstan-safe-rule": "dev-master#a630c7bf9f3060b6e3dc74a4d9ef5edc0feec052"
   },
   "config": {
     "platform": {
@@ -36,19 +40,38 @@
   },
   "autoload": {
     "psr-4": {
-      "Spawnia\\PhpPackageTemplate\\": "src/"
+      "Mll\\Microplate\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Spawnia\\PhpPackageTemplate\\Tests\\": "tests/"
+      "Mll\\Microplate\\Tests\\": "tests/"
     },
     "files": [
       "vendor/symfony/var-dumper/Resources/functions/dump.php"
     ]
   },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "thecodingmachine/phpstan-safe-rule",
+        "type": "library",
+        "version": "dev-master",
+        "dist": {
+          "url": "https://codeload.github.com/thecodingmachine/phpstan-safe-rule/legacy.zip/a630c7bf9f3060b6e3dc74a4d9ef5edc0feec052",
+          "type": "zip"
+        },
+        "autoload": {
+          "psr-4": {
+            "TheCodingMachine\\Safe\\PHPStan\\": "src/"
+          }
+        }
+      }
+    }
+  ],
   "support": {
-    "issues": "https://github.com/spawnia/php-package-template/issues",
-    "source": "https://github.com/spawnia/php-package-template"
+    "issues": "https://github.com/mll-lab/microplate/issues",
+    "source": "https://github.com/mll-lab/microplate"
   }
 }

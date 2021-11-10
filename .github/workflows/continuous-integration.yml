@@ -9,8 +9,8 @@ on:
 name: "Continuous Integration"
 
 jobs:
-  coding-standards:
-    name: "Coding Standards"
+  composer-validate:
+    name: "Validate composer dependencies"
 
     runs-on: ubuntu-latest
 
@@ -28,11 +28,92 @@ jobs:
       - name: "Validate composer.json and composer.lock"
         run: composer validate --strict
 
+  composer-normalize:
+    name: "Normalize composer.json"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: mbstring
+          php-version: 7.4
+
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
 
       - name: "Run localheinz/composer-normalize"
-        run: composer normalize --dry-run
+        run: composer normalize
+
+      - name: "Commit fixes"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Normalize composer.json
+
+  php-cs-fixer:
+    name: "Fix PHP codestyle with php-cs-fixer"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: mbstring
+          php-version: 7.4
+
+      - name: "Install locked dependencies with composer"
+        run: composer install --no-interaction --no-progress --no-suggest
+
+      - name: "Run php-cs-fixer"
+        run: vendor/bin/php-cs-fixer fix
+
+      - name: "Commit fixes"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply php-cs-fixer changes
+
+  rector:
+    name: "Apply rector"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: mbstring
+          php-version: 7.4
+
+      - name: "Install locked dependencies with composer"
+        run: composer install --no-interaction --no-progress --no-suggest
+
+      - name: "Run rector"
+        run: vendor/bin/rector process
+
+      - name: "Commit fixes"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply rector changes
 
   static-code-analysis:
     name: "Static Code Analysis"
@@ -146,4 +227,4 @@ jobs:
         run: composer install --no-interaction --no-progress --no-suggest
 
       - name: "Run mutation tests with infection/infection"
-        run: vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=100 --min-msi=100
+        run: vendor/bin/infection

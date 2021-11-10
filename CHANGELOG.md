@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v1.0.0
+
 ### Added
 
--
+- Add class `Coordinate` with diverse calculation methods to ease dealing with micro plates at MLL
+- Add abstract class `CoordinateSystem` with `CoordinateSystem12Well` and  `CoordinateSystem96Well` as implementation
+- Add class `MicroPlate` and methods `addWell` and `getWells`
