@@ -50,7 +50,7 @@ jobs:
         run: composer install --no-interaction --no-progress --no-suggest
 
       - name: "Run localheinz/composer-normalize"
-        run: composer normalize --dry-run
+        run: composer normalize
 
       - name: "Commit fixes"
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -58,7 +58,7 @@ jobs:
           commit_message: Normalize composer.json
 
   php-cs-fixer:
-    name: "Normalize composer.json"
+    name: "Fix PHP codestyle with php-cs-fixer"
 
     runs-on: ubuntu-latest
 
@@ -85,6 +85,35 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Apply php-cs-fixer changes
+
+  rector:
+    name: "Apply rector"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: mbstring
+          php-version: 7.4
+
+      - name: "Install locked dependencies with composer"
+        run: composer install --no-interaction --no-progress --no-suggest
+
+      - name: "Run rector"
+        run: vendor/bin/rector process
+
+      - name: "Commit fixes"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply rector changes
 
   static-code-analysis:
     name: "Static Code Analysis"
