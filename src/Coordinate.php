@@ -72,8 +72,10 @@ class Coordinate implements Stringable
                     $coordinateSystem->columnForRowFlowPosition($position),
                     $coordinateSystem
                 );
+            // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
                 throw new UnexpectedValueException('Unexpected flow direction value:'.$direction->getValue());
+            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -82,17 +84,21 @@ class Coordinate implements Stringable
         $rowIndex = array_search($this->row, $this->coordinateSystem->rowCoordinates(), true);
         $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
 
+        // @codeCoverageIgnoreStart rowCoordinates & columnCoordinates are both lists<T> and will return an int as result of array_search
         if (! is_int($rowIndex) || ! is_int($columnIndex)) {
             throw new UnexpectedValueException('rowIndex and columnIndex need to be integers: values are:'.$rowIndex.' '.$columnIndex);
         }
+        // @codeCoverageIgnoreEnd
 
         switch ($direction->getValue()) {
             case FlowDirection::ROW()->getValue():
                 return $rowIndex * count($this->coordinateSystem->columnCoordinates()) + $columnIndex + 1;
             case FlowDirection::COLUMN()->getValue():
                 return $columnIndex * count($this->coordinateSystem->rowCoordinates()) + $rowIndex + 1;
+            // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
                 throw new UnexpectedValueException('Unexpected flow direction value:'.$direction->getValue());
+            // @codeCoverageIgnoreEnd
         }
     }
 
