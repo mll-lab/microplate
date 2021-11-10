@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mll\Microplate\Enums;
 
 use MyCLabs\Enum\Enum;
