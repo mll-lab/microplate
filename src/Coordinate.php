@@ -37,7 +37,7 @@ class Coordinate implements Stringable
     public static function fromString(string $coordinateString, CoordinateSystem96Well $coordinateSystem): self
     {
         $valid = \Safe\preg_match(
-            '/^(' . implode('|', $coordinateSystem->rowCoordinates()) . ')(' . implode('|', $coordinateSystem->columnCoordinates()) . ')$/',
+            '/^('.implode('|', $coordinateSystem->rowCoordinates()).')('.implode('|', $coordinateSystem->columnCoordinates()).')$/',
             $coordinateString,
             $matches
         );
@@ -51,7 +51,7 @@ class Coordinate implements Stringable
 
     public function __toString()
     {
-        return $this->row . $this->column;
+        return $this->row.$this->column;
     }
 
     public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): self
@@ -74,7 +74,7 @@ class Coordinate implements Stringable
                 );
             // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
-                throw new UnexpectedValueException('Unexpected flow direction value:' . $direction->getValue());
+                throw new UnexpectedValueException('Unexpected flow direction value:'.$direction->getValue());
             // @codeCoverageIgnoreEnd
         }
     }
@@ -86,7 +86,7 @@ class Coordinate implements Stringable
 
         // @codeCoverageIgnoreStart rowCoordinates & columnCoordinates are both lists<T> and will return an int as result of array_search
         if (! is_int($rowIndex) || ! is_int($columnIndex)) {
-            throw new UnexpectedValueException('rowIndex and columnIndex need to be integers: values are:' . $rowIndex . ' ' . $columnIndex);
+            throw new UnexpectedValueException('rowIndex and columnIndex need to be integers: values are:'.$rowIndex.' '.$columnIndex);
         }
         // @codeCoverageIgnoreEnd
 
@@ -97,7 +97,7 @@ class Coordinate implements Stringable
                 return $columnIndex * count($this->coordinateSystem->rowCoordinates()) + $rowIndex + 1;
             // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
-                throw new UnexpectedValueException('Unexpected flow direction value:' . $direction->getValue());
+                throw new UnexpectedValueException('Unexpected flow direction value:'.$direction->getValue());
             // @codeCoverageIgnoreEnd
         }
     }

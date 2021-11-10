@@ -30,7 +30,7 @@ class MicroPlate
     public function addWell(Coordinate $coodinate, $content): void
     {
         if (get_class($coodinate->coordinateSystem) !== get_class($this->coordinateSystem)) {
-            throw new IncompatibleCoordinateSystemException('Can not add a content to a well with CoordinateSystem "' . $coodinate->coordinateSystem . '" to the plate with CoordinateSystem "' . $this->coordinateSystem . '"');
+            throw new IncompatibleCoordinateSystemException('Can not add a content to a well with CoordinateSystem "'.$coodinate->coordinateSystem.'" to the plate with CoordinateSystem "'.$this->coordinateSystem.'"');
         }
         $this->wells->add([$coodinate, $content]);
     }
