@@ -20,6 +20,7 @@
     "ergebnis/composer-normalize": "^2",
     "infection/infection": "~0.25",
     "jangregor/phpstan-prophecy": "^1",
+    "mll-lab/php-cs-fixer-config": "^4.3",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",

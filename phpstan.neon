@@ -1,9 +1,6 @@
 parameters:
 	level: max
 	inferPrivatePropertyTypeFromConstructor: true
-	checkGenericClassInNonGenericObjectType: false
-	includes:
-        - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 	paths:
 	- src/
 	- tests/

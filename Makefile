@@ -1,5 +1,5 @@
 .PHONY: it
-it: stan test ## Run the commonly used targets
+it: fix stan test ## Run the commonly used targets
 
 .PHONY: coverage
 coverage: vendor ## Collects coverage from running unit tests with phpunit
@@ -30,3 +30,8 @@ vendor: composer.json composer.lock
 	composer validate --strict
 	composer install
 	composer normalize
+
+.PHONY: fix
+fix: vendor ## Fix the codestyle
+	vendor/bin/php-cs-fixer fix
+	vendor/bin/rector process

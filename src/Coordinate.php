@@ -36,7 +36,7 @@ class Coordinate implements Stringable
     public static function fromString(string $coordinateString, CoordinateSystem96Well $coordinateSystem): self
     {
         $valid = \Safe\preg_match(
-            '/^('.implode('|', $coordinateSystem->rowCoordinates()).')('.implode('|', $coordinateSystem->columnCoordinates()).')$/',
+            '/^(' . implode('|', $coordinateSystem->rowCoordinates()) . ')(' . implode('|', $coordinateSystem->columnCoordinates()) . ')$/',
             $coordinateString,
             $matches
         );
@@ -50,7 +50,7 @@ class Coordinate implements Stringable
 
     public function __toString()
     {
-        return $this->row.$this->column;
+        return $this->row . $this->column;
     }
 
     public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): self
@@ -72,7 +72,7 @@ class Coordinate implements Stringable
                     $coordinateSystem
                 );
             default:
-                throw new \InvalidArgumentException('Unexpected flow direction value:'.$direction->getValue());
+                throw new \InvalidArgumentException('Unexpected flow direction value:' . $direction->getValue());
         }
     }
 
@@ -82,7 +82,7 @@ class Coordinate implements Stringable
         $columnIndex = array_search($this->column, $this->coordinateSystem->columnCoordinates(), true);
 
         if (! is_int($rowIndex) || ! is_int($columnIndex)) {
-            throw new \InvalidArgumentException('rowIndex and columnIndex need to be integers: values are:'.$rowIndex.' '.$columnIndex);
+            throw new \InvalidArgumentException('rowIndex and columnIndex need to be integers: values are:' . $rowIndex . ' ' . $columnIndex);
         }
 
         switch ($direction->getValue()) {
@@ -91,7 +91,7 @@ class Coordinate implements Stringable
             case FlowDirection::COLUMN()->getValue():
                 return $columnIndex * count($this->coordinateSystem->rowCoordinates()) + $rowIndex + 1;
             default:
-                throw new \InvalidArgumentException('Unexpected flow direction value:'.$direction->getValue());
+                throw new \InvalidArgumentException('Unexpected flow direction value:' . $direction->getValue());
         }
     }
 

@@ -7,11 +7,11 @@ namespace Mll\Microplate\Enums;
 use MyCLabs\Enum\Enum;
 
 /**
- * @method static FlowDirection ROW()
- * @method static FlowDirection COLUMN()
+ * @method static static ROW()
+ * @method static static COLUMN()
  */
 final class FlowDirection extends Enum
 {
-    private const ROW = 'ROW';
-    private const COLUMN = 'COLUMN';
+    public const ROW = 'ROW';
+    public const COLUMN = 'COLUMN';
 }
