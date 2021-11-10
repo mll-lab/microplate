@@ -11,11 +11,9 @@ PHP package to easily convert and work with microplate data
 
 # Remove this section after cloning
 
-
 Link the package at https://packagist.org
 
 Enable code coverage at https://codecov.io
-
 
 # Remove this section after cloning
 
@@ -29,7 +27,7 @@ composer require mll-lab/microplate
 
 ## Usage
 
-:bulb: This is a great place for showing a few usage examples!
+See [tests](tests).
 
 ## Changelog
 
