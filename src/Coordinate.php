@@ -4,7 +4,6 @@ namespace Mll\Microplate;
 
 use InvalidArgumentException;
 use Mll\Microplate\Enums\FlowDirection;
-use Stringable;
 use UnexpectedValueException;
 
 /**
