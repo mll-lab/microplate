@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: '0 0 * * *'
 
 name: "Continuous Integration"
 
@@ -138,8 +140,6 @@ jobs:
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
-    name: "Tests"
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -153,6 +153,10 @@ jobs:
           - locked
           - highest
 
+        illuminate-support: [^6, ^7, ^8, ^9]
+
+    name: "PHP-Tests: " P${{ matrix.php-version }} - I${{ matrix.illuminate-support }} - ${{ matrix.dependencies }}
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@master
@@ -163,6 +167,9 @@ jobs:
           coverage: none
           extensions: mbstring
           php-version: ${{ matrix.php-version }}
+
+      - name: "Install illuminate"
+        run: composer require "illuminate/support:${{ matrix.illuminate-support }}" --no-interaction --no-update
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
@@ -178,6 +185,9 @@ jobs:
 
       - name: "Run unit tests with phpunit/phpunit"
         run: vendor/bin/phpunit
+
+      - name: "Check PSR-12 Codestyle"
+        run: vendor/bin/phpcs --standard=psr12 src/
 
   code-coverage:
     name: "Code Coverage"
