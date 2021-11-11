@@ -7,6 +7,8 @@ use Illuminate\Support\Collection;
 /**
  * @template TWell
  * @template TCoordinateSystem of CoordinateSystem
+ *
+ * @phpstan-type WellsCollection Collection<array{Coordinate<TCoordinateSystem>, TWell}>
  */
 class MicroPlate
 {
@@ -16,7 +18,7 @@ class MicroPlate
     public CoordinateSystem $coordinateSystem;
 
     /**
-     * @var Collection<array{Coordinate<TCoordinateSystem>, TWell}>
+     * @var WellsCollection
      */
     private Collection $wells;
 
@@ -40,6 +42,9 @@ class MicroPlate
         $this->wells->add([$coordinate, $content]);
     }
 
+    /**
+     * @return WellsCollection
+     */
     public function getWells(): Collection
     {
         return $this->wells;
