@@ -50,9 +50,9 @@ class CoordinateTest extends Framework\TestCase
      */
     public function testFromCoordinatesString(string $row, int $column): void
     {
-        $coordinates = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
-        self::assertSame($row, $coordinates->row);
-        self::assertSame($column, $coordinates->column);
+        $coordinate = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
+        self::assertSame($row, $coordinate->row);
+        self::assertSame($column, $coordinate->column);
     }
 
     /**
@@ -60,9 +60,9 @@ class CoordinateTest extends Framework\TestCase
      */
     public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
-        $coordinates = new Coordinate($row, $column, new CoordinateSystem96Well());
-        self::assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
-        self::assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
+        $coordinate = new Coordinate($row, $column, new CoordinateSystem96Well());
+        self::assertSame($columnFlowPosition, $coordinate->position(FlowDirection::COLUMN()));
+        self::assertSame($rowFlowPosition, $coordinate->position(FlowDirection::ROW()));
     }
 
     /**
@@ -561,9 +561,9 @@ class CoordinateTest extends Framework\TestCase
      */
     public function testPosition12Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
-        $coordinates = new Coordinate($row, $column, new CoordinateSystem12Well());
-        self::assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
-        self::assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
+        $coordinate = new Coordinate($row, $column, new CoordinateSystem12Well());
+        self::assertSame($columnFlowPosition, $coordinate->position(FlowDirection::COLUMN()));
+        self::assertSame($rowFlowPosition, $coordinate->position(FlowDirection::ROW()));
     }
 
     /**

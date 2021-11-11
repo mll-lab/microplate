@@ -18,7 +18,52 @@ composer require mll-lab/microplate
 
 ## Usage
 
-See [tests](tests).
+### Create Coordinate
+
+```php
+//define the coordinate system to work with
+$coordinateSystem = new CoordinateSystem96Well();
+
+// create by row and column
+$coordinate = new Coordinate('C', 7, $coordinateSystem);
+
+// create by string coordinate 
+$coordinate = Coordinate::fromString('C7', $coordinateSystem);
+
+// Automatic evaluation if the row and column are valid within the coordinate system
+$coordinate = new Coordinate('X', 7, $coordinateSystem);
+// throws ´InvalidArgumentException: Expected a row with value of A,B,C,D,E,F,G,H, got X.´
+```
+### Calculate the numeric position of a Coordinate
+```php
+$coordinate = new Coordinate('C', 7, new CoordinateSystem96Well());
+
+// calulate the numeric position by providing the FlowDirection
+$coordinate->position(FlowDirection::COLUMN()); // 51
+$coordinate->position(FlowDirection::ROW()); // 31
+```
+
+### Creating a MicroPlate, adding wells, retrieving them
+
+```php
+$coordinateSystem = new CoordinateSystem96Well();
+
+$microPlate = new MicroPlate($coordinateSystem);
+
+$microPlateCoordinate1 = new Coordinate('A', 2, $coordinateSystem);
+$microPlateCoordinate2 = new Coordinate('A', 3, $coordinateSystem);
+
+$wellContent1 = 'foo';
+$microPlate->addWell($microPlateCoordinate1, $wellContent1);
+
+$wellContent2 = 'bar';
+$microPlate->addWell($microPlateCoordinate2, $wellContent2);
+
+// retrieve wells from plate
+$microPlate->getWells()
+```
+
+
 
 ## Changelog
 
