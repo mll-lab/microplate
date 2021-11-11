@@ -25,8 +25,8 @@ class MicroPlateTest extends Framework\TestCase
         $wellContent2 = 'bar';
         $microPlate->addWell($microPlateCoordinate2, $wellContent2);
 
-        self::assertEquals([$microPlateCoordinate1, $wellContent1], ($microPlate->getWells())[0]);
-        self::assertEquals([$microPlateCoordinate2, $wellContent2], ($microPlate->getWells())[1]);
+        self::assertEquals([$microPlateCoordinate1, $wellContent1], $microPlate->wells[0]);
+        self::assertEquals([$microPlateCoordinate2, $wellContent2], $microPlate->wells[1]);
 
         $coordinateWithOtherCoordinateSystem = new Coordinate('A', 2, new CoordinateSystem12Well());
         // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates

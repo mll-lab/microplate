@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: '0 0 * * *'
 
 name: "Continuous Integration"
 
@@ -138,8 +140,6 @@ jobs:
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
-    name: "Tests"
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -150,8 +150,14 @@ jobs:
 
         dependencies:
           - lowest
-          - locked
           - highest
+
+        illuminate:
+          - ^6
+          - ^7
+          - ^8
+
+    name: PHP ${{ matrix.php-version }} - Illuminate ${{ matrix.illuminate }} - ${{ matrix.dependencies }}
 
     steps:
       - name: "Checkout"
@@ -163,6 +169,9 @@ jobs:
           coverage: none
           extensions: mbstring
           php-version: ${{ matrix.php-version }}
+
+      - name: "Install illuminate"
+        run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
