@@ -2,7 +2,7 @@
 
 namespace Mll\Microplate;
 
-abstract class CoordinateSystem implements \Stringable
+abstract class CoordinateSystem
 {
     /**
      * @return list<string>
@@ -32,10 +32,5 @@ abstract class CoordinateSystem implements \Stringable
     public function columnForColumnFlowPosition(int $position): int
     {
         return $this->columns()[floor(($position - 1) / count($this->rows()))];
-    }
-
-    public function __toString()
-    {
-        return get_class($this);
     }
 }

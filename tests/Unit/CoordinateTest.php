@@ -18,7 +18,7 @@ class CoordinateTest extends Framework\TestCase
     {
         $coordinate96Well = new Coordinate($row, $column, new CoordinateSystem96Well());
 
-        self::assertSame($row . $column, (string) $coordinate96Well);
+        self::assertSame($row . $column, $coordinate96Well->toString());
     }
 
     /**

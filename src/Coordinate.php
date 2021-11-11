@@ -10,7 +10,7 @@ use UnexpectedValueException;
 /**
  * @template TCoordinateSystem of CoordinateSystem
  */
-class Coordinate implements Stringable
+class Coordinate
 {
     private const MIN_POSITION = 1;
 
@@ -72,7 +72,7 @@ class Coordinate implements Stringable
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
     }
 
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->row . $this->column;
     }
