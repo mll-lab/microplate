@@ -150,12 +150,14 @@ jobs:
 
         dependencies:
           - lowest
-          - locked
           - highest
 
-        illuminate-support: [^6, ^7, ^8, ^9]
+        illuminate:
+          - ^6
+          - ^7
+          - ^8
 
-    name: "PHP-Tests: " P${{ matrix.php-version }} - I${{ matrix.illuminate-support }} - ${{ matrix.dependencies }}
+    name: PHP ${{ matrix.php-version }} - Illuminate ${{ matrix.illuminate }} - ${{ matrix.dependencies }}
 
     steps:
       - name: "Checkout"
@@ -169,7 +171,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
 
       - name: "Install illuminate"
-        run: composer require "illuminate/support:${{ matrix.illuminate-support }}" --no-interaction --no-update
+        run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
@@ -185,9 +187,6 @@ jobs:
 
       - name: "Run unit tests with phpunit/phpunit"
         run: vendor/bin/phpunit
-
-      - name: "Check PSR-12 Codestyle"
-        run: vendor/bin/phpcs --standard=psr12 src/
 
   code-coverage:
     name: "Code Coverage"
