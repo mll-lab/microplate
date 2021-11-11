@@ -60,7 +60,7 @@ $wellContent2 = 'bar';
 $microPlate->addWell($microPlateCoordinate2, $wellContent2);
 
 // retrieve wells from plate
-$microPlate->getWells()
+$microPlate->wells
 ```
 
 

@@ -20,7 +20,7 @@ class MicroPlate
     /**
      * @var WellsCollection
      */
-    private Collection $wells;
+    public Collection $wells;
 
     /**
      * @param TCoordinateSystem $coordinateSystem
@@ -40,13 +40,5 @@ class MicroPlate
     public function addWell(Coordinate $coordinate, $content): void
     {
         $this->wells->add([$coordinate, $content]);
-    }
-
-    /**
-     * @return WellsCollection
-     */
-    public function getWells(): Collection
-    {
-        return $this->wells;
     }
 }

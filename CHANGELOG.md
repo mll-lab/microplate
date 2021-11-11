@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v2.0.0
+
+### Add
+- Add compatibility to Illuminate\Support `^6|^7|^8|^9`
+
+### Removed
+- Removed method `getWells()` from class `MicroPlate` - use `wells` property of `MicroPlate` class
+
 ## v1.0.0
 
 ### Added
