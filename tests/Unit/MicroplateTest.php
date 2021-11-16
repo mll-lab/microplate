@@ -67,11 +67,8 @@ class MicroplateTest extends Framework\TestCase
             $microplate->wells->some(
                 /**
                  * @param mixed|null $value
-                 * @param string $key
-                 *
-                 * @return bool
                  */
-                fn ($value, $key) => null !== $value
+                static fn ($value): bool => null !== $value
             )
         );
         self::assertNotCount(0, $microplate->freeWells());

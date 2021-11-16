@@ -61,7 +61,7 @@ class Microplate
     /**
      * @param Coordinate<TCoordinateSystem> $coordinate
      *
-     * @return mixed the content of the well
+     * @return TWell|null
      */
     public function well(Coordinate $coordinate)
     {
