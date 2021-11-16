@@ -2,9 +2,13 @@
 
 namespace Mll\Microplate;
 
+use function count;
+use function get_class;
+use function implode;
 use InvalidArgumentException;
 use Mll\Microplate\Enums\FlowDirection;
-use UnexpectedValueException;
+use Mll\Microplate\Exceptions\UnexpectedFlowDirection;
+use function Safe\preg_match;
 
 /**
  * @template TCoordinateSystem of CoordinateSystem
@@ -45,9 +49,11 @@ class Coordinate
     }
 
     /**
-     * @param TCoordinateSystem $coordinateSystem
+     * @template TCoord of CoordinateSystem
      *
-     * @return static<TCoordinateSystem>
+     * @param TCoord $coordinateSystem
+     *
+     * @return static<TCoord>
      */
     public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem): self
     {
@@ -57,15 +63,17 @@ class Coordinate
         $columns = $coordinateSystem->columns();
         $columnsOptions = implode('|', $columns);
 
-        $valid = \Safe\preg_match(
+        $valid = preg_match(
             "/^({$rowsOptions})({$columnsOptions})\$/",
             $coordinateString,
             $matches
         );
 
         if (0 === $valid) {
-            $validExample = $columns[0] . $columns[0];
-            throw new InvalidArgumentException("Expected a coordinate such as {$validExample}, got: {$coordinateString}.");
+            $firstValidExample = $rows[0] . $columns[0];
+            $lastValidExample = $rows[count($rows) - 1] . $columns[count($columns) - 1];
+            $get_class = get_class($coordinateSystem);
+            throw new InvalidArgumentException("Expected a coordinate between as {$firstValidExample} and {$lastValidExample} for {$get_class}, got: $coordinateString.");
         }
 
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
@@ -101,7 +109,7 @@ class Coordinate
                 );
             // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
-                throw new UnexpectedValueException('Unexpected flow direction value:' . $direction->getValue());
+                throw new UnexpectedFlowDirection($direction);
             // @codeCoverageIgnoreEnd
         }
     }
@@ -121,7 +129,7 @@ class Coordinate
                 return $columnIndex * count($this->coordinateSystem->rows()) + $rowIndex + 1;
             // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
-                throw new UnexpectedValueException('Unexpected flow direction value:' . $direction->getValue());
+                throw new UnexpectedFlowDirection($direction);
             // @codeCoverageIgnoreEnd
         }
     }

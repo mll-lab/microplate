@@ -68,7 +68,7 @@ class CoordinateTest extends Framework\TestCase
     /**
      * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
      */
-    public function dataProvider96Well(): array
+    public static function dataProvider96Well(): array
     {
         return
             [
@@ -569,7 +569,7 @@ class CoordinateTest extends Framework\TestCase
     /**
      * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
      */
-    public function dataProvider12Well(): array
+    public static function dataProvider12Well(): array
     {
         return [
             [

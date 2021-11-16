@@ -140,6 +140,8 @@ jobs:
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
+    name: "Tests - PHP ${{ matrix.php-version }}, Illuminate ${{ matrix.illuminate }}, ${{ matrix.dependencies }}"
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -153,11 +155,8 @@ jobs:
           - highest
 
         illuminate:
-          - ^6
           - ^7
           - ^8
-
-    name: PHP ${{ matrix.php-version }} - Illuminate ${{ matrix.illuminate }} - ${{ matrix.dependencies }}
 
     steps:
       - name: "Checkout"
