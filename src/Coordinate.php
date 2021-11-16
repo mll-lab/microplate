@@ -107,10 +107,10 @@ class Coordinate
                     $coordinateSystem->columnForRowFlowPosition($position),
                     $coordinateSystem
                 );
+            // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
-                // @codeCoverageIgnoreStart all Enums are listed and this should never happen
                 throw new UnexpectedFlowDirection($direction);
-                // @codeCoverageIgnoreEnd
+            // @codeCoverageIgnoreEnd
         }
     }
 
