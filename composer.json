@@ -1,7 +1,7 @@
 {
   "name": "mll-lab/microplate",
   "type": "library",
-  "description": "PHP package to easily convert and work with microplate data",
+  "description": "PHP package to easily work with microplate data",
   "homepage": "https://github.com/mll-lab/microplate",
   "license": "MIT",
   "authors": [

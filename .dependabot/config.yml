@@ -3,10 +3,6 @@
 version: 1
 
 update_configs:
-  - default_assignees:
-      - "spawnia"
-    default_reviewers:
-      - "spawnia"
     directory: "/"
     package_manager: "php:composer"
     update_schedule: "live"

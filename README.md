@@ -6,7 +6,7 @@
 [![Latest Stable Version](https://poser.pugx.org/mll-lab/microplate/v/stable)](https://packagist.org/packages/mll-lab/microplate)
 [![Total Downloads](https://poser.pugx.org/mll-lab/microplate/downloads)](https://packagist.org/packages/mll-lab/microplate)
 
-PHP package to easily convert and work with microplate data
+PHP package to easily work with microplate data
 
 ## Installation
 
@@ -17,6 +17,7 @@ composer require mll-lab/microplate
 ```
 
 ## Usage
+
 See [tests](tests).
 
 ## Changelog
