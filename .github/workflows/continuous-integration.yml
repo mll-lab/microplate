@@ -140,7 +140,7 @@ jobs:
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
-    name: "PHPUnit - PHP ${{ matrix.php-version }}, Illuminate ${{ matrix.illuminate }}, ${{ matrix.dependencies }}"
+    name: "Tests - PHP ${{ matrix.php-version }}, Illuminate ${{ matrix.illuminate }}, ${{ matrix.dependencies }}"
 
     runs-on: ubuntu-latest
 
