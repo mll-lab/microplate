@@ -11,16 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add methods `addToNextFreeWell`, `clearWells`, `isWellEmpty`, `setWell`, `sortedWells`, `freeWells`, `filledWells`, `nextFreeWellCoordinate` to `Microplate`-Class
+- Add smart methods to class `Microplate`
 
 ### Changed
 
-- Key of the well-Collection changed from numeric to the coordinate-string
-- Renamed `MicroPlate`-class to `Microplate`-class
+- Change structure of `Microplate::$well` to `Collection<string, TWell|null>`
+- Renamed class `MicroPlate` to `Microplate`
 
 ### Removed
 
-- Removed compatibility for Illuminate\Support `^6`
+- Removed compatibility for `illuminate/support:^6`
 
 ## v2.0.0
 

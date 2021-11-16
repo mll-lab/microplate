@@ -89,11 +89,10 @@ class Microplate
     public function clearWells(): void
     {
         /**
-         * The flow direction is ignored during initialization because the plate intentionally has no
-         * flow-direction property.
-         * The flow direction is a property of the access to the plate.
+         * Flow direction is irrelevant during initialization, it is not a property of
+         * a plate but rather a property of the access to the plate.
          */
-        $this->wells = new Collection([]);
+        $this->wells = new Collection();
         foreach ($this->coordinateSystem->columns() as $column) {
             foreach ($this->coordinateSystem->rows() as $row) {
                 $this->wells[$row . $column] = self::EMPTY_WELL;
