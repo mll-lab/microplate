@@ -153,7 +153,6 @@ jobs:
           - highest
 
         illuminate:
-          - ^6
           - ^7
           - ^8
 

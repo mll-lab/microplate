@@ -7,12 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v3.0.0
+
+### Added
+
+- Add methods `addToNextFreeWell`, `clearWells`, `isWellEmpty`, `setWell`, `sortedWells`, `freeWells`, `filledWells`, `nextFreeWellCoordinate` to `Microplate`-Class
+
+### Changed
+
+- Key of the well-Collection changed from numeric to the coordinate-string
+- Renamed `MicroPlate`-class to `Microplate`-class
+
+### Removed
+
+- Removed compatibility for Illuminate\Support `^6`
+
 ## v2.0.0
 
-### Add
+### Added
 - Add compatibility to Illuminate\Support `^6|^7|^8`
 
 ### Removed
+
 - Removed method `getWells()` from class `MicroPlate` - use `wells` property of `MicroPlate` class
 
 ## v1.0.0
