@@ -33,4 +33,9 @@ abstract class CoordinateSystem
     {
         return $this->columns()[floor(($position - 1) / count($this->rows()))];
     }
+
+    public function positionsCount(): int
+    {
+        return count($this->columns()) * count($this->rows());
+    }
 }

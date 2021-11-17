@@ -136,9 +136,8 @@ class Coordinate
 
     private static function assertPositionInRange(CoordinateSystem $coordinateSystem, int $position): void
     {
-        $maxPosition = count($coordinateSystem->columns()) * count($coordinateSystem->rows());
-        if (! in_array($position, range(self::MIN_POSITION, $maxPosition), true)) {
-            throw new InvalidArgumentException("Expected a position between 1-{$maxPosition}, got: {$position}.");
+        if (! in_array($position, range(self::MIN_POSITION, $coordinateSystem->positionsCount()), true)) {
+            throw new InvalidArgumentException("Expected a position between 1-{$coordinateSystem->positionsCount()}, got: {$position}.");
         }
     }
 }
