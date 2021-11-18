@@ -84,7 +84,7 @@ class MicroplateTest extends Framework\TestCase
         $microplate = new Microplate($coordinateSystem);
 
         $dataProvider96Well = CoordinateTest::dataProvider96Well();
-        shuffle($dataProvider96Well);
+        \Safe\shuffle($dataProvider96Well);
         foreach ($dataProvider96Well as $wellData) {
             $microplateCoordinate = new Coordinate($wellData['row'], $wellData['column'], new CoordinateSystem96Well());
 
