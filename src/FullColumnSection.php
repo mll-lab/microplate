@@ -2,9 +2,9 @@
 
 namespace Mll\Microplate;
 
+use function count;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\SectionIsFullException;
-use function count;
 
 /**
  * A Section that occupies all wells of a column if one sample exists in this column. Samples of other sections are
@@ -60,6 +60,7 @@ class FullColumnSection extends Section
     private function sectionCanGrow(): bool
     {
         $coordinateSystem = $this->sectionedMicroplate->coordinateSystem;
+
         return $this->sectionedMicroplate->freeWells()->count() >= count($coordinateSystem->rows());
     }
 }
