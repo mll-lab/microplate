@@ -10,10 +10,20 @@ use Mll\Microplate\Exceptions\WellNotEmptyException;
  * @template TWell
  * @template TCoordinateSystem of CoordinateSystem
  *
+ * @phpstan-extends AbstractMicroplate<TWell, TCoordinateSystem>
+ *
  * @phpstan-type WellsCollection Collection<string, TWell|null>
  */
 class Microplate extends AbstractMicroplate
 {
+    /**
+     * @param TCoordinateSystem $coordinateSystem
+     */
+    public function __construct(CoordinateSystem $coordinateSystem)
+    {
+        parent::__construct($coordinateSystem);
+    }
+
     /**
      * @param Coordinate<TCoordinateSystem> $coordinate
      */

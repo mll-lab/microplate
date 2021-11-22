@@ -7,7 +7,10 @@ use Illuminate\Support\Collection;
 /**
  * A SectionedMicroplate is a microplate with sections of samples on it.
  *
- * @template TSectionedMicroplateWell
+ * @template TWell
+ * @template TCoordinateSystem of CoordinateSystem
+ *
+ * @phpstan-extends AbstractMicroplate<TWell, TCoordinateSystem>
  */
 class SectionedMicroplate extends AbstractMicroplate
 {
@@ -16,10 +19,12 @@ class SectionedMicroplate extends AbstractMicroplate
      */
     public Collection $sections;
 
+    /**
+     * @param TCoordinateSystem $coordinateSystem
+     */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         parent::__construct($coordinateSystem);
-        $this->clearWells();
     }
 
     /**

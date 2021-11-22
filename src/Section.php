@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 
 /**
  * @template TSectionWell
- * @template TSectionedMicroplate of SectionedMicroplate
  */
 abstract class Section
 {
@@ -14,9 +13,6 @@ abstract class Section
 
     public SectionedMicroplate $sectionedMicroplate;
 
-    /**
-     * @param TSectionedMicroplate $sectionedMicroplate
-     */
     public function __construct(SectionedMicroplate $sectionedMicroplate)
     {
         $this->sectionedMicroplate = $sectionedMicroplate;
