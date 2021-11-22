@@ -6,6 +6,8 @@ use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\SectionIsFullException;
+use Mll\Microplate\FullColumnSection;
+use Mll\Microplate\Section;
 use Mll\Microplate\SectionedMicroplate;
 use PHPUnit\Framework;
 
@@ -17,10 +19,10 @@ class SectionedMicroplateTest extends Framework\TestCase
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
         self::assertCount(0, $sectionedMicroplate->sections);
 
-        $section1 = $sectionedMicroplate->addSection('Mll\Microplate\Section');
+        $section1 = $sectionedMicroplate->addSection(Section::class);
         self::assertCount(1, $sectionedMicroplate->sections);
 
-        $section2 = $sectionedMicroplate->addSection('Mll\Microplate\Section');
+        $section2 = $sectionedMicroplate->addSection(Section::class);
         self::assertCount(2, $sectionedMicroplate->sections);
 
         self::assertCount(0, $sectionedMicroplate->filledWells());
@@ -48,7 +50,7 @@ class SectionedMicroplateTest extends Framework\TestCase
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
         self::assertCount(0, $sectionedMicroplate->sections);
 
-        $section = $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+        $section = $sectionedMicroplate->addSection(FullColumnSection::class);
         self::assertCount(1, $sectionedMicroplate->sections);
         self::assertCount(96, $sectionedMicroplate->freeWells());
 
@@ -69,11 +71,11 @@ class SectionedMicroplateTest extends Framework\TestCase
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
 
         foreach (range(1, $coordinateSystem->columnsCount()) as $i) {
-            $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+            $sectionedMicroplate->addSection(FullColumnSection::class);
         }
 
         $this->expectExceptionObject(new SectionIsFullException());
-        $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+        $sectionedMicroplate->addSection(FullColumnSection::class);
     }
 
     public function testCanNotGrowFullColumnSectionIfNoColumnsAreLeft(): void
@@ -82,10 +84,10 @@ class SectionedMicroplateTest extends Framework\TestCase
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
 
         foreach (range(1, $coordinateSystem->columnsCount() - 1) as $i) {
-            $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+            $sectionedMicroplate->addSection(FullColumnSection::class);
         }
 
-        $lastSection = $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+        $lastSection = $sectionedMicroplate->addSection(FullColumnSection::class);
         foreach (range(1, $coordinateSystem->rowsCount()) as $i) {
             $lastSection->addWell('foo');
         }
@@ -100,7 +102,7 @@ class SectionedMicroplateTest extends Framework\TestCase
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
         self::assertCount(0, $sectionedMicroplate->sections);
 
-        $section1 = $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+        $section1 = $sectionedMicroplate->addSection(FullColumnSection::class);
         self::assertCount(1, $sectionedMicroplate->sections);
         self::assertCount(96, $sectionedMicroplate->freeWells());
 
@@ -108,7 +110,7 @@ class SectionedMicroplateTest extends Framework\TestCase
             $section1->addWell('section1');
         }
 
-        $section2 = $sectionedMicroplate->addSection('Mll\Microplate\FullColumnSection');
+        $section2 = $sectionedMicroplate->addSection(FullColumnSection::class);
         $emptyCoordinateInSection1 = new Coordinate('E', 1, $coordinateSystem);
         self::assertNull($sectionedMicroplate->well($emptyCoordinateInSection1));
 
