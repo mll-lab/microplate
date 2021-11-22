@@ -2,30 +2,22 @@
 
 namespace Mll\Microplate;
 
-use Illuminate\Support\Collection;
+use Mll\Microplate\Exceptions\MicroplateIsFullException;
 
 /**
  * @template TSectionWell
  */
-abstract class Section
+class Section extends AbstractSection
 {
-    public Collection $sectionItems;
-
-    public SectionedMicroplate $sectionedMicroplate;
-
-    public function __construct(SectionedMicroplate $sectionedMicroplate)
-    {
-        $this->sectionedMicroplate = $sectionedMicroplate;
-        $this->sectionItems = new Collection();
-    }
-
-    public function occupiedWellsCount(): int
-    {
-        return $this->sectionItems->count();
-    }
-
     /**
      * @param TSectionWell $content
      */
-    abstract public function addWell($content): void;
+    public function addWell($content): void
+    {
+        if ($this->sectionedMicroplate->freeWells()->isEmpty()) {
+            throw new MicroplateIsFullException();
+        }
+
+        $this->sectionItems->push($content);
+    }
 }

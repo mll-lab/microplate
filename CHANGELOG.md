@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add class `SectionedPlate` with class `DefaultSection` and `FullColumnSection`
+- Add ability to have sectioned microplates to group wells
 
 ## v3.0.0
 

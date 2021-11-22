@@ -9,13 +9,14 @@ use Illuminate\Support\Collection;
  *
  * @template TWell
  * @template TCoordinateSystem of CoordinateSystem
+ * @template TSection of AbstractSection
  *
  * @phpstan-extends AbstractMicroplate<TWell, TCoordinateSystem>
  */
 class SectionedMicroplate extends AbstractMicroplate
 {
     /**
-     * @var Collection<string, Section>
+     * @var Collection<string, TSection>
      */
     public Collection $sections;
 
@@ -25,17 +26,22 @@ class SectionedMicroplate extends AbstractMicroplate
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         parent::__construct($coordinateSystem);
+
+        $this->clearSections();
     }
 
     /**
-     * @param class-string<Section> $sectionClass
+     * @param class-string<TSection> $sectionClass
      */
-    public function addSection(string $sectionClass): Section
+    public function addSection(string $sectionClass): AbstractSection
     {
         return $this->sections[] = new $sectionClass($this);
     }
 
-    public function removeSection(Section $section): void
+    /**
+     * @param TSection $section
+     */
+    public function removeSection(AbstractSection $section): void
     {
         foreach ($this->sections as $i => $s) {
             if ($s === $section) {
@@ -46,22 +52,25 @@ class SectionedMicroplate extends AbstractMicroplate
 
     public function wells(): Collection
     {
-        parent::clearWells();
+        /**
+         * @var Collection<array{TWell|null, Coordinate}>
+         */
+        $zipped = $this->sections
+            ->map(fn (AbstractSection $section) => $section->sectionItems)
+            ->flatten(1)
+            ->values()
+            ->zip($this->coordinateSystem->all())
+            ->map(fn (Collection $mapping) => $mapping->all());
 
-        $this->sections->map(function (Section $section): void {
-            $section->sectionItems->map(function ($sectionItem) {
-                /** @var string $coordinateWithEmptyWell checked in the process of adding a well to the section */
-                $coordinateWithEmptyWell = $this->wells->search(self::EMPTY_WELL);
-                $this->wells[$coordinateWithEmptyWell] = $sectionItem;
-            });
+        return $zipped->mapWithKeys(function (array $mapping): array {
+            [$sectionItem, $coordinate] = $mapping;
+
+            return [$coordinate->toString() => $sectionItem];
         });
-
-        return $this->wells;
     }
 
-    public function clearWells(): void
+    public function clearSections(): void
     {
         $this->sections = new Collection();
-        parent::clearWells();
     }
 }

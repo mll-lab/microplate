@@ -2,7 +2,6 @@
 
 namespace Mll\Microplate;
 
-use function count;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\SectionIsFullException;
 
@@ -12,40 +11,48 @@ use Mll\Microplate\Exceptions\SectionIsFullException;
  *
  * @template TSectionWell
  */
-class FullColumnSection extends Section
+class FullColumnSection extends AbstractSection
 {
-    public const RESERVED_WELL = 'reserved';
+    public function __construct(SectionedMicroplate $sectionedMicroplate)
+    {
+        parent::__construct($sectionedMicroplate);
+        $this->growSection();
+    }
 
     /**
      * @param TSectionWell $content
      */
     public function addWell($content): void
     {
-        if (0 === $this->sectionedMicroplate->wells()->filter(
-            static fn ($value): bool => self::RESERVED_WELL === $value || Microplate::EMPTY_WELL === $value
-        )->count()) {
+        if ($this->sectionedMicroplate->freeWells()->isEmpty()) {
             throw new MicroplateIsFullException();
         }
 
-        if (false !== $this->nextReservedWell()) {
-            $this->sectionItems[$this->nextReservedWell()] = $content;
+        $nextReservedWell = $this->nextReservedWell();
+        if (false !== $nextReservedWell) {
+            $this->sectionItems[$nextReservedWell] = $content;
 
             return;
         }
 
-        if ($this->sectionCanGrow()) {
-            $this->initializeNewColumnForSection();
-            $this->sectionItems[$this->nextReservedWell()] = $content;
+        $this->growSection();
 
-            return;
-        }
-        throw new SectionIsFullException();
+        /** @var int $nextReservedWell Guaranteed to be found after we grew the section */
+        $nextReservedWell = $this->nextReservedWell();
+        $this->sectionItems[$nextReservedWell] = $content;
     }
 
-    private function initializeNewColumnForSection(): void
+    /**
+     * Grows the section by initializing a new column with empty wells.
+     */
+    private function growSection(): void
     {
+        if (! $this->sectionCanGrow()) {
+            throw new SectionIsFullException();
+        }
+
         foreach ($this->sectionedMicroplate->coordinateSystem->rows() as $row) {
-            $this->sectionItems->push(self::RESERVED_WELL);
+            $this->sectionItems->push(AbstractMicroplate::EMPTY_WELL);
         }
     }
 
@@ -54,13 +61,19 @@ class FullColumnSection extends Section
      */
     private function nextReservedWell()
     {
-        return $this->sectionItems->search(self::RESERVED_WELL);
+        return $this->sectionItems->search(AbstractMicroplate::EMPTY_WELL);
     }
 
     private function sectionCanGrow(): bool
     {
-        $coordinateSystem = $this->sectionedMicroplate->coordinateSystem;
+        $totalReservedColumns = $this->sectionedMicroplate->sections->sum(fn (self $section) => $section->reservedColumns());
+        $availableColumns = $this->sectionedMicroplate->coordinateSystem->columnsCount();
 
-        return $this->sectionedMicroplate->freeWells()->count() >= count($coordinateSystem->rows());
+        return $totalReservedColumns < $availableColumns;
+    }
+
+    private function reservedColumns(): int
+    {
+        return (int) ceil($this->sectionItems->count() / $this->sectionedMicroplate->coordinateSystem->rowsCount());
     }
 }

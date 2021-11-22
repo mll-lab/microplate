@@ -4,6 +4,7 @@ namespace Mll\Microplate;
 
 use Illuminate\Support\Collection;
 use Mll\Microplate\Enums\FlowDirection;
+use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\WellNotEmptyException;
 
 /**
@@ -17,11 +18,23 @@ use Mll\Microplate\Exceptions\WellNotEmptyException;
 class Microplate extends AbstractMicroplate
 {
     /**
+     * @var WellsCollection
+     */
+    protected Collection $wells;
+
+    /**
      * @param TCoordinateSystem $coordinateSystem
      */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         parent::__construct($coordinateSystem);
+
+        $this->clearWells();
+    }
+
+    public function wells(): Collection
+    {
+        return $this->wells;
     }
 
     /**
@@ -68,5 +81,52 @@ class Microplate extends AbstractMicroplate
                 'Well with coordinate "' . $coordinate->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.'
             );
         }
+    }
+
+    /**
+     * Clearing the wells will reinitialize all well position of the coordinate system.
+     */
+    public function clearWells(): void
+    {
+        /**
+         * Flow direction is irrelevant during initialization, it is not a property of
+         * a plate but rather a property of the access to the plate.
+         */
+        $this->wells = new Collection();
+        foreach ($this->coordinateSystem->all() as $coordinate) {
+            $this->wells[$coordinate->toString()] = self::EMPTY_WELL;
+        }
+    }
+
+    /**
+     * @param TWell $content
+     *
+     * @throws MicroplateIsFullException
+     *
+     * @return Coordinate<TCoordinateSystem>
+     */
+    public function addToNextFreeWell($content, FlowDirection $flowDirection): Coordinate
+    {
+        $coordinate = $this->nextFreeWellCoordinate($flowDirection);
+        $this->wells[$coordinate->toString()] = $content;
+
+        return $coordinate;
+    }
+
+    /**
+     * @throws MicroplateIsFullException
+     *
+     * @return Coordinate<TCoordinateSystem>
+     */
+    public function nextFreeWellCoordinate(FlowDirection $flowDirection): Coordinate
+    {
+        $coordinateString = $this->sortedWells($flowDirection)
+            ->search(self::EMPTY_WELL);
+
+        if (! is_string($coordinateString)) {
+            throw new MicroplateIsFullException();
+        }
+
+        return Coordinate::fromString($coordinateString, $this->coordinateSystem);
     }
 }
