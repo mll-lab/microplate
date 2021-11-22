@@ -1,49 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Mll\Microplate\Tests\Unit;
+namespace Mll\Microplate\Tests\Unit\SectionedMicroplate;
 
 use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\SectionIsFullException;
 use Mll\Microplate\FullColumnSection;
-use Mll\Microplate\Section;
 use Mll\Microplate\SectionedMicroplate;
 use PHPUnit\Framework;
 
-class SectionedMicroplateTest extends Framework\TestCase
+class FullColumnSectionTest extends Framework\TestCase
 {
-    public function testCanAddSectionsAndWellsToSection(): void
-    {
-        $coordinateSystem = new CoordinateSystem96Well();
-        $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
-        self::assertCount(0, $sectionedMicroplate->sections);
-
-        $section1 = $sectionedMicroplate->addSection(Section::class);
-        self::assertCount(1, $sectionedMicroplate->sections);
-
-        $section2 = $sectionedMicroplate->addSection(Section::class);
-        self::assertCount(2, $sectionedMicroplate->sections);
-
-        self::assertCount(0, $sectionedMicroplate->filledWells());
-        self::assertCount(96, $sectionedMicroplate->freeWells());
-
-        $content1 = 'content1';
-        $section1->addWell($content1);
-        $content2 = 'content2';
-        $content3 = 'content3';
-        $section2->addWell($content2);
-        $section2->addWell($content3);
-
-        self::assertCount(3, $sectionedMicroplate->filledWells());
-        self::assertCount(93, $sectionedMicroplate->freeWells());
-
-        self::assertSame($content1, $section1->sectionItems->first());
-
-        self::assertSame($content2, $section2->sectionItems->first());
-        self::assertSame($content3, $section2->sectionItems->last());
-    }
-
     public function testFullColumnSectionThrowsWhenFull(): void
     {
         $coordinateSystem = new CoordinateSystem96Well();

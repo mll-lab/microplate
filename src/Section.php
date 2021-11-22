@@ -11,6 +11,8 @@ class Section extends AbstractSection
 {
     /**
      * @param TSectionWell $content
+     *
+     * @throws MicroplateIsFullException
      */
     public function addWell($content): void
     {

@@ -21,6 +21,9 @@ class FullColumnSection extends AbstractSection
 
     /**
      * @param TSectionWell $content
+     *
+     * @throws MicroplateIsFullException
+     * @throws SectionIsFullException
      */
     public function addWell($content): void
     {
@@ -44,6 +47,8 @@ class FullColumnSection extends AbstractSection
 
     /**
      * Grows the section by initializing a new column with empty wells.
+     *
+     * @throws SectionIsFullException
      */
     private function growSection(): void
     {
