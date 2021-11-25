@@ -2,6 +2,10 @@
 
 namespace Mll\Microplate\Exceptions;
 
-class MicroplateIsFullException extends \Exception
+class MicroplateIsFullException extends \UnexpectedValueException
 {
+    public function __construct()
+    {
+        parent::__construct('No free spots left on plate');
+    }
 }

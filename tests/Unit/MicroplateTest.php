@@ -64,7 +64,7 @@ class MicroplateTest extends Framework\TestCase
         $microplate = $this->preparePlate();
 
         self::assertTrue(
-            $microplate->wells->some(
+            $microplate->wells()->some(
                 /**
                  * @param mixed|null $value
                  */
@@ -164,56 +164,5 @@ class MicroplateTest extends Framework\TestCase
     public static function dataProvider12Well(): array
     {
         return CoordinateTest::dataProvider12Well();
-    }
-
-    /**
-     * @dataProvider dataProvider96Well
-     */
-    public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
-    {
-        $coordinateSystem = new CoordinateSystem96Well();
-        $coordinate = new Coordinate($row, $column, $coordinateSystem);
-
-        $microplate = new Microplate(new CoordinateSystem96Well());
-        self::assertSame(
-            $columnFlowPosition,
-            $microplate->position(
-                $coordinate,
-                FlowDirection::COLUMN(),
-            )
-        );
-
-        self::assertSame(
-            $rowFlowPosition,
-            $microplate->position(
-                $coordinate,
-                FlowDirection::ROW(),
-            )
-        );
-    }
-
-    /**
-     * @dataProvider dataProvider12Well
-     */
-    public function testPosition12Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
-    {
-        $coordinate = new Coordinate($row, $column, new CoordinateSystem12Well());
-
-        $microplate = new Microplate(new CoordinateSystem12Well());
-        self::assertSame(
-            $columnFlowPosition,
-            $microplate->position(
-                $coordinate,
-                FlowDirection::COLUMN()
-            )
-        );
-
-        self::assertSame(
-            $rowFlowPosition,
-            $microplate->position(
-                $coordinate,
-                FlowDirection::ROW(),
-            )
-        );
     }
 }
