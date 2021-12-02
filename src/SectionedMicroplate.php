@@ -3,6 +3,7 @@
 namespace Mll\Microplate;
 
 use Illuminate\Support\Collection;
+use Mll\Microplate\Exceptions\NamedSectionExistsAlreadyException;
 
 /**
  * A SectionedMicroplate is a microplate with sections of samples on it.
@@ -36,6 +37,18 @@ class SectionedMicroplate extends AbstractMicroplate
     public function addSection(string $sectionClass): AbstractSection
     {
         return $this->sections[] = new $sectionClass($this);
+    }
+
+    /**
+     * @param class-string<TSection> $sectionClass
+     */
+    public function addNamedSection(string $sectionClass, string $name): AbstractSection
+    {
+        if ($this->sections->has($name)) {
+            throw new NamedSectionExistsAlreadyException('Section with name "' . $name . '" exists already. Section was not added.');
+        }
+
+        return $this->sections[$name] = new $sectionClass($this);
     }
 
     /**
