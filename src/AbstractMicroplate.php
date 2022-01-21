@@ -104,4 +104,28 @@ abstract class AbstractMicroplate
             static fn ($value): bool => self::EMPTY_WELL !== $value
         );
     }
+
+    /**
+     * @return callable(mixed $value, string $coordinateString): bool
+     */
+    public function matchRow(string $row): callable
+    {
+        return function ($value, string $coordinateString) use ($row): bool {
+            $coordinate = Coordinate::fromString($coordinateString, $this->coordinateSystem);
+
+            return $coordinate->row === $row;
+        };
+    }
+
+    /**
+     * @return callable(mixed $value, string $coordinateString): bool
+     */
+    public function matchColumn(int $column): callable
+    {
+        return function ($value, string $coordinateString) use ($column): bool {
+            $coordinate = Coordinate::fromString($coordinateString, $this->coordinateSystem);
+
+            return $coordinate->column === $column;
+        };
+    }
 }

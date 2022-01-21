@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v3.2.0
+
+### Added
+
+- Add methods `AbstractMicroplate::matchRow()` and `AbstractMicroplate::matchColumn()`
+
 ## v3.1.0
 
 ### Added
