@@ -13,7 +13,7 @@ use PHPUnit\Framework;
 
 class MicroplateTest extends Framework\TestCase
 {
-    public function testCanAddAndRetriedWellBasedOnCoordinateSystem(): void
+    public function testCanAddAndRetrieveWellBasedOnCoordinateSystem(): void
     {
         $coordinateSystem = new CoordinateSystem96Well();
 
@@ -34,6 +34,47 @@ class MicroplateTest extends Framework\TestCase
         $coordinateWithOtherCoordinateSystem = new Coordinate('B', 2, new CoordinateSystem12Well());
         // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
         $microplate->addWell($coordinateWithOtherCoordinateSystem, 'foo');
+    }
+
+    public function testMatchRow(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+
+        $microplate = new Microplate($coordinateSystem);
+
+        $content = 'foo';
+        $coordinate = new Coordinate('A', 1, $coordinateSystem);
+        $key = $coordinate->toString();
+        $microplate->addWell($coordinate, $content);
+
+        $microplate->addWell(new Coordinate('B', 1, $coordinateSystem), 'bar');
+
+        $wells = $microplate->wells();
+
+        $a = $wells->filter($microplate->matchRow('A'));
+        self::assertCount($coordinateSystem->columnsCount(), $a);
+        self::assertSame($content, $a[$key]);
+
+        $notA = $wells->reject($microplate->matchRow('A'));
+        self::assertCount($coordinateSystem->positionsCount() - $coordinateSystem->columnsCount(), $notA);
+
+        $noMatch = $microplate->filledWells()
+            ->filter($microplate->matchRow('C'));
+        self::assertCount(0, $noMatch);
+    }
+
+    public function testMatchColumn(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+
+        $microplate = new Microplate($coordinateSystem);
+
+        $coordinateColumn1 = (new Coordinate('A', 1, $coordinateSystem))->toString();
+        $coordinateColumn2 = (new Coordinate('A', 2, $coordinateSystem))->toString();
+
+        $matchColumn = $microplate->matchColumn(1);
+        self::assertTrue($matchColumn('foo', $coordinateColumn1));
+        self::assertFalse($matchColumn('foo', $coordinateColumn2));
     }
 
     public function testSortedWells(): void
