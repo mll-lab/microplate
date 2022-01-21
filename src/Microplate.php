@@ -32,9 +32,12 @@ class Microplate extends AbstractMicroplate
         $this->clearWells();
     }
 
-    public function wells(): Collection
+    /**
+     * @return WellsCollection
+     */
+    public function wells(string $row = null, int $column = null): Collection
     {
-        return $this->wells;
+        return $this->filterWellsForCoordinates($this->wells, $this->coordinateSystem, $row, $column);
     }
 
     /**

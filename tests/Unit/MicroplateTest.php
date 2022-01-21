@@ -34,6 +34,23 @@ class MicroplateTest extends Framework\TestCase
         $coordinateWithOtherCoordinateSystem = new Coordinate('B', 2, new CoordinateSystem12Well());
         // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
         $microplate->addWell($coordinateWithOtherCoordinateSystem, 'foo');
+
+        self::assertCount(96, $microplate->wells());
+        self::assertCount(12, $microplate->wells('A'));
+
+        /** @var Collection<int, string> $keysOfWellsOfColumnA PHPStan is wrong about what keys() does */
+        $keysOfWellsOfColumnA = $microplate->wells('A')->keys();
+        self::assertEquals('A1', $keysOfWellsOfColumnA[0]);
+        self::assertEquals('A2', $keysOfWellsOfColumnA[1]);
+        self::assertEquals('A12', $keysOfWellsOfColumnA[11]);
+
+        self::assertCount(8, $microplate->wells(null, 2));
+
+        /** @var Collection<int, string> $keysOfWellsOfRow2 PHPStan is wrong about what keys() does */
+        $keysOfWellsOfRow2 = $microplate->wells(null, 2)->keys();
+        self::assertEquals('B2', $keysOfWellsOfRow2[1]);
+        self::assertEquals('C2', $keysOfWellsOfRow2[2]);
+        self::assertEquals('H2', $keysOfWellsOfRow2[7]);
     }
 
     public function testSortedWells(): void

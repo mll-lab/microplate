@@ -50,7 +50,7 @@ class SectionedMicroplate extends AbstractMicroplate
         }
     }
 
-    public function wells(): Collection
+    public function wells(string $row = null, int $column = null): Collection
     {
         /**
          * @var Collection<array{TWell|null, Coordinate}>
@@ -62,11 +62,13 @@ class SectionedMicroplate extends AbstractMicroplate
             ->zip($this->coordinateSystem->all())
             ->map(fn (Collection $mapping) => $mapping->all());
 
-        return $zipped->mapWithKeys(function (array $mapping): array {
+        $wells = $zipped->mapWithKeys(function (array $mapping): array {
             [$sectionItem, $coordinate] = $mapping;
 
             return [$coordinate->toString() => $sectionItem];
         });
+
+        return $this->filterWellsForCoordinates($wells, $this->coordinateSystem, $row, $column);
     }
 
     public function clearSections(): void

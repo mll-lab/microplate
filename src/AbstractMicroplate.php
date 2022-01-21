@@ -30,9 +30,11 @@ abstract class AbstractMicroplate
     }
 
     /**
+     * use optional parameter $row and $column for selecting specific row or column.
+     *
      * @return WellsCollection
      */
-    abstract public function wells(): Collection;
+    abstract public function wells(string $row = null, int $column = null): Collection;
 
     /**
      * @param Coordinate<TCoordinateSystem> $coordinate
@@ -82,9 +84,9 @@ abstract class AbstractMicroplate
     /**
      * @return Collection<string, null>
      */
-    public function freeWells(): Collection
+    public function freeWells(string $row = null, int $column = null): Collection
     {
-        return $this->wells()->filter(
+        return $this->wells($row, $column)->filter(
             /**
              * @param TWell $value
              */
@@ -95,13 +97,48 @@ abstract class AbstractMicroplate
     /**
      * @return Collection<string, TWell>
      */
-    public function filledWells(): Collection
+    public function filledWells(string $row = null, int $column = null): Collection
     {
-        return $this->wells()->filter(
+        return $this->wells($row, $column)->filter(
             /**
              * @param TWell $value
              */
             static fn ($value): bool => self::EMPTY_WELL !== $value
         );
+    }
+
+    /**
+     * @param WellsCollection $wells
+     *
+     * @return WellsCollection
+     */
+    protected function filterWellsForCoordinates(Collection $wells, CoordinateSystem $coordinateSystem, ?string $row, ?int $column): Collection
+    {
+        if (! is_null($row)) {
+            $wells = $wells->filter(
+            /**
+             * @param TWell $value
+             */
+            static function ($value, string $coordinateString) use ($coordinateSystem, $row): bool {
+                $coordinate = Coordinate::fromString($coordinateString, $coordinateSystem);
+
+                return $coordinate->row === $row;
+            }
+            );
+        }
+        if (! is_null($column)) {
+            $wells = $wells->filter(
+                /**
+                 * @param TWell $value
+                 */
+                static function ($value, string $coordinateString) use ($coordinateSystem, $column): bool {
+                    $coordinate = Coordinate::fromString($coordinateString, $coordinateSystem);
+
+                    return $coordinate->column === $column;
+                }
+            );
+        }
+
+        return $wells;
     }
 }
