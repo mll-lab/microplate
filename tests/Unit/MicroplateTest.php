@@ -115,7 +115,7 @@ class MicroplateTest extends Framework\TestCase
         self::assertNotCount(0, $microplate->freeWells());
     }
 
-    /**comp
+    /**
      * @phpstan-return Microplate<mixed, CoordinateSystem96Well>
      */
     private function preparePlate(): Microplate
