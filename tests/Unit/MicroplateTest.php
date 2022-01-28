@@ -9,6 +9,7 @@ use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Microplate;
+use Mll\Microplate\WellWithCoordinate;
 use PHPUnit\Framework;
 
 class MicroplateTest extends Framework\TestCase
@@ -75,6 +76,24 @@ class MicroplateTest extends Framework\TestCase
         $matchColumn = $microplate->matchColumn(1);
         self::assertTrue($matchColumn('foo', $coordinateColumn1));
         self::assertFalse($matchColumn('foo', $coordinateColumn2));
+    }
+
+    public function testtoWellWithCoordinateMapper(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+        $microplate = new Microplate($coordinateSystem);
+
+        $coordinate = new Coordinate('A', 1, $coordinateSystem);
+        $content = 'foo';
+        $microplate->addWell($coordinate, $content);
+
+        $wellWithCoordinate = $microplate->wells()
+            ->map($microplate->toWellWithCoordinateMapper())
+            ->first();
+
+        self::assertInstanceOf(WellWithCoordinate::class, $wellWithCoordinate);
+        self::assertSame($content, $wellWithCoordinate->content);
+        self::assertEquals($coordinate, $wellWithCoordinate->coordinate);
     }
 
     public function testSortedWells(): void

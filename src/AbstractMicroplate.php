@@ -59,9 +59,9 @@ abstract class AbstractMicroplate
     {
         return $this->wells()->sortBy(
             /**
-             * @param TWell $value
+             * @param TWell $content
              */
-            function ($value, string $key) use ($flowDirection): string {
+            function ($content, string $key) use ($flowDirection): string {
                 switch ($flowDirection->getValue()) {
                     case FlowDirection::ROW:
                         return $key;
@@ -86,9 +86,9 @@ abstract class AbstractMicroplate
     {
         return $this->wells()->filter(
             /**
-             * @param TWell $value
+             * @param TWell $content
              */
-            static fn ($value): bool => self::EMPTY_WELL === $value
+            static fn ($content): bool => self::EMPTY_WELL === $content
         );
     }
 
@@ -99,18 +99,18 @@ abstract class AbstractMicroplate
     {
         return $this->wells()->filter(
             /**
-             * @param TWell $value
+             * @param TWell $content
              */
-            static fn ($value): bool => self::EMPTY_WELL !== $value
+            static fn ($content): bool => self::EMPTY_WELL !== $content
         );
     }
 
     /**
-     * @return callable(mixed $value, string $coordinateString): bool
+     * @return callable(TWell $content, string $coordinateString): bool
      */
     public function matchRow(string $row): callable
     {
-        return function ($value, string $coordinateString) use ($row): bool {
+        return function ($content, string $coordinateString) use ($row): bool {
             $coordinate = Coordinate::fromString($coordinateString, $this->coordinateSystem);
 
             return $coordinate->row === $row;
@@ -118,14 +118,25 @@ abstract class AbstractMicroplate
     }
 
     /**
-     * @return callable(mixed $value, string $coordinateString): bool
+     * @return callable(TWell $content, string $coordinateString): bool
      */
     public function matchColumn(int $column): callable
     {
-        return function ($value, string $coordinateString) use ($column): bool {
+        return function ($content, string $coordinateString) use ($column): bool {
             $coordinate = Coordinate::fromString($coordinateString, $this->coordinateSystem);
 
             return $coordinate->column === $column;
         };
+    }
+
+    /**
+     * @return callable(TWell $content, string $coordinateString): WellWithCoordinate<TWell, TCoordinateSystem>
+     */
+    public function toWellWithCoordinateMapper(): callable
+    {
+        return fn ($content, string $coordinateString): WellWithCoordinate => new WellWithCoordinate(
+            $content,
+            Coordinate::fromString($coordinateString, $this->coordinateSystem)
+        );
     }
 }
