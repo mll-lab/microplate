@@ -55,12 +55,14 @@ class Coordinate
      *
      * @return static<TCoord>
      */
-    public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem): self
+    public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem, bool $columnIsPadded = false): self
     {
         $rows = $coordinateSystem->rows();
         $rowsOptions = implode('|', $rows);
 
-        $columns = $coordinateSystem->columns();
+        $columns = $columnIsPadded
+            ? $coordinateSystem->paddedColumns()
+            : $coordinateSystem->columns();
         $columnsOptions = implode('|', $columns);
 
         $valid = preg_match(

@@ -4,6 +4,7 @@ namespace Mll\Microplate\Tests\Unit;
 
 use InvalidArgumentException;
 use Mll\Microplate\Coordinate;
+use Mll\Microplate\CoordinateSystem;
 use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
@@ -52,6 +53,10 @@ class CoordinateTest extends Framework\TestCase
     {
         $coordinate = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
         self::assertSame($row, $coordinate->row);
+        self::assertSame($column, $coordinate->column);
+
+        $coordinateFromPadded = Coordinate::fromString($row . str_pad((string) $column, 2, CoordinateSystem::PAD_STRING_ZERO, STR_PAD_LEFT), new CoordinateSystem96Well(), true);
+        self::assertSame($row, $coordinateFromPadded->row);
         self::assertSame($column, $coordinate->column);
     }
 

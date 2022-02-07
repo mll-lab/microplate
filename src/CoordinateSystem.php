@@ -4,6 +4,8 @@ namespace Mll\Microplate;
 
 abstract class CoordinateSystem
 {
+    public const PAD_STRING_ZERO = '0';
+
     /**
      * @return list<string>
      */
@@ -13,6 +15,19 @@ abstract class CoordinateSystem
      * @return list<int>
      */
     abstract public function columns(): array;
+
+    /**
+     * @return list<string>
+     */
+    public function paddedColumns(): array
+    {
+        $paddedColumns = [];
+        foreach ($this->columns() as $column) {
+            $paddedColumns[] = str_pad((string) $column, strlen((string) $this->columnsCount()), self::PAD_STRING_ZERO, STR_PAD_LEFT);
+        }
+
+        return $paddedColumns;
+    }
 
     public function rowForRowFlowPosition(int $position): string
     {
