@@ -51,18 +51,16 @@ class Coordinate
     /**
      * @template TCoord of CoordinateSystem
      *
-     * @param bool $columnIsPadded use this parameter to declare that the one-char columns (e.g. 1-9) are padded with a Zero (e.g. A02, H09)
+     * @param TCoord $coordinateSystem
      *
      * @return static<TCoord>
      */
-    public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem, bool $columnIsPadded = false): self
+    public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem): self
     {
         $rows = $coordinateSystem->rows();
         $rowsOptions = implode('|', $rows);
 
-        $columns = $columnIsPadded
-            ? $coordinateSystem->paddedColumns()
-            : $coordinateSystem->columns();
+        $columns = [...$coordinateSystem->columns(), ...$coordinateSystem->paddedColumns()];
         $columnsOptions = implode('|', $columns);
 
         $valid = preg_match(

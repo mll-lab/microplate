@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add parameter `columnIsPadded` to `Coordinate::fromString()` method
+- Make `Coordinate::fromString()` more flexible to ignore leading 0 in column numbers, e.g. A01
 
 ## v3.3.0
 

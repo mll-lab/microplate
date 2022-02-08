@@ -60,7 +60,7 @@ class CoordinateTest extends Framework\TestCase
      */
     public function testFromPaddedCoordinatesString(string $paddedCoordinate, string $row, int $column): void
     {
-        $coordinateFromPadded = Coordinate::fromString($paddedCoordinate, new CoordinateSystem96Well(), true);
+        $coordinateFromPadded = Coordinate::fromString($paddedCoordinate, new CoordinateSystem96Well());
         self::assertSame($row, $coordinateFromPadded->row);
         self::assertSame($column, $coordinateFromPadded->column);
     }
@@ -750,6 +750,7 @@ class CoordinateTest extends Framework\TestCase
     {
         return [
             ['A0'],
+            ['A001'],
             ['X3'],
             ['rolf'],
             ['a1'],
