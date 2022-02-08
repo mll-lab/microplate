@@ -2,9 +2,9 @@
 
 namespace Mll\Microplate;
 
-use Illuminate\Support\Arr;
 use function count;
 use function get_class;
+use Illuminate\Support\Arr;
 use function implode;
 use InvalidArgumentException;
 use Mll\Microplate\Enums\FlowDirection;
