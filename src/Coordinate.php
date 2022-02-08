@@ -51,7 +51,7 @@ class Coordinate
     /**
      * @template TCoord of CoordinateSystem
      *
-     * @param TCoord $coordinateSystem
+     * @param bool $columnIsPadded use this parameter to declare that the one-char columns (e.g. 1-9) are padded with a Zero (e.g. A02, H09)
      *
      * @return static<TCoord>
      */
