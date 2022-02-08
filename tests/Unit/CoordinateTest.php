@@ -56,6 +56,47 @@ class CoordinateTest extends Framework\TestCase
     }
 
     /**
+     * @dataProvider dataProviderPadded96Well
+     */
+    public function testFromPaddedCoordinatesString(string $paddedCoordinate, string $row, int $column): void
+    {
+        $coordinateFromPadded = Coordinate::fromString($paddedCoordinate, new CoordinateSystem96Well());
+        self::assertSame($row, $coordinateFromPadded->row);
+        self::assertSame($column, $coordinateFromPadded->column);
+    }
+
+    /**
+     * @return list<array{paddedCoordinate: string, row: string, column: int}>
+     */
+    public static function dataProviderPadded96Well(): array
+    {
+        return
+            [
+                [
+                    'paddedCoordinate' => 'A01',
+                    'row' => 'A',
+                    'column' => 1,
+                ],
+
+                [
+                    'paddedCoordinate' => 'C05',
+                    'row' => 'C',
+                    'column' => 5,
+                ],
+                [
+                    'paddedCoordinate' => 'H12',
+                    'row' => 'H',
+                    'column' => 12,
+                ],
+                [
+                    'paddedCoordinate' => 'D10',
+                    'row' => 'D',
+                    'column' => 10,
+                ],
+            ];
+    }
+
+    /**
      * @dataProvider dataProvider96Well
      */
     public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
@@ -709,6 +750,7 @@ class CoordinateTest extends Framework\TestCase
     {
         return [
             ['A0'],
+            ['A001'],
             ['X3'],
             ['rolf'],
             ['a1'],

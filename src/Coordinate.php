@@ -4,6 +4,7 @@ namespace Mll\Microplate;
 
 use function count;
 use function get_class;
+use Illuminate\Support\Arr;
 use function implode;
 use InvalidArgumentException;
 use Mll\Microplate\Enums\FlowDirection;
@@ -60,7 +61,10 @@ class Coordinate
         $rows = $coordinateSystem->rows();
         $rowsOptions = implode('|', $rows);
 
-        $columns = $coordinateSystem->columns();
+        $columns = [
+            ...$coordinateSystem->columns(),
+            ...$coordinateSystem->paddedColumns(),
+        ];
         $columnsOptions = implode('|', $columns);
 
         $valid = preg_match(
@@ -70,10 +74,10 @@ class Coordinate
         );
 
         if (0 === $valid) {
-            $firstValidExample = $rows[0] . $columns[0];
-            $lastValidExample = $rows[count($rows) - 1] . $columns[count($columns) - 1];
-            $get_class = get_class($coordinateSystem);
-            throw new InvalidArgumentException("Expected a coordinate between as {$firstValidExample} and {$lastValidExample} for {$get_class}, got: $coordinateString.");
+            $firstValidExample = Arr::first($rows) . Arr::first($columns);
+            $lastValidExample = Arr::last($rows) . Arr::last($columns);
+            $coordinateSystemClass = get_class($coordinateSystem);
+            throw new InvalidArgumentException("Expected a coordinate between {$firstValidExample} and {$lastValidExample} for {$coordinateSystemClass}, got: $coordinateString.");
         }
 
         return new self($matches[1], (int) $matches[2], $coordinateSystem);

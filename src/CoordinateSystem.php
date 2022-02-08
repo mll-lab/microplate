@@ -14,6 +14,23 @@ abstract class CoordinateSystem
      */
     abstract public function columns(): array;
 
+    /**
+     * List of columns, 0-padded to all have the same length.
+     *
+     * @return list<string>
+     */
+    public function paddedColumns(): array
+    {
+        $maxColumnLength = strlen((string) $this->columnsCount());
+
+        $paddedColumns = [];
+        foreach ($this->columns() as $column) {
+            $paddedColumns[] = str_pad((string) $column, $maxColumnLength, '0', STR_PAD_LEFT);
+        }
+
+        return $paddedColumns;
+    }
+
     public function rowForRowFlowPosition(int $position): string
     {
         return $this->rows()[floor(($position - 1) / $this->columnsCount())];

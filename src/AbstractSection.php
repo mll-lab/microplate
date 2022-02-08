@@ -15,7 +15,7 @@ abstract class AbstractSection
     public SectionedMicroplate $sectionedMicroplate;
 
     /**
-     * @var Collection<TSectionWell|null>
+     * @var Collection<int, TSectionWell|null>
      */
     public Collection $sectionItems;
 
