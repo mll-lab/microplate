@@ -89,6 +89,14 @@ class Coordinate
     }
 
     /**
+     * Format the coordinate with the column 0-padded so all are the same length.
+     */
+    public function toPaddedString(): string
+    {
+        return $this->row . $this->coordinateSystem->padColumn($this->column);
+    }
+
+    /**
      * @param TCoordinateSystem $coordinateSystem
      *
      * @return static<TCoordinateSystem>

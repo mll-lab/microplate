@@ -63,6 +63,7 @@ class CoordinateTest extends Framework\TestCase
         $coordinateFromPadded = Coordinate::fromString($paddedCoordinate, new CoordinateSystem96Well());
         self::assertSame($row, $coordinateFromPadded->row);
         self::assertSame($column, $coordinateFromPadded->column);
+        self::assertSame($paddedCoordinate, $coordinateFromPadded->toPaddedString());
     }
 
     /**
