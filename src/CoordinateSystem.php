@@ -21,14 +21,22 @@ abstract class CoordinateSystem
      */
     public function paddedColumns(): array
     {
-        $maxColumnLength = strlen((string) $this->columnsCount());
-
         $paddedColumns = [];
         foreach ($this->columns() as $column) {
-            $paddedColumns[] = str_pad((string) $column, $maxColumnLength, '0', STR_PAD_LEFT);
+            $paddedColumns[] = $this->padColumn($column);
         }
 
         return $paddedColumns;
+    }
+
+    /**
+     * 0-pad column to be as long as the longest column in the coordinate system.
+     */
+    public function padColumn(int $column): string
+    {
+        $maxColumnLength = strlen((string) $this->columnsCount());
+
+        return str_pad((string) $column, $maxColumnLength, '0', STR_PAD_LEFT);
     }
 
     public function rowForRowFlowPosition(int $position): string
@@ -57,6 +65,10 @@ abstract class CoordinateSystem
     }
 
     /**
+     * Returns all possible coordinates of the system, ordered by column then row.
+     *
+     * e.g. A1, A2, B1, B2
+     *
      * @return iterable<int, Coordinate>
      */
     public function all(): iterable

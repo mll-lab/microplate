@@ -1,15 +1,19 @@
 {
   "name": "mll-lab/microplate",
-  "type": "library",
   "description": "PHP package to easily work with microplate data",
-  "homepage": "https://github.com/mll-lab/microplate",
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Simon Bigelmayr",
       "email": "s.bigelmayr@gmx.net"
     }
   ],
+  "homepage": "https://github.com/mll-lab/microplate",
+  "support": {
+    "issues": "https://github.com/mll-lab/microplate/issues",
+    "source": "https://github.com/mll-lab/microplate"
+  },
   "require": {
     "php": "^7.4 || ^8",
     "illuminate/support": "^7 || ^8",
@@ -34,18 +38,6 @@
     "symfony/var-dumper": "^5",
     "thecodingmachine/phpstan-safe-rule": "^1.1"
   },
-  "config": {
-    "allow-plugins": {
-      "ergebnis/composer-normalize": true,
-      "infection/extension-installer": true,
-      "phpstan/extension-installer": true
-    },
-    "platform": {
-      "php": "7.4.24"
-    },
-    "preferred-install": "dist",
-    "sort-packages": true
-  },
   "autoload": {
     "psr-4": {
       "Mll\\Microplate\\": "src/"
@@ -59,8 +51,16 @@
       "vendor/symfony/var-dumper/Resources/functions/dump.php"
     ]
   },
-  "support": {
-    "issues": "https://github.com/mll-lab/microplate/issues",
-    "source": "https://github.com/mll-lab/microplate"
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true,
+      "infection/extension-installer": true,
+      "phpstan/extension-installer": true
+    },
+    "platform": {
+      "php": "7.4.24"
+    },
+    "preferred-install": "dist",
+    "sort-packages": true
   }
 }
