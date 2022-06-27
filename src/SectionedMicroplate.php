@@ -52,21 +52,18 @@ class SectionedMicroplate extends AbstractMicroplate
 
     public function wells(): Collection
     {
-        /**
-         * @var Collection<array{TWell|null, Coordinate}>
-         */
-        $zipped = $this->sections
-            ->map(fn (AbstractSection $section) => $section->sectionItems)
+        // @phpstan-ignore-next-line type TWell is not inferred correctly throughout this pipeline of transformations
+        return $this->sections
+            ->map(fn (AbstractSection $section): Collection => $section->sectionItems)
             ->flatten(1)
             ->values()
             ->zip($this->coordinateSystem->all())
-            ->map(fn (Collection $mapping) => $mapping->all());
+            ->map(fn (Collection $mapping): array => $mapping->all())
+            ->mapWithKeys(function (array $mapping): array {
+                [$sectionItem, $coordinate] = $mapping;
 
-        return $zipped->mapWithKeys(function (array $mapping): array {
-            [$sectionItem, $coordinate] = $mapping;
-
-            return [$coordinate->toString() => $sectionItem];
-        });
+                return [$coordinate->toString() => $sectionItem];
+            });
     }
 
     public function clearSections(): void
