@@ -5,6 +5,7 @@ use Rector\Core\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $config): void {
+    $config->services()->set(AddClosureReturnTypeRector::class);
     $config->import(SetList::CODE_QUALITY);
     $config->import(SetList::PHP_74);
 
