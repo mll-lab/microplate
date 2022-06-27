@@ -149,14 +149,17 @@ jobs:
         php-version:
           - 7.4
           - 8.0
-
+          - 8.1
         dependencies:
           - lowest
           - highest
-
         illuminate:
           - ^7
           - ^8
+          - ^9
+        exclude:
+          - php-version: 7.4
+            illuminate: ^9
 
     steps:
       - name: "Checkout"
