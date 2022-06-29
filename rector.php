@@ -3,6 +3,7 @@
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\SetList;
+use Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
 
 return static function (RectorConfig $config): void {
     $config->services()->set(AddClosureReturnTypeRector::class);
