@@ -25,10 +25,10 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Validate composer.json and composer.lock"
-        run: composer validate # --strict TODO reintroduce after https://github.com/thecodingmachine/phpstan-safe-rule/pull/26
+        run: composer validate --strict
 
   composer-normalize:
     name: "Normalize composer.json"
@@ -46,7 +46,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
@@ -75,7 +75,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
@@ -104,7 +104,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
@@ -131,7 +131,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
@@ -204,7 +204,7 @@ jobs:
         with:
           coverage: pcov
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
@@ -232,7 +232,7 @@ jobs:
         with:
           coverage: pcov
           extensions: mbstring
-          php-version: 7.4
+          php-version: 8.1
 
       - name: "Install locked dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
