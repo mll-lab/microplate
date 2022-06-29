@@ -5,9 +5,9 @@ namespace Mll\Microplate\Tests\Unit\SectionedMicroplate;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Section;
 use Mll\Microplate\SectionedMicroplate;
-use PHPUnit\Framework;
+use PHPUnit\Framework\TestCase;
 
-class SectionedMicroplateTest extends Framework\TestCase
+final class SectionedMicroplateTest extends TestCase
 {
     public function testCanAddSectionsAndWellsToSectionAndRemoveSections(): void
     {

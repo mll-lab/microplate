@@ -8,9 +8,9 @@ use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\SectionIsFullException;
 use Mll\Microplate\FullColumnSection;
 use Mll\Microplate\SectionedMicroplate;
-use PHPUnit\Framework;
+use PHPUnit\Framework\TestCase;
 
-class FullColumnSectionTest extends Framework\TestCase
+final class FullColumnSectionTest extends TestCase
 {
     public function testFullColumnSectionThrowsWhenFull(): void
     {

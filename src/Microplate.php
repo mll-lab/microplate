@@ -32,6 +32,9 @@ class Microplate extends AbstractMicroplate
         $this->clearWells();
     }
 
+    /**
+     * @return WellsCollection
+     */
     public function wells(): Collection
     {
         return $this->wells;
@@ -92,10 +95,14 @@ class Microplate extends AbstractMicroplate
          * Flow direction is irrelevant during initialization, it is not a property of
          * a plate but rather a property of the access to the plate.
          */
-        $this->wells = new Collection();
+
+        /** @var array<string, TWell|null> $wells */
+        $wells = [];
         foreach ($this->coordinateSystem->all() as $coordinate) {
-            $this->wells[$coordinate->toString()] = self::EMPTY_WELL;
+            $wells[$coordinate->toString()] = self::EMPTY_WELL;
         }
+
+        $this->wells = new Collection($wells);
     }
 
     /**

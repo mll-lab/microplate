@@ -75,8 +75,14 @@ class FullColumnSection extends AbstractSection
 
     private function sectionCanGrow(): bool
     {
-        $totalReservedColumns = $this->sectionedMicroplate->sections->sum(fn (self $section) => $section->reservedColumns());
-        $availableColumns = $this->sectionedMicroplate->coordinateSystem->columnsCount();
+        $totalReservedColumns = $this->sectionedMicroplate
+            ->sections
+            // @phpstan-ignore-next-line generics false positive
+            ->sum(static fn (self $section): int => $section->reservedColumns());
+
+        $availableColumns = $this->sectionedMicroplate
+            ->coordinateSystem
+            ->columnsCount();
 
         return $totalReservedColumns < $availableColumns;
     }

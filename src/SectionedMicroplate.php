@@ -61,6 +61,7 @@ class SectionedMicroplate extends AbstractMicroplate
             ->map(fn (Collection $mapping): array => $mapping->all())
             ->mapWithKeys(function (array $mapping): array {
                 [$sectionItem, $coordinate] = $mapping;
+                assert($coordinate instanceof Coordinate);
 
                 return [$coordinate->toString() => $sectionItem];
             });

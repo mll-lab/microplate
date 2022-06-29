@@ -6,9 +6,9 @@ use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Section;
 use Mll\Microplate\SectionedMicroplate;
-use PHPUnit\Framework;
+use PHPUnit\Framework\TestCase;
 
-class SectionTest extends Framework\TestCase
+final class SectionTest extends TestCase
 {
     public function testSectionThrowsWhenFull(): void
     {

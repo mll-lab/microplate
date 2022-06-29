@@ -7,9 +7,9 @@ use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
-use PHPUnit\Framework;
+use PHPUnit\Framework\TestCase;
 
-class CoordinateTest extends Framework\TestCase
+final class CoordinateTest extends TestCase
 {
     /**
      * @dataProvider dataProvider96Well

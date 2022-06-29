@@ -10,9 +10,9 @@ use Mll\Microplate\Enums\FlowDirection;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Microplate;
 use Mll\Microplate\WellWithCoordinate;
-use PHPUnit\Framework;
+use PHPUnit\Framework\TestCase;
 
-class MicroplateTest extends Framework\TestCase
+final class MicroplateTest extends TestCase
 {
     public function testCanAddAndRetrieveWellBasedOnCoordinateSystem(): void
     {
@@ -123,13 +123,12 @@ class MicroplateTest extends Framework\TestCase
     {
         $microplate = $this->preparePlate();
 
-        self::assertTrue(
-            $microplate->wells()->some(
-                /**
-                 * @param mixed|null $value
-                 */
-                static fn ($value): bool => null !== $value
-            )
+        self::assertGreaterThan(
+            0,
+            $microplate->wells()
+                // @phpstan-ignore-next-line generic false-positive
+                ->filter(static fn (?string $value): bool => null !== $value)
+                ->count()
         );
         self::assertNotCount(0, $microplate->freeWells());
     }
