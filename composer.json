@@ -54,6 +54,7 @@
     "allow-plugins": {
       "ergebnis/composer-normalize": true,
       "infection/extension-installer": true,
+      "ocramius/package-versions": true,
       "phpstan/extension-installer": true
     },
     "preferred-install": "dist",
