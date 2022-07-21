@@ -11,7 +11,7 @@ use Mll\Microplate\Exceptions\SectionIsFullException;
  *
  * @template TSectionWell
  */
-class FullColumnSection extends AbstractSection
+final class FullColumnSection extends AbstractSection
 {
     public function __construct(SectionedMicroplate $sectionedMicroplate)
     {

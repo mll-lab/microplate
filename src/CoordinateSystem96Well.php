@@ -2,7 +2,7 @@
 
 namespace Mll\Microplate;
 
-class CoordinateSystem96Well extends CoordinateSystem
+final class CoordinateSystem96Well extends CoordinateSystem
 {
     public function rows(): array
     {

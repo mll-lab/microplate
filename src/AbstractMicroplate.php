@@ -69,7 +69,7 @@ abstract class AbstractMicroplate
                         $coordinate = Coordinate::fromString($key, $this->coordinateSystem);
 
                         return $coordinate->column . $coordinate->row;
-                    // @codeCoverageIgnoreStart all Enums are listed and this should never happen
+                        // @codeCoverageIgnoreStart all Enums are listed and this should never happen
                     default:
                         throw new UnexpectedFlowDirection($flowDirection);
                     // @codeCoverageIgnoreEnd

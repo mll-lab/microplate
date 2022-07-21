@@ -7,7 +7,7 @@ use Mll\Microplate\Exceptions\MicroplateIsFullException;
 /**
  * @template TSectionWell
  */
-class Section extends AbstractSection
+final class Section extends AbstractSection
 {
     /**
      * @param TSectionWell $content
