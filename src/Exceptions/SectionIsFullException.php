@@ -2,7 +2,7 @@
 
 namespace Mll\Microplate\Exceptions;
 
-class SectionIsFullException extends \UnexpectedValueException
+final class SectionIsFullException extends \UnexpectedValueException
 {
     public function __construct()
     {

@@ -2,6 +2,6 @@
 
 namespace Mll\Microplate\Exceptions;
 
-class SectionDoesNotExistException extends \Exception
+final class SectionDoesNotExistException extends \Exception
 {
 }

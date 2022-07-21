@@ -4,7 +4,7 @@ namespace Mll\Microplate\Exceptions;
 
 use Mll\Microplate\Enums\FlowDirection;
 
-class UnexpectedFlowDirection extends \UnexpectedValueException
+final class UnexpectedFlowDirection extends \UnexpectedValueException
 {
     public function __construct(FlowDirection $flowDirection)
     {

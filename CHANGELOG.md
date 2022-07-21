@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v4.0.0
+
+### Changed
+
+- Finalize classes without children
+
 ## v3.6.0
 
 ### Added

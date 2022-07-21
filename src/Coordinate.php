@@ -4,17 +4,21 @@ namespace Mll\Microplate;
 
 use function count;
 use function get_class;
+
 use Illuminate\Support\Arr;
+
 use function implode;
+
 use InvalidArgumentException;
 use Mll\Microplate\Enums\FlowDirection;
 use Mll\Microplate\Exceptions\UnexpectedFlowDirection;
+
 use function Safe\preg_match;
 
 /**
  * @template TCoordinateSystem of CoordinateSystem
  */
-class Coordinate
+final class Coordinate
 {
     private const MIN_POSITION = 1;
 
@@ -119,7 +123,7 @@ class Coordinate
                     $coordinateSystem->columnForRowFlowPosition($position),
                     $coordinateSystem
                 );
-            // @codeCoverageIgnoreStart all Enums are listed and this should never happen
+                // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
                 throw new UnexpectedFlowDirection($direction);
             // @codeCoverageIgnoreEnd
@@ -139,7 +143,7 @@ class Coordinate
                 return $rowIndex * count($this->coordinateSystem->columns()) + $columnIndex + 1;
             case FlowDirection::COLUMN:
                 return $columnIndex * count($this->coordinateSystem->rows()) + $rowIndex + 1;
-            // @codeCoverageIgnoreStart all Enums are listed and this should never happen
+                // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
                 throw new UnexpectedFlowDirection($direction);
             // @codeCoverageIgnoreEnd
