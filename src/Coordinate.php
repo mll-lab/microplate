@@ -126,7 +126,7 @@ final class Coordinate
                 // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
                 throw new UnexpectedFlowDirection($direction);
-            // @codeCoverageIgnoreEnd
+                // @codeCoverageIgnoreEnd
         }
     }
 
@@ -146,7 +146,7 @@ final class Coordinate
                 // @codeCoverageIgnoreStart all Enums are listed and this should never happen
             default:
                 throw new UnexpectedFlowDirection($direction);
-            // @codeCoverageIgnoreEnd
+                // @codeCoverageIgnoreEnd
         }
     }
 
