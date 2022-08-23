@@ -106,7 +106,7 @@ abstract class AbstractMicroplate
     }
 
     /**
-     * @return callable(TWell $content, string $coordinateString): bool
+     * @return callable(TWell|null $content, string $coordinateString): bool
      */
     public function matchRow(string $row): callable
     {
@@ -118,7 +118,7 @@ abstract class AbstractMicroplate
     }
 
     /**
-     * @return callable(TWell $content, string $coordinateString): bool
+     * @return callable(TWell|null $content, string $coordinateString): bool
      */
     public function matchColumn(int $column): callable
     {
