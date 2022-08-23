@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v4.1.0
+
+### Added
+
+- Open `Microplate` and `SectionedMicroplate` for extension
+-
+
 ## v4.0.1
 
 ### Fixed

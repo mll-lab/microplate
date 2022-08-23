@@ -15,7 +15,7 @@ use Mll\Microplate\Exceptions\WellNotEmptyException;
  *
  * @phpstan-type WellsCollection Collection<string, TWell|null>
  */
-final class Microplate extends AbstractMicroplate
+class Microplate extends AbstractMicroplate
 {
     /**
      * @var WellsCollection
