@@ -72,7 +72,7 @@ abstract class AbstractMicroplate
                         // @codeCoverageIgnoreStart all Enums are listed and this should never happen
                     default:
                         throw new UnexpectedFlowDirection($flowDirection);
-                    // @codeCoverageIgnoreEnd
+                        // @codeCoverageIgnoreEnd
                 }
             },
             SORT_NATURAL
