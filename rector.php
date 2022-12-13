@@ -1,17 +1,21 @@
 <?php declare(strict_types=1);
 
+use function MLL\RectorConfig\config;
+
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
-use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Set\ValueObject\SetList;
+use Rector\Transform\Rector\FuncCall\FuncCallToNewRector;
 use Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
 
-return static function (RectorConfig $config): void {
-    $config->services()->set(AddClosureReturnTypeRector::class);
-    $config->services()->set(FinalizeClassesWithoutChildrenRector::class);
-    $config->import(SetList::CODE_QUALITY);
-    $config->import(SetList::PHP_74);
+return static function (RectorConfig $rectorConfig): void {
+    config($rectorConfig);
 
-    $config->paths([__DIR__ . '/src', __DIR__ . '/tests']);
-    $config->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
+    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
+
+    $rectorConfig->ruleWithConfiguration(FuncCallToNewRector::class, ['collect' => 'Illuminate\\Support\\Collection']);
+    $rectorConfig->rule(AddClosureReturnTypeRector::class);
+
+    $rectorConfig->import(SetList::CODE_QUALITY);
+    $rectorConfig->import(SetList::PHP_74);
 };
