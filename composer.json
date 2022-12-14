@@ -25,6 +25,7 @@
     "infection/infection": "~0.25",
     "jangregor/phpstan-prophecy": "^1",
     "mll-lab/php-cs-fixer-config": "^4.3",
+    "mll-lab/rector-config": "^1.0",
     "nunomaduro/larastan": "^1",
     "orchestra/testbench": "^5 || ^6 || ^7",
     "phpstan/extension-installer": "^1",
@@ -33,7 +34,6 @@
     "phpstan/phpstan-phpunit": "^1",
     "phpstan/phpstan-strict-rules": "^1",
     "phpunit/phpunit": "^9",
-    "rector/rector": "^0.13",
     "symfony/var-dumper": "^5 || ^6",
     "thecodingmachine/phpstan-safe-rule": "^1.1"
   },

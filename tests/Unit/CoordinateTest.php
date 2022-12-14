@@ -2,7 +2,6 @@
 
 namespace Mll\Microplate\Tests\Unit;
 
-use InvalidArgumentException;
 use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
@@ -694,7 +693,7 @@ final class CoordinateTest extends TestCase
      */
     public function testThrowsOnInvalidRowsOrColumns(string $row, int $column): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new Coordinate($row, $column, new CoordinateSystem96Well());
     }
 
@@ -718,7 +717,7 @@ final class CoordinateTest extends TestCase
      */
     public function testThrowsOnInvalidPositions(int $position): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         Coordinate::fromPosition($position, FlowDirection::COLUMN(), new CoordinateSystem96Well());
     }
 
@@ -740,7 +739,7 @@ final class CoordinateTest extends TestCase
      */
     public function testThrowsOnInvalidCoordinates(string $coordinateString): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         Coordinate::fromString($coordinateString, new CoordinateSystem96Well());
     }
 
