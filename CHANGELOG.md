@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v4.3.0
+
+### Added
+
+- Add `Row96Well` scalar
+- Add `Column96Well` scalar
+
 ## v4.2.0
 
 ### Changed
