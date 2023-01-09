@@ -14,7 +14,7 @@ final class Column96Well extends ScalarType
     public const MAX_INT = 12;
     public const MIN_INT = 1;
 
-    public $description = 'Checks if the given column is of the format 96-well column';
+    public ?string $description = 'Checks if the given column is of the format 96-well column';
 
     public function serialize($value)
     {
