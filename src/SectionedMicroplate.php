@@ -31,8 +31,9 @@ final class SectionedMicroplate extends AbstractMicroplate
     }
 
     /**
-     * @param class-string<TSection> $sectionClass
-     * @return TSection
+     * @template TAddSection of TSection
+     * @param class-string<TAddSection> $sectionClass
+     * @return TAddSection
      */
     public function addSection(string $sectionClass): AbstractSection
     {
