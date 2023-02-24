@@ -224,4 +224,88 @@ final class MicroplateTest extends TestCase
     {
         return CoordinateTest::dataProvider12Well();
     }
+
+    public function testContainsAllTrueForSame(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertTrue($microplate->containsAll(new Collection([1, 2])));
+    }
+
+    public function testContainsAllTrueIfPlateHasAllAndMoreWells(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(3, FlowDirection::COLUMN());
+
+        self::assertTrue($microplate->containsAll(new Collection([1, 2])));
+    }
+
+    public function testContainsAllFalseIfWellIsMissingOnPlate(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertFalse($microplate->containsAll(new Collection([1, 2, 3])));
+    }
+
+    public function testContainsNoneTrue(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertTrue($microplate->containsNone(new Collection([3, 4])));
+    }
+
+    public function testContainsNoneFalseForOneButNotAllValues(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertFalse($microplate->containsNone(new Collection([2, 4])));
+    }
+
+    public function testContainsNoneFalseForAllValues(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertFalse($microplate->containsNone(new Collection([1, 2])));
+    }
+
+    public function testContainsSameTrue(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertTrue($microplate->containsSame(new Collection([1, 2])));
+    }
+
+    public function testContainsSameFalseIfPlateHasOneMore(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(3, FlowDirection::COLUMN());
+
+        self::assertFalse($microplate->containsSame(new Collection([1, 2])));
+    }
+
+    public function testContainsSameFalseIfPlateHasOneMissing(): void
+    {
+        $microplate = new Microplate(new CoordinateSystem12Well());
+        $microplate->addToNextFreeWell(1, FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell(2, FlowDirection::COLUMN());
+
+        self::assertFalse($microplate->containsSame(new Collection([1, 2, 3])));
+    }
+
 }

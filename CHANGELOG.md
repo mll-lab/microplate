@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v4.4.0
+
+### Added
+
+- Add `containsSame()`, `containsAll()`, `containsNone()` methods to class `Microplate`
+
 ## v4.3.2
 
 ### Fixed

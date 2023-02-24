@@ -136,4 +136,39 @@ final class Microplate extends AbstractMicroplate
 
         return Coordinate::fromString($coordinateString, $this->coordinateSystem);
     }
+
+    /**
+     * @param Collection<array-key, TWell> $wells
+     */
+    public function containsAll(Collection $wells): bool
+    {
+        return $wells
+            ->diff($this->filledWells())
+            ->isEmpty();
+    }
+
+    /**
+     * @param Collection<array-key, TWell> $wells
+     */
+    public function containsNone(Collection $wells): bool
+    {
+        return $this->filledWells()
+            ->intersect($wells)
+            ->isEmpty();
+    }
+
+    /**
+     * @param Collection<array-key, TWell> $wells
+     */
+    public function containsSame(Collection $wells): bool
+    {
+        $firstDiffEmpty = $wells->diff($this->wells)
+            ->isEmpty();
+
+        $secondDiffEmpty = $this->filledWells()
+            ->diff($wells)
+            ->isEmpty();
+
+        return $firstDiffEmpty && $secondDiffEmpty;
+    }
 }
