@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mll\Microplate\Tests\Scalars\Unit;
+namespace Mll\Microplate\Tests\Unit\Scalars;
 
 use GraphQL\Error\Error;
 use Mll\Microplate\Scalars\Column96Well;
@@ -11,7 +11,7 @@ final class Column96WellTest extends TestCase
     public function testSerializeThrowsIfColumn96WellIsNotAnInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not in range: 12');
+        $this->expectExceptionMessage('Value not in range: "12".');
 
         (new Column96Well())->serialize('12');
     }
@@ -19,7 +19,7 @@ final class Column96WellTest extends TestCase
     public function testSerializeThrowsIfColumn96WellIsInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not in range: 13');
+        $this->expectExceptionMessage('Value not in range: 13.');
 
         (new Column96Well())->serialize(13);
     }
@@ -34,7 +34,7 @@ final class Column96WellTest extends TestCase
     public function testParseValueThrowsIfColumn96WellIsInvalid(): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessage('Value not in range: 13');
+        $this->expectExceptionMessage('Value not in range: 13.');
 
         (new Column96Well())->parseValue(13);
     }
