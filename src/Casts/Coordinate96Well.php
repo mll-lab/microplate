@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Mll\Microplate\Coordinate;
 use Mll\Microplate\CoordinateSystem96Well;
 
+/**
+ * @implements CastsAttributes<Coordinate<CoordinateSystem96Well>, Coordinate<CoordinateSystem96Well>>
+ */
 final class Coordinate96Well implements CastsAttributes
 {
     /**
      * @param  Model  $model
      * @param  string  $key
      * @param  array<array-key, mixed> $attributes
+     *
+     * @return Coordinate<CoordinateSystem96Well>
      */
     public function get($model, $key, $value, $attributes): Coordinate
     {

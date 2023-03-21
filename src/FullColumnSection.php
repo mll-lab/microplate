@@ -10,6 +10,8 @@ use Mll\Microplate\Exceptions\SectionIsFullException;
  * not allowed in this occupied wells. Occupied wells can still be filled with samples of the same type.
  *
  * @template TSectionWell
+ *
+ * @extends AbstractSection<TSectionWell>
  */
 final class FullColumnSection extends AbstractSection
 {
@@ -77,7 +79,6 @@ final class FullColumnSection extends AbstractSection
     {
         $totalReservedColumns = $this->sectionedMicroplate
             ->sections
-            // @phpstan-ignore-next-line generics false positive
             ->sum(static fn (self $section): int => $section->reservedColumns());
 
         $availableColumns = $this->sectionedMicroplate

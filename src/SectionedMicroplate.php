@@ -32,11 +32,14 @@ final class SectionedMicroplate extends AbstractMicroplate
 
     /**
      * @template TAddSection of TSection
+     *
      * @param class-string<TAddSection> $sectionClass
+     *
      * @return TAddSection
      */
     public function addSection(string $sectionClass): AbstractSection
     {
+        // @phpstan-ignore-next-line generic mismatch
         return $this->sections[] = new $sectionClass($this);
     }
 
@@ -54,7 +57,6 @@ final class SectionedMicroplate extends AbstractMicroplate
 
     public function wells(): Collection
     {
-        // @phpstan-ignore-next-line type TWell is not inferred correctly throughout this pipeline of transformations
         return $this->sections
             ->map(fn (AbstractSection $section): Collection => $section->sectionItems)
             ->flatten(1)
