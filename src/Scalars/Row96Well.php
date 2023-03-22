@@ -6,7 +6,7 @@ use MLL\GraphQLScalars\Regex;
 
 final class Row96Well extends Regex
 {
-    public $description = 'Checks if the given row is of the format 96-well row';
+    public ?string $description = 'Checks if the given row is of the format 96-well row';
 
     public static function regex(): string
     {

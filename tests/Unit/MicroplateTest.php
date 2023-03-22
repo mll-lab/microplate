@@ -91,6 +91,7 @@ final class MicroplateTest extends TestCase
             ->map($microplate->toWellWithCoordinateMapper())
             ->first();
 
+        // @phpstan-ignore-next-line inaccurate
         self::assertInstanceOf(WellWithCoordinate::class, $wellWithCoordinate);
         self::assertSame($content, $wellWithCoordinate->content);
         self::assertEquals($coordinate, $wellWithCoordinate->coordinate);

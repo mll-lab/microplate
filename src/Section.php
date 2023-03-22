@@ -6,6 +6,8 @@ use Mll\Microplate\Exceptions\MicroplateIsFullException;
 
 /**
  * @template TSectionWell
+ *
+ * @extends AbstractSection<TSectionWell>
  */
 final class Section extends AbstractSection
 {

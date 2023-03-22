@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-use function MLL\RectorConfig\config;
-
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\SetList;
 use Rector\Transform\Rector\FuncCall\FuncCallToNewRector;
 use Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
+
+use function MLL\RectorConfig\config;
 
 return static function (RectorConfig $rectorConfig): void {
     config($rectorConfig);

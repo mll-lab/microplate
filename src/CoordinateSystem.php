@@ -69,7 +69,7 @@ abstract class CoordinateSystem
      *
      * e.g. A1, A2, B1, B2
      *
-     * @return iterable<int, Coordinate>
+     * @return iterable<int, Coordinate<$this>>
      */
     public function all(): iterable
     {

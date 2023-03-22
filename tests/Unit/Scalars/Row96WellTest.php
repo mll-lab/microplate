@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mll\Microplate\Tests\Scalars\Unit;
+namespace Mll\Microplate\Tests\Unit\Scalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
