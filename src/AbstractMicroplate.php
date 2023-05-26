@@ -139,4 +139,20 @@ abstract class AbstractMicroplate
             Coordinate::fromString($coordinateString, $this->coordinateSystem)
         );
     }
+
+    /**
+     * If the wells are in a consecutive order.
+     */
+    public function isConsecutive(FlowDirection $flowDirection): bool
+    {
+        $positions = $this->filledWells()
+            /**
+             * @param TWell $content
+             */
+            ->map(
+                fn ($content, string $coordinateString): int => Coordinate::fromString($coordinateString, $this->coordinateSystem)->position($flowDirection)
+            );
+
+        return ($positions->max() - $positions->min() + 1) === $positions->count();
+    }
 }

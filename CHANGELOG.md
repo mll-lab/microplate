@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v5.2.0
+
+### Added
+
+- Add `isConsecutive()` method to `AbstractMicroplate`
+
 ## v5.1.0
 
 ### Changed

@@ -210,6 +210,48 @@ final class MicroplateTest extends TestCase
         $microplate->nextFreeWellCoordinate(FlowDirection::ROW());
     }
 
+    public function testIsConsecutiveForColumn(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+        $microplate = new Microplate($coordinateSystem);
+
+        $data = [
+            'A1', 'B1', 'C1',
+        ];
+        foreach ($data as $wellData) {
+            $microplateCoordinate = Coordinate::fromString($wellData, $coordinateSystem);
+            $microplate->addWell($microplateCoordinate, 'test');
+        }
+
+        self::assertTrue($microplate->isConsecutive(FlowDirection::COLUMN()));
+        self::assertFalse($microplate->isConsecutive(FlowDirection::ROW()));
+
+        // is not consecutive anymore after adding a gap at E1
+        $microplate->addWell(Coordinate::fromString('E1', $coordinateSystem), 'test');
+        self::assertFalse($microplate->isConsecutive(FlowDirection::COLUMN()));
+    }
+
+    public function testIsConsecutiveForRow(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+        $microplate = new Microplate($coordinateSystem);
+
+        $data = [
+            'A1', 'A2', 'A3',
+        ];
+        foreach ($data as $wellData) {
+            $microplateCoordinate = Coordinate::fromString($wellData, $coordinateSystem);
+            $microplate->addWell($microplateCoordinate, 'test');
+        }
+
+        self::assertTrue($microplate->isConsecutive(FlowDirection::ROW()));
+        self::assertFalse($microplate->isConsecutive(FlowDirection::COLUMN()));
+
+        // is not consecutive anymore after adding a gap at A5
+        $microplate->addWell(Coordinate::fromString('A5', $coordinateSystem), 'test');
+        self::assertFalse($microplate->isConsecutive(FlowDirection::ROW()));
+    }
+
     /**
      * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
      */
