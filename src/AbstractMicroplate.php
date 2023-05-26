@@ -141,7 +141,9 @@ abstract class AbstractMicroplate
     }
 
     /**
-     * If the wells are in a consecutive order.
+     * Are all filled wells placed in a single connected block without gaps between them?
+     *
+     * Returns `false` if all wells are empty.
      */
     public function isConsecutive(FlowDirection $flowDirection): bool
     {
