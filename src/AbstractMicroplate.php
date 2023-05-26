@@ -139,4 +139,22 @@ abstract class AbstractMicroplate
             Coordinate::fromString($coordinateString, $this->coordinateSystem)
         );
     }
+
+    /**
+     * Are all filled wells placed in a single connected block without gaps between them?
+     *
+     * Returns `false` if all wells are empty.
+     */
+    public function isConsecutive(FlowDirection $flowDirection): bool
+    {
+        $positions = $this->filledWells()
+            /**
+             * @param TWell $content
+             */
+            ->map(
+                fn ($content, string $coordinateString): int => Coordinate::fromString($coordinateString, $this->coordinateSystem)->position($flowDirection)
+            );
+
+        return ($positions->max() - $positions->min() + 1) === $positions->count();
+    }
 }
