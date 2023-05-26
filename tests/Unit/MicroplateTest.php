@@ -252,6 +252,28 @@ final class MicroplateTest extends TestCase
         self::assertFalse($microplate->isConsecutive(FlowDirection::ROW()));
     }
 
+    public function testIsConsecutiveForEmptyPlate(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+        $microplate = new Microplate($coordinateSystem);
+
+        self::assertFalse($microplate->isConsecutive(FlowDirection::ROW()));
+        self::assertFalse($microplate->isConsecutive(FlowDirection::COLUMN()));
+    }
+
+    public function testIsConsecutiveForFullPlate(): void
+    {
+        $coordinateSystem = new CoordinateSystem96Well();
+        $microplate = new Microplate($coordinateSystem);
+
+        foreach ($coordinateSystem->all() as $coordinate) {
+            $microplate->addWell($coordinate, 'test');
+        }
+
+        self::assertTrue($microplate->isConsecutive(FlowDirection::ROW()));
+        self::assertTrue($microplate->isConsecutive(FlowDirection::COLUMN()));
+    }
+
     /**
      * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
      */
