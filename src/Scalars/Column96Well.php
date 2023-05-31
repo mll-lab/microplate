@@ -36,7 +36,7 @@ final class Column96Well extends ScalarType
         throw new Error("Value not in range: {$notInRange}.");
     }
 
-    public function parseLiteral(Node $valueNode, ?array $variables = null)
+    public function parseLiteral(Node $valueNode, array $variables = null)
     {
         if ($valueNode instanceof IntValueNode) {
             $value = (int) $valueNode->value;
