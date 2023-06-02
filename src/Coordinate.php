@@ -13,7 +13,7 @@ use function Safe\preg_match;
  */
 final class Coordinate
 {
-    private const MIN_POSITION = 1;
+    public const MIN_POSITION = 1;
 
     public string $row;
 
