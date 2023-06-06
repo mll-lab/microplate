@@ -52,6 +52,7 @@ abstract class MicroplateSet
         $plateIndex = (int) floor(($setPosition - 1) / $this->coordinateSystem->positionsCount());
         $positionOnSinglePlate = $setPosition - ($plateIndex * $this->coordinateSystem->positionsCount());
 
+        /** @phpstan-ignore-next-line Generic inference is too weak to recognize this code is correct */
         return new Location(
             Coordinate::fromPosition($positionOnSinglePlate, $direction, $this->coordinateSystem),
             $this->plateIDs()[$plateIndex]

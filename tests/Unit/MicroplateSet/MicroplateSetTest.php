@@ -6,7 +6,6 @@ use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
 use Mll\Microplate\MicroplateSet\MicroplateSetABCD;
-use Mll\Microplate\MicroplateSet\MicroplateSetHandler;
 use PHPUnit\Framework\TestCase;
 
 final class MicroplateSetTest extends TestCase
@@ -60,38 +59,40 @@ final class MicroplateSetTest extends TestCase
     }
 
     /**
-     * @return list<array{position: int, coordinateString: string, plateID: string}>
+     * @return iterable<array{position: int, coordinateString: string, plateID: string}>
      */
-    public static function dataProvider12Well(): array
+    public static function dataProvider12Well(): iterable
     {
-        return
-            [
-                [
-                    'position' => 1,
-                    'coordinateString' => 'A1',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 2,
-                    'coordinateString' => 'B1',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 3,
-                    'coordinateString' => 'C1',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 12,
-                    'coordinateString' => 'C4',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 13,
-                    'coordinateString' => 'A1',
-                    'plateID' => 'B',
-                ], [
-                    'position' => 48,
-                    'coordinateString' => 'C4',
-                    'plateID' => 'D',
-                ],
-            ];
+        yield [
+            'position' => 1,
+            'coordinateString' => 'A1',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 2,
+            'coordinateString' => 'B1',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 3,
+            'coordinateString' => 'C1',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 12,
+            'coordinateString' => 'C4',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 13,
+            'coordinateString' => 'A1',
+            'plateID' => 'B',
+        ];
+        yield [
+            'position' => 48,
+            'coordinateString' => 'C4',
+            'plateID' => 'D',
+        ];
     }
 
     /**
@@ -121,34 +122,40 @@ final class MicroplateSetTest extends TestCase
             'coordinateString' => 'B1',
             'plateID' => 'A',
         ];
-                    'position' => 3,
-                    'coordinateString' => 'C1',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 12,
-                    'coordinateString' => 'D2',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 13,
-                    'coordinateString' => 'E2',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 96,
-                    'coordinateString' => 'H12',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 97,
-                    'coordinateString' => 'A1',
-                    'plateID' => 'B',
-                ], [
-                    'position' => 384,
-                    'coordinateString' => 'H12',
-                    'plateID' => 'D',
-                ], [
-                    'position' => 383,
-                    'coordinateString' => 'G12',
-                    'plateID' => 'D',
-                ],
-            ];
+        yield [
+            'position' => 3,
+            'coordinateString' => 'C1',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 12,
+            'coordinateString' => 'D2',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 13,
+            'coordinateString' => 'E2',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 96,
+            'coordinateString' => 'H12',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 97,
+            'coordinateString' => 'A1',
+            'plateID' => 'B',
+        ];
+        yield [
+            'position' => 384,
+            'coordinateString' => 'H12',
+            'plateID' => 'D',
+        ];
+        yield [
+            'position' => 383,
+            'coordinateString' => 'G12',
+            'plateID' => 'D',
+        ];
     }
 }
