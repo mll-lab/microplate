@@ -107,21 +107,20 @@ final class MicroplateSetTest extends TestCase
     }
 
     /**
-     * @return list<array{position: int, coordinateString: string, plateID: string}>
+     * @return iterable<array{position: int, coordinateString: string, plateID: string}>
      */
-    public static function dataProvider96Well(): array
+    public static function dataProvider96Well(): iterable
     {
-        return
-            [
-                [
-                    'position' => 1,
-                    'coordinateString' => 'A1',
-                    'plateID' => 'A',
-                ], [
-                    'position' => 2,
-                    'coordinateString' => 'B1',
-                    'plateID' => 'A',
-                ], [
+        yield [
+            'position' => 1,
+            'coordinateString' => 'A1',
+            'plateID' => 'A',
+        ];
+        yield [
+            'position' => 2,
+            'coordinateString' => 'B1',
+            'plateID' => 'A',
+        ];
                     'position' => 3,
                     'coordinateString' => 'C1',
                     'plateID' => 'A',

@@ -11,9 +11,6 @@ use Mll\Microplate\CoordinateSystem;
  */
 final class MicroplateSetABCD extends MicroplateSet
 {
-    /**
-     * {@inheritDoc}
-     */
     public function plateIDs(): array
     {
         return ['A', 'B', 'C', 'D'];

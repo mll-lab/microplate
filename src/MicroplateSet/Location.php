@@ -15,14 +15,14 @@ final class Location
     /**
      * @var \Mll\Microplate\Coordinate<TCoordinateSystem>
      */
-    public $coordinate;
+    public Coordinate $coordinate;
 
     /**
      * @param \Mll\Microplate\Coordinate<TCoordinateSystem> $coordinate
      */
-    public function __construct(Coordinate $coordinate, string $plateId)
+    public function __construct(Coordinate $coordinate, string $plateID)
     {
         $this->coordinate = $coordinate;
-        $this->plateID = $plateId;
+        $this->plateID = $plateID;
     }
 }
