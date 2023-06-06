@@ -5,44 +5,44 @@ namespace Mll\Microplate\Tests\Unit\MicroplateSet;
 use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
-use Mll\Microplate\MicroplateSet\MicroplateSetABCD;
+use Mll\Microplate\MicroplateSet\MicroplateSetAB;
 use PHPUnit\Framework\TestCase;
 
-final class MicroplateSetTest extends TestCase
+final class MicroplateSetABTest extends TestCase
 {
     public function testSetLocationFromSetPositionFor96WellPlatesOutOfRangeTooHigh(): void
     {
-        $microplateSet = new MicroplateSetABCD(new CoordinateSystem96Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
 
-        $setPositionHigherThanMax = 385;
-        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-384, got: {$setPositionHigherThanMax}"));
+        $setPositionHigherThanMax = 193;
+        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-192, got: {$setPositionHigherThanMax}"));
         $microplateSet->locationFromPosition($setPositionHigherThanMax, FlowDirection::COLUMN());
     }
 
     public function testSetLocationFromSetPositionFor96WellPlatesOutOfRangeTooLow(): void
     {
-        $microplateSet = new MicroplateSetABCD(new CoordinateSystem96Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
 
         $setPositionLowerThanMin = 0;
-        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-384, got: {$setPositionLowerThanMin}"));
+        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-192, got: {$setPositionLowerThanMin}"));
         $microplateSet->locationFromPosition($setPositionLowerThanMin, FlowDirection::COLUMN());
     }
 
     public function testSetLocationFromSetPositionFor12WellPlatesOutOfRangeTooHigh(): void
     {
-        $microplateSet = new MicroplateSetABCD(new CoordinateSystem12Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
 
-        $setPositionHigherThanMax = 49;
-        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-48, got: {$setPositionHigherThanMax}"));
+        $setPositionHigherThanMax = 25;
+        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-24, got: {$setPositionHigherThanMax}"));
         $microplateSet->locationFromPosition($setPositionHigherThanMax, FlowDirection::COLUMN());
     }
 
     public function testSetLocationFromSetPositionFor12WellPlatesOutOfRangeTooLow(): void
     {
-        $microplateSet = new MicroplateSetABCD(new CoordinateSystem12Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
 
         $setPositionLowerThanMin = 0;
-        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-48, got: {$setPositionLowerThanMin}"));
+        self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-24, got: {$setPositionLowerThanMin}"));
         $microplateSet->locationFromPosition($setPositionLowerThanMin, FlowDirection::COLUMN());
     }
 
@@ -51,7 +51,7 @@ final class MicroplateSetTest extends TestCase
      */
     public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinateString, string $plateID): void
     {
-        $microplateSet = new MicroplateSetABCD(new CoordinateSystem12Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
         self::assertSame($location->coordinate->toString(), $coordinateString);
@@ -89,9 +89,9 @@ final class MicroplateSetTest extends TestCase
             'plateID' => 'B',
         ];
         yield [
-            'position' => 48,
+            'position' => 24,
             'coordinateString' => 'C4',
-            'plateID' => 'D',
+            'plateID' => 'B',
         ];
     }
 
@@ -100,7 +100,7 @@ final class MicroplateSetTest extends TestCase
      */
     public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinateString, string $plateID): void
     {
-        $microplateSet = new MicroplateSetABCD(new CoordinateSystem96Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
         self::assertSame($coordinateString, $location->coordinate->toString());
@@ -148,14 +148,14 @@ final class MicroplateSetTest extends TestCase
             'plateID' => 'B',
         ];
         yield [
-            'position' => 384,
+            'position' => 192,
             'coordinateString' => 'H12',
-            'plateID' => 'D',
+            'plateID' => 'B',
         ];
         yield [
-            'position' => 383,
+            'position' => 191,
             'coordinateString' => 'G12',
-            'plateID' => 'D',
+            'plateID' => 'B',
         ];
     }
 }
