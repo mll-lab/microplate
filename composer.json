@@ -25,7 +25,7 @@
     "infection/infection": "~0.25",
     "jangregor/phpstan-prophecy": "^1",
     "mll-lab/graphql-php-scalars": "^6",
-    "mll-lab/php-cs-fixer-config": "^4.3",
+    "mll-lab/php-cs-fixer-config": "^5",
     "mll-lab/rector-config": "^2",
     "nunomaduro/larastan": "^1 || ^2",
     "orchestra/testbench": "^5 || ^6 || ^7 || ^8",

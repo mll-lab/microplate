@@ -9,11 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v5.5.0
+
+### Added
+
+- Add `CoordinateSystem48Well`
+
 ## v5.4.0
 
 ### Added
 
-- Add `MicroplateSet` possibility to calculate a `Location` within this set by a position 
+- Add `MicroplateSet` possibility to calculate a `Location` within this set by a position
 
 ## v5.3.0
 
