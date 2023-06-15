@@ -167,26 +167,26 @@ final class MicroplateTest extends TestCase
             'A3' => 'barfoo',
         ];
 
-        $coordinateString1 = array_keys($wellData)[0];
-        $microplateCoordinate1 = Coordinates::fromString($coordinateString1, $coordinateSystem);
+        $coordinatesString1 = array_keys($wellData)[0];
+        $microplateCoordinate1 = Coordinates::fromString($coordinatesString1, $coordinateSystem);
         self::assertEquals($microplateCoordinate1, $microplate->nextFreeWellCoordinates(FlowDirection::COLUMN()));
-        $microplate->addToNextFreeWell($wellData[$coordinateString1], FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell($wellData[$coordinatesString1], FlowDirection::COLUMN());
 
-        $coordinateString2 = array_keys($wellData)[1];
-        $microplateCoordinate2 = Coordinates::fromString($coordinateString2, $coordinateSystem);
+        $coordinatesString2 = array_keys($wellData)[1];
+        $microplateCoordinate2 = Coordinates::fromString($coordinatesString2, $coordinateSystem);
         self::assertEquals($microplateCoordinate2, $microplate->nextFreeWellCoordinates(FlowDirection::COLUMN()));
-        $microplate->addToNextFreeWell($wellData[$coordinateString2], FlowDirection::COLUMN());
+        $microplate->addToNextFreeWell($wellData[$coordinatesString2], FlowDirection::COLUMN());
 
         $microplateCoordinate3 = Coordinates::fromString('C1', $coordinateSystem);
         self::assertEquals($microplateCoordinate3, $microplate->nextFreeWellCoordinates(FlowDirection::COLUMN()));
 
-        $coordinateString4 = array_keys($wellData)[2];
-        $microplateCoordinate4 = Coordinates::fromString($coordinateString4, $coordinateSystem);
-        self::assertEquals($microplateCoordinate4, $microplate->addToNextFreeWell($wellData[$coordinateString4], FlowDirection::ROW()));
+        $coordinatesString4 = array_keys($wellData)[2];
+        $microplateCoordinate4 = Coordinates::fromString($coordinatesString4, $coordinateSystem);
+        self::assertEquals($microplateCoordinate4, $microplate->addToNextFreeWell($wellData[$coordinatesString4], FlowDirection::ROW()));
 
-        $coordinateString5 = array_keys($wellData)[3];
-        $microplateCoordinate5 = Coordinates::fromString($coordinateString5, $coordinateSystem);
-        self::assertEquals($microplateCoordinate5, $microplate->addToNextFreeWell($wellData[$coordinateString5], FlowDirection::ROW()));
+        $coordinatesString5 = array_keys($wellData)[3];
+        $microplateCoordinate5 = Coordinates::fromString($coordinatesString5, $coordinateSystem);
+        self::assertEquals($microplateCoordinate5, $microplate->addToNextFreeWell($wellData[$coordinatesString5], FlowDirection::ROW()));
 
         self::assertSame($wellData, $microplate->filledWells()->toArray());
     }

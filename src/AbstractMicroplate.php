@@ -91,32 +91,32 @@ abstract class AbstractMicroplate
         );
     }
 
-    /** @return callable(TWell|null $content, string $coordinateString): bool */
+    /** @return callable(TWell|null $content, string $coordinatesString): bool */
     public function matchRow(string $row): callable
     {
-        return function ($content, string $coordinateString) use ($row): bool {
-            $coordinates = Coordinates::fromString($coordinateString, $this->coordinateSystem);
+        return function ($content, string $coordinatesString) use ($row): bool {
+            $coordinates = Coordinates::fromString($coordinatesString, $this->coordinateSystem);
 
             return $coordinates->row === $row;
         };
     }
 
-    /** @return callable(TWell|null $content, string $coordinateString): bool */
+    /** @return callable(TWell|null $content, string $coordinatesString): bool */
     public function matchColumn(int $column): callable
     {
-        return function ($content, string $coordinateString) use ($column): bool {
-            $coordinates = Coordinates::fromString($coordinateString, $this->coordinateSystem);
+        return function ($content, string $coordinatesString) use ($column): bool {
+            $coordinates = Coordinates::fromString($coordinatesString, $this->coordinateSystem);
 
             return $coordinates->column === $column;
         };
     }
 
-    /** @return callable(TWell $content, string $coordinateString): WellWithCoordinates<TWell, TCoordinateSystem> */
+    /** @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem> */
     public function toWellWithCoordinateMapper(): callable
     {
-        return fn ($content, string $coordinateString): WellWithCoordinates => new WellWithCoordinates(
+        return fn ($content, string $coordinatesString): WellWithCoordinates => new WellWithCoordinates(
             $content,
-            Coordinates::fromString($coordinateString, $this->coordinateSystem)
+            Coordinates::fromString($coordinatesString, $this->coordinateSystem)
         );
     }
 
@@ -128,11 +128,9 @@ abstract class AbstractMicroplate
     public function isConsecutive(FlowDirection $flowDirection): bool
     {
         $positions = $this->filledWells()
-            /**
-             * @param TWell $content
-             */
             ->map(
-                fn ($content, string $coordinateString): int => Coordinates::fromString($coordinateString, $this->coordinateSystem)->position($flowDirection)
+                /** @param TWell $content */
+                fn ($content, string $coordinatesString): int => Coordinates::fromString($coordinatesString, $this->coordinateSystem)->position($flowDirection)
             );
 
         return ($positions->max() - $positions->min() + 1) === $positions->count();

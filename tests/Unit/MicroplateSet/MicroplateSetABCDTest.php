@@ -47,106 +47,106 @@ final class MicroplateSetABCDTest extends TestCase
     }
 
     /** @dataProvider dataProvider12Well */
-    public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinateString, string $plateID): void
+    public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinatesString, string $plateID): void
     {
         $microplateSet = new MicroplateSetABCD(new CoordinateSystem12Well());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
-        self::assertSame($location->coordinates->toString(), $coordinateString);
+        self::assertSame($location->coordinates->toString(), $coordinatesString);
         self::assertSame($location->plateID, $plateID);
     }
 
-    /** @return iterable<array{position: int, coordinateString: string, plateID: string}> */
+    /** @return iterable<array{position: int, coordinatesString: string, plateID: string}> */
     public static function dataProvider12Well(): iterable
     {
         yield [
             'position' => 1,
-            'coordinateString' => 'A1',
+            'coordinatesString' => 'A1',
             'plateID' => 'A',
         ];
         yield [
             'position' => 2,
-            'coordinateString' => 'B1',
+            'coordinatesString' => 'B1',
             'plateID' => 'A',
         ];
         yield [
             'position' => 3,
-            'coordinateString' => 'C1',
+            'coordinatesString' => 'C1',
             'plateID' => 'A',
         ];
         yield [
             'position' => 12,
-            'coordinateString' => 'C4',
+            'coordinatesString' => 'C4',
             'plateID' => 'A',
         ];
         yield [
             'position' => 13,
-            'coordinateString' => 'A1',
+            'coordinatesString' => 'A1',
             'plateID' => 'B',
         ];
         yield [
             'position' => 48,
-            'coordinateString' => 'C4',
+            'coordinatesString' => 'C4',
             'plateID' => 'D',
         ];
     }
 
     /** @dataProvider dataProvider96Well */
-    public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinateString, string $plateID): void
+    public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinatesString, string $plateID): void
     {
         $microplateSet = new MicroplateSetABCD(new CoordinateSystem96Well());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
-        self::assertSame($coordinateString, $location->coordinates->toString());
+        self::assertSame($coordinatesString, $location->coordinates->toString());
         self::assertSame($plateID, $location->plateID);
     }
 
-    /** @return iterable<array{position: int, coordinateString: string, plateID: string}> */
+    /** @return iterable<array{position: int, coordinatesString: string, plateID: string}> */
     public static function dataProvider96Well(): iterable
     {
         yield [
             'position' => 1,
-            'coordinateString' => 'A1',
+            'coordinatesString' => 'A1',
             'plateID' => 'A',
         ];
         yield [
             'position' => 2,
-            'coordinateString' => 'B1',
+            'coordinatesString' => 'B1',
             'plateID' => 'A',
         ];
         yield [
             'position' => 3,
-            'coordinateString' => 'C1',
+            'coordinatesString' => 'C1',
             'plateID' => 'A',
         ];
         yield [
             'position' => 12,
-            'coordinateString' => 'D2',
+            'coordinatesString' => 'D2',
             'plateID' => 'A',
         ];
         yield [
             'position' => 13,
-            'coordinateString' => 'E2',
+            'coordinatesString' => 'E2',
             'plateID' => 'A',
         ];
         yield [
             'position' => 96,
-            'coordinateString' => 'H12',
+            'coordinatesString' => 'H12',
             'plateID' => 'A',
         ];
         yield [
             'position' => 97,
-            'coordinateString' => 'A1',
+            'coordinatesString' => 'A1',
             'plateID' => 'B',
         ];
         yield [
             'position' => 384,
-            'coordinateString' => 'H12',
+            'coordinatesString' => 'H12',
             'plateID' => 'D',
         ];
         yield [
             'position' => 383,
-            'coordinateString' => 'G12',
+            'coordinatesString' => 'G12',
             'plateID' => 'D',
         ];
     }

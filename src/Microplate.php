@@ -117,13 +117,13 @@ final class Microplate extends AbstractMicroplate
      */
     public function nextFreeWellCoordinates(FlowDirection $flowDirection): Coordinates
     {
-        $coordinateString = $this->sortedWells($flowDirection)
+        $coordinatesString = $this->sortedWells($flowDirection)
             ->search(self::EMPTY_WELL);
 
-        if (! is_string($coordinateString)) {
+        if (! is_string($coordinatesString)) {
             throw new MicroplateIsFullException();
         }
 
-        return Coordinates::fromString($coordinateString, $this->coordinateSystem);
+        return Coordinates::fromString($coordinatesString, $this->coordinateSystem);
     }
 }
