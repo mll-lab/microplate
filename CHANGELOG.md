@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.0.0
+
+### Changed
+
+- Use correct plural form for `Coordinates` and related classes
+
 ## v5.5.0
 
 ### Added

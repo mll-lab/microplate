@@ -46,21 +46,17 @@ final class MicroplateSetABTest extends TestCase
         $microplateSet->locationFromPosition($setPositionLowerThanMin, FlowDirection::COLUMN());
     }
 
-    /**
-     * @dataProvider dataProvider12Well
-     */
+    /** @dataProvider dataProvider12Well */
     public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinateString, string $plateID): void
     {
         $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
-        self::assertSame($location->coordinate->toString(), $coordinateString);
+        self::assertSame($location->coordinates->toString(), $coordinateString);
         self::assertSame($location->plateID, $plateID);
     }
 
-    /**
-     * @return iterable<array{position: int, coordinateString: string, plateID: string}>
-     */
+    /** @return iterable<array{position: int, coordinateString: string, plateID: string}> */
     public static function dataProvider12Well(): iterable
     {
         yield [
@@ -95,21 +91,17 @@ final class MicroplateSetABTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProvider96Well
-     */
+    /** @dataProvider dataProvider96Well */
     public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinateString, string $plateID): void
     {
         $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
-        self::assertSame($coordinateString, $location->coordinate->toString());
+        self::assertSame($coordinateString, $location->coordinates->toString());
         self::assertSame($plateID, $location->plateID);
     }
 
-    /**
-     * @return iterable<array{position: int, coordinateString: string, plateID: string}>
-     */
+    /** @return iterable<array{position: int, coordinateString: string, plateID: string}> */
     public static function dataProvider96Well(): iterable
     {
         yield [

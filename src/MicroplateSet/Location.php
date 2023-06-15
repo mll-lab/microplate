@@ -2,7 +2,7 @@
 
 namespace Mll\Microplate\MicroplateSet;
 
-use Mll\Microplate\Coordinate;
+use Mll\Microplate\Coordinates;
 use Mll\Microplate\CoordinateSystem;
 
 /**
@@ -12,17 +12,13 @@ final class Location
 {
     public string $plateID;
 
-    /**
-     * @var \Mll\Microplate\Coordinate<TCoordinateSystem>
-     */
-    public Coordinate $coordinate;
+    /** @var \Mll\Microplate\Coordinates<TCoordinateSystem> */
+    public Coordinates $coordinates;
 
-    /**
-     * @param \Mll\Microplate\Coordinate<TCoordinateSystem> $coordinate
-     */
-    public function __construct(Coordinate $coordinate, string $plateID)
+    /** @param \Mll\Microplate\Coordinates<TCoordinateSystem> $coordinates */
+    public function __construct(Coordinates $coordinates, string $plateID)
     {
-        $this->coordinate = $coordinate;
+        $this->coordinates = $coordinates;
         $this->plateID = $plateID;
     }
 }

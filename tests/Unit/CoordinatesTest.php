@@ -2,31 +2,27 @@
 
 namespace Mll\Microplate\Tests\Unit;
 
-use Mll\Microplate\Coordinate;
+use Mll\Microplate\Coordinates;
 use Mll\Microplate\CoordinateSystem12Well;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Enums\FlowDirection;
 use PHPUnit\Framework\TestCase;
 
-final class CoordinateTest extends TestCase
+final class CoordinatesTest extends TestCase
 {
-    /**
-     * @dataProvider dataProvider96Well
-     */
+    /** @dataProvider dataProvider96Well */
     public function testCanConstructFromRowAndColumn(string $row, int $column): void
     {
-        $coordinate96Well = new Coordinate($row, $column, new CoordinateSystem96Well());
+        $coordinates96Well = new Coordinates($row, $column, new CoordinateSystem96Well());
 
-        self::assertSame($row . $column, $coordinate96Well->toString());
+        self::assertSame($row . $column, $coordinates96Well->toString());
     }
 
-    /**
-     * @dataProvider dataProvider96Well
-     */
+    /** @dataProvider dataProvider96Well */
     public function testCanConstructFromPosition(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
         // test for Column-FlowDirection
-        $coordinates = Coordinate::fromPosition(
+        $coordinates = Coordinates::fromPosition(
             $columnFlowPosition,
             FlowDirection::COLUMN(),
             new CoordinateSystem96Well()
@@ -35,7 +31,7 @@ final class CoordinateTest extends TestCase
         self::assertSame($column, $coordinates->column);
 
         // test for Row-FlowDirection
-        $coordinates = Coordinate::fromPosition(
+        $coordinates = Coordinates::fromPosition(
             $rowFlowPosition,
             FlowDirection::ROW(),
             new CoordinateSystem96Well()
@@ -44,30 +40,24 @@ final class CoordinateTest extends TestCase
         self::assertSame($column, $coordinates->column);
     }
 
-    /**
-     * @dataProvider dataProvider96Well
-     */
+    /** @dataProvider dataProvider96Well */
     public function testFromCoordinatesString(string $row, int $column): void
     {
-        $coordinate = Coordinate::fromString($row . $column, new CoordinateSystem96Well());
-        self::assertSame($row, $coordinate->row);
-        self::assertSame($column, $coordinate->column);
+        $coordinates = Coordinates::fromString($row . $column, new CoordinateSystem96Well());
+        self::assertSame($row, $coordinates->row);
+        self::assertSame($column, $coordinates->column);
     }
 
-    /**
-     * @dataProvider dataProviderPadded96Well
-     */
+    /** @dataProvider dataProviderPadded96Well */
     public function testFromPaddedCoordinatesString(string $paddedCoordinate, string $row, int $column): void
     {
-        $coordinateFromPadded = Coordinate::fromString($paddedCoordinate, new CoordinateSystem96Well());
-        self::assertSame($row, $coordinateFromPadded->row);
-        self::assertSame($column, $coordinateFromPadded->column);
-        self::assertSame($paddedCoordinate, $coordinateFromPadded->toPaddedString());
+        $coordinatesFromPadded = Coordinates::fromString($paddedCoordinate, new CoordinateSystem96Well());
+        self::assertSame($row, $coordinatesFromPadded->row);
+        self::assertSame($column, $coordinatesFromPadded->column);
+        self::assertSame($paddedCoordinate, $coordinatesFromPadded->toPaddedString());
     }
 
-    /**
-     * @return list<array{paddedCoordinate: string, row: string, column: int}>
-     */
+    /** @return list<array{paddedCoordinate: string, row: string, column: int}> */
     public static function dataProviderPadded96Well(): array
     {
         return
@@ -96,19 +86,15 @@ final class CoordinateTest extends TestCase
             ];
     }
 
-    /**
-     * @dataProvider dataProvider96Well
-     */
+    /** @dataProvider dataProvider96Well */
     public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
-        $coordinate = new Coordinate($row, $column, new CoordinateSystem96Well());
-        self::assertSame($columnFlowPosition, $coordinate->position(FlowDirection::COLUMN()));
-        self::assertSame($rowFlowPosition, $coordinate->position(FlowDirection::ROW()));
+        $coordinates = new Coordinates($row, $column, new CoordinateSystem96Well());
+        self::assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
+        self::assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
     }
 
-    /**
-     * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
-     */
+    /** @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}> */
     public static function dataProvider96Well(): array
     {
         return
@@ -597,19 +583,15 @@ final class CoordinateTest extends TestCase
             ];
     }
 
-    /**
-     * @dataProvider dataProvider12Well
-     */
+    /** @dataProvider dataProvider12Well */
     public function testPosition12Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
-        $coordinate = new Coordinate($row, $column, new CoordinateSystem12Well());
-        self::assertSame($columnFlowPosition, $coordinate->position(FlowDirection::COLUMN()));
-        self::assertSame($rowFlowPosition, $coordinate->position(FlowDirection::ROW()));
+        $coordinates = new Coordinates($row, $column, new CoordinateSystem12Well());
+        self::assertSame($columnFlowPosition, $coordinates->position(FlowDirection::COLUMN()));
+        self::assertSame($rowFlowPosition, $coordinates->position(FlowDirection::ROW()));
     }
 
-    /**
-     * @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}>
-     */
+    /** @return list<array{row: string, column: int, rowFlowPosition: int, columnFlowPosition: int}> */
     public static function dataProvider12Well(): array
     {
         return [
@@ -688,18 +670,14 @@ final class CoordinateTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidRowsOrColumns
-     */
+    /** @dataProvider invalidRowsOrColumns */
     public function testThrowsOnInvalidRowsOrColumns(string $row, int $column): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Coordinate($row, $column, new CoordinateSystem96Well());
+        new Coordinates($row, $column, new CoordinateSystem96Well());
     }
 
-    /**
-     * @return array<int, array{string, int}>
-     */
+    /** @return array<int, array{string, int}> */
     public function invalidRowsOrColumns(): array
     {
         return [
@@ -712,18 +690,14 @@ final class CoordinateTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidPositions
-     */
+    /** @dataProvider invalidPositions */
     public function testThrowsOnInvalidPositions(int $position): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        Coordinate::fromPosition($position, FlowDirection::COLUMN(), new CoordinateSystem96Well());
+        Coordinates::fromPosition($position, FlowDirection::COLUMN(), new CoordinateSystem96Well());
     }
 
-    /**
-     * @return array<int, array{int}>
-     */
+    /** @return array<int, array{int}> */
     public function invalidPositions(): array
     {
         return [
@@ -734,18 +708,14 @@ final class CoordinateTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidCoordinates
-     */
-    public function testThrowsOnInvalidCoordinates(string $coordinateString): void
+    /** @dataProvider invalidCoordinates */
+    public function testThrowsOnInvalidCoordinates(string $coordinatesString): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        Coordinate::fromString($coordinateString, new CoordinateSystem96Well());
+        Coordinates::fromString($coordinatesString, new CoordinateSystem96Well());
     }
 
-    /**
-     * @return array<int, array{string}>
-     */
+    /** @return array<int, array{string}> */
     public function invalidCoordinates(): array
     {
         return [

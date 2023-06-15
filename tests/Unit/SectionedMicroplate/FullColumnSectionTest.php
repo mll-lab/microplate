@@ -2,7 +2,7 @@
 
 namespace Mll\Microplate\Tests\Unit\SectionedMicroplate;
 
-use Mll\Microplate\Coordinate;
+use Mll\Microplate\Coordinates;
 use Mll\Microplate\CoordinateSystem96Well;
 use Mll\Microplate\Exceptions\MicroplateIsFullException;
 use Mll\Microplate\Exceptions\SectionIsFullException;
@@ -79,7 +79,7 @@ final class FullColumnSectionTest extends TestCase
         }
 
         $section2 = $sectionedMicroplate->addSection(FullColumnSection::class);
-        $emptyCoordinateInSection1 = new Coordinate('E', 1, $coordinateSystem);
+        $emptyCoordinateInSection1 = new Coordinates('E', 1, $coordinateSystem);
         self::assertNull($sectionedMicroplate->well($emptyCoordinateInSection1));
 
         foreach (range(1, 5) as $ignored1) {
