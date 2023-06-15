@@ -49,12 +49,12 @@ final class CoordinatesTest extends TestCase
     }
 
     /** @dataProvider dataProviderPadded96Well */
-    public function testFromPaddedCoordinatesString(string $paddedCoordinate, string $row, int $column): void
+    public function testFromPaddedCoordinatesString(string $paddedCoordinates, string $row, int $column): void
     {
-        $coordinatesFromPadded = Coordinates::fromString($paddedCoordinate, new CoordinateSystem96Well());
+        $coordinatesFromPadded = Coordinates::fromString($paddedCoordinates, new CoordinateSystem96Well());
         self::assertSame($row, $coordinatesFromPadded->row);
         self::assertSame($column, $coordinatesFromPadded->column);
-        self::assertSame($paddedCoordinate, $coordinatesFromPadded->toPaddedString());
+        self::assertSame($paddedCoordinates, $coordinatesFromPadded->toPaddedString());
     }
 
     /** @return list<array{paddedCoordinate: string, row: string, column: int}> */

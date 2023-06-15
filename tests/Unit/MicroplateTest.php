@@ -264,8 +264,8 @@ final class MicroplateTest extends TestCase
         $coordinateSystem = new CoordinateSystem96Well();
         $microplate = new Microplate($coordinateSystem);
 
-        foreach ($coordinateSystem->all() as $coordinate) {
-            $microplate->addWell($coordinate, 'test');
+        foreach ($coordinateSystem->all() as $coordinates) {
+            $microplate->addWell($coordinates, 'test');
         }
 
         self::assertTrue($microplate->isConsecutive(FlowDirection::ROW()));

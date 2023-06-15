@@ -34,22 +34,22 @@ final class Microplate extends AbstractMicroplate
         return $this->wells;
     }
 
-    /** @param Coordinates<TCoordinateSystem> $coordinate */
-    public static function position(Coordinates $coordinate, FlowDirection $direction): int
+    /** @param Coordinates<TCoordinateSystem> $coordinates */
+    public static function position(Coordinates $coordinates, FlowDirection $direction): int
     {
-        return $coordinate->position($direction);
+        return $coordinates->position($direction);
     }
 
     /**
      * @param TWell $content
-     * @param Coordinates<TCoordinateSystem> $coordinate
+     * @param Coordinates<TCoordinateSystem> $coordinates
      *
      * @throws WellNotEmptyException
      */
-    public function addWell(Coordinates $coordinate, $content): void
+    public function addWell(Coordinates $coordinates, $content): void
     {
-        $this->assertIsWellEmpty($coordinate, $content);
-        $this->setWell($coordinate, $content);
+        $this->assertIsWellEmpty($coordinates, $content);
+        $this->setWell($coordinates, $content);
     }
 
     /**
@@ -64,16 +64,16 @@ final class Microplate extends AbstractMicroplate
     }
 
     /**
-     * @param Coordinates<TCoordinateSystem> $coordinate
+     * @param Coordinates<TCoordinateSystem> $coordinates
      * @param TWell $content
      *
      * @throws WellNotEmptyException
      */
-    private function assertIsWellEmpty(Coordinates $coordinate, $content): void
+    private function assertIsWellEmpty(Coordinates $coordinates, $content): void
     {
-        if (! $this->isWellEmpty($coordinate)) {
+        if (! $this->isWellEmpty($coordinates)) {
             throw new WellNotEmptyException(
-                'Well with coordinates "' . $coordinate->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.'
+                'Well with coordinates "' . $coordinates->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.'
             );
         }
     }
