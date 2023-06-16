@@ -2,7 +2,7 @@
 
 namespace Mll\Microplate\MicroplateSet;
 
-use Mll\Microplate\Coordinate;
+use Mll\Microplate\Coordinates;
 use Mll\Microplate\CoordinateSystem;
 use Mll\Microplate\Enums\FlowDirection;
 
@@ -11,22 +11,16 @@ use Mll\Microplate\Enums\FlowDirection;
  */
 abstract class MicroplateSet
 {
-    /**
-     * @var TCoordinateSystem
-     */
+    /** @var TCoordinateSystem */
     public CoordinateSystem $coordinateSystem;
 
-    /**
-     * @param TCoordinateSystem $coordinateSystem
-     */
+    /** @param TCoordinateSystem $coordinateSystem */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         $this->coordinateSystem = $coordinateSystem;
     }
 
-    /**
-     * @return list<string>
-     */
+    /** @return list<string> */
     abstract public function plateIDs(): array;
 
     public function plateCount(): int
@@ -39,13 +33,11 @@ abstract class MicroplateSet
         return $this->coordinateSystem->positionsCount() * $this->plateCount();
     }
 
-    /**
-     * @return Location<TCoordinateSystem>
-     */
+    /** @return Location<TCoordinateSystem> */
     public function locationFromPosition(int $setPosition, FlowDirection $direction): Location
     {
         $positionsCount = $this->positionsCount();
-        if ($setPosition > $positionsCount || $setPosition < Coordinate::MIN_POSITION) {
+        if ($setPosition > $positionsCount || $setPosition < Coordinates::MIN_POSITION) {
             throw new \OutOfRangeException("Expected a position between 1-{$positionsCount}, got: {$setPosition}.");
         }
 
@@ -54,7 +46,7 @@ abstract class MicroplateSet
 
         /** @phpstan-ignore-next-line Generic inference is too weak to recognize this code is correct */
         return new Location(
-            Coordinate::fromPosition($positionOnSinglePlate, $direction, $this->coordinateSystem),
+            Coordinates::fromPosition($positionOnSinglePlate, $direction, $this->coordinateSystem),
             $this->plateIDs()[$plateIndex]
         );
     }

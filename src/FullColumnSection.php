@@ -34,7 +34,7 @@ final class FullColumnSection extends AbstractSection
         }
 
         $nextReservedWell = $this->nextReservedWell();
-        if (false !== $nextReservedWell) {
+        if ($nextReservedWell !== false) {
             $this->sectionItems[$nextReservedWell] = $content;
 
             return;
@@ -64,13 +64,11 @@ final class FullColumnSection extends AbstractSection
         }
     }
 
-    /**
-     * @return false|int
-     */
+    /** @return false|int */
     private function nextReservedWell()
     {
         $search = $this->sectionItems->search(AbstractMicroplate::EMPTY_WELL);
-        assert(false === $search || is_int($search));
+        assert($search === false || is_int($search));
 
         return $search;
     }

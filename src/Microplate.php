@@ -17,14 +17,10 @@ use Mll\Microplate\Exceptions\WellNotEmptyException;
  */
 final class Microplate extends AbstractMicroplate
 {
-    /**
-     * @var WellsCollection
-     */
+    /** @var WellsCollection */
     protected Collection $wells;
 
-    /**
-     * @param TCoordinateSystem $coordinateSystem
-     */
+    /** @param TCoordinateSystem $coordinateSystem */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         parent::__construct($coordinateSystem);
@@ -32,63 +28,57 @@ final class Microplate extends AbstractMicroplate
         $this->clearWells();
     }
 
-    /**
-     * @return WellsCollection
-     */
+    /** @return WellsCollection */
     public function wells(): Collection
     {
         return $this->wells;
     }
 
-    /**
-     * @param Coordinate<TCoordinateSystem> $coordinate
-     */
-    public static function position(Coordinate $coordinate, FlowDirection $direction): int
+    /** @param Coordinates<TCoordinateSystem> $coordinates */
+    public static function position(Coordinates $coordinates, FlowDirection $direction): int
     {
-        return $coordinate->position($direction);
+        return $coordinates->position($direction);
     }
 
     /**
      * @param TWell $content
-     * @param Coordinate<TCoordinateSystem> $coordinate
+     * @param Coordinates<TCoordinateSystem> $coordinates
      *
      * @throws WellNotEmptyException
      */
-    public function addWell(Coordinate $coordinate, $content): void
+    public function addWell(Coordinates $coordinates, $content): void
     {
-        $this->assertIsWellEmpty($coordinate, $content);
-        $this->setWell($coordinate, $content);
+        $this->assertIsWellEmpty($coordinates, $content);
+        $this->setWell($coordinates, $content);
     }
 
     /**
-     * Set the well at the given coordinate to the given content.
+     * Set the well at the given coordinates to the given content.
      *
-     * @param Coordinate<TCoordinateSystem> $coordinate
+     * @param Coordinates<TCoordinateSystem> $coordinates
      * @param TWell $content
      */
-    public function setWell(Coordinate $coordinate, $content): void
+    public function setWell(Coordinates $coordinates, $content): void
     {
-        $this->wells[$coordinate->toString()] = $content;
+        $this->wells[$coordinates->toString()] = $content;
     }
 
     /**
-     * @param Coordinate<TCoordinateSystem> $coordinate
+     * @param Coordinates<TCoordinateSystem> $coordinates
      * @param TWell $content
      *
      * @throws WellNotEmptyException
      */
-    private function assertIsWellEmpty(Coordinate $coordinate, $content): void
+    private function assertIsWellEmpty(Coordinates $coordinates, $content): void
     {
-        if (! $this->isWellEmpty($coordinate)) {
+        if (! $this->isWellEmpty($coordinates)) {
             throw new WellNotEmptyException(
-                'Well with coordinate "' . $coordinate->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.'
+                'Well with coordinates "' . $coordinates->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.'
             );
         }
     }
 
-    /**
-     * Clearing the wells will reinitialize all well position of the coordinate system.
-     */
+    /** Clearing the wells will reinitialize all well position of the coordinate system. */
     public function clearWells(): void
     {
         /**
@@ -108,32 +98,32 @@ final class Microplate extends AbstractMicroplate
     /**
      * @param TWell $content
      *
-     * @throws MicroplateIsFullException
+     *@throws MicroplateIsFullException
      *
-     * @return Coordinate<TCoordinateSystem>
+     * @return Coordinates<TCoordinateSystem>
      */
-    public function addToNextFreeWell($content, FlowDirection $flowDirection): Coordinate
+    public function addToNextFreeWell($content, FlowDirection $flowDirection): Coordinates
     {
-        $coordinate = $this->nextFreeWellCoordinate($flowDirection);
-        $this->wells[$coordinate->toString()] = $content;
+        $coordinates = $this->nextFreeWellCoordinates($flowDirection);
+        $this->wells[$coordinates->toString()] = $content;
 
-        return $coordinate;
+        return $coordinates;
     }
 
     /**
-     * @throws MicroplateIsFullException
+     *@throws MicroplateIsFullException
      *
-     * @return Coordinate<TCoordinateSystem>
+     * @return Coordinates<TCoordinateSystem>
      */
-    public function nextFreeWellCoordinate(FlowDirection $flowDirection): Coordinate
+    public function nextFreeWellCoordinates(FlowDirection $flowDirection): Coordinates
     {
-        $coordinateString = $this->sortedWells($flowDirection)
+        $coordinatesString = $this->sortedWells($flowDirection)
             ->search(self::EMPTY_WELL);
 
-        if (! is_string($coordinateString)) {
+        if (! is_string($coordinatesString)) {
             throw new MicroplateIsFullException();
         }
 
-        return Coordinate::fromString($coordinateString, $this->coordinateSystem);
+        return Coordinates::fromString($coordinatesString, $this->coordinateSystem);
     }
 }

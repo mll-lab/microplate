@@ -16,45 +16,35 @@ abstract class AbstractMicroplate
 {
     public const EMPTY_WELL = null;
 
-    /**
-     * @var TCoordinateSystem
-     */
+    /** @var TCoordinateSystem */
     public CoordinateSystem $coordinateSystem;
 
-    /**
-     * @param TCoordinateSystem $coordinateSystem
-     */
+    /** @param TCoordinateSystem $coordinateSystem */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         $this->coordinateSystem = $coordinateSystem;
     }
 
-    /**
-     * @return WellsCollection
-     */
+    /** @return WellsCollection */
     abstract public function wells(): Collection;
 
     /**
-     * @param Coordinate<TCoordinateSystem> $coordinate
+     * @param Coordinates<TCoordinateSystem> $coordinate
      *
      * @return TWell|null
      */
-    public function well(Coordinate $coordinate)
+    public function well(Coordinates $coordinate)
     {
         return $this->wells()[$coordinate->toString()];
     }
 
-    /**
-     * @param Coordinate<TCoordinateSystem> $coordinate
-     */
-    public function isWellEmpty(Coordinate $coordinate): bool
+    /** @param Coordinates<TCoordinateSystem> $coordinate */
+    public function isWellEmpty(Coordinates $coordinate): bool
     {
-        return self::EMPTY_WELL === $this->well($coordinate);
+        return $this->well($coordinate) === self::EMPTY_WELL;
     }
 
-    /**
-     * @return WellsCollection
-     */
+    /** @return WellsCollection */
     public function sortedWells(FlowDirection $flowDirection): Collection
     {
         return $this->wells()->sortBy(
@@ -66,9 +56,9 @@ abstract class AbstractMicroplate
                     case FlowDirection::ROW:
                         return $key;
                     case FlowDirection::COLUMN:
-                        $coordinate = Coordinate::fromString($key, $this->coordinateSystem);
+                        $coordinates = Coordinates::fromString($key, $this->coordinateSystem);
 
-                        return $coordinate->column . $coordinate->row;
+                        return $coordinates->column . $coordinates->row;
                         // @codeCoverageIgnoreStart all Enums are listed and this should never happen
                     default:
                         throw new UnexpectedFlowDirection($flowDirection);
@@ -79,64 +69,54 @@ abstract class AbstractMicroplate
         );
     }
 
-    /**
-     * @return Collection<string, null>
-     */
+    /** @return Collection<string, null> */
     public function freeWells(): Collection
     {
         return $this->wells()->filter(
             /**
              * @param TWell $content
              */
-            static fn ($content): bool => self::EMPTY_WELL === $content
+            static fn ($content): bool => $content === self::EMPTY_WELL
         );
     }
 
-    /**
-     * @return Collection<string, TWell>
-     */
+    /** @return Collection<string, TWell> */
     public function filledWells(): Collection
     {
         return $this->wells()->filter(
             /**
              * @param TWell $content
              */
-            static fn ($content): bool => self::EMPTY_WELL !== $content
+            static fn ($content): bool => $content !== self::EMPTY_WELL
         );
     }
 
-    /**
-     * @return callable(TWell|null $content, string $coordinateString): bool
-     */
+    /** @return callable(TWell|null $content, string $coordinatesString): bool */
     public function matchRow(string $row): callable
     {
-        return function ($content, string $coordinateString) use ($row): bool {
-            $coordinate = Coordinate::fromString($coordinateString, $this->coordinateSystem);
+        return function ($content, string $coordinatesString) use ($row): bool {
+            $coordinates = Coordinates::fromString($coordinatesString, $this->coordinateSystem);
 
-            return $coordinate->row === $row;
+            return $coordinates->row === $row;
         };
     }
 
-    /**
-     * @return callable(TWell|null $content, string $coordinateString): bool
-     */
+    /** @return callable(TWell|null $content, string $coordinatesString): bool */
     public function matchColumn(int $column): callable
     {
-        return function ($content, string $coordinateString) use ($column): bool {
-            $coordinate = Coordinate::fromString($coordinateString, $this->coordinateSystem);
+        return function ($content, string $coordinatesString) use ($column): bool {
+            $coordinates = Coordinates::fromString($coordinatesString, $this->coordinateSystem);
 
-            return $coordinate->column === $column;
+            return $coordinates->column === $column;
         };
     }
 
-    /**
-     * @return callable(TWell $content, string $coordinateString): WellWithCoordinate<TWell, TCoordinateSystem>
-     */
+    /** @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem> */
     public function toWellWithCoordinateMapper(): callable
     {
-        return fn ($content, string $coordinateString): WellWithCoordinate => new WellWithCoordinate(
+        return fn ($content, string $coordinatesString): WellWithCoordinates => new WellWithCoordinates(
             $content,
-            Coordinate::fromString($coordinateString, $this->coordinateSystem)
+            Coordinates::fromString($coordinatesString, $this->coordinateSystem)
         );
     }
 
@@ -148,11 +128,9 @@ abstract class AbstractMicroplate
     public function isConsecutive(FlowDirection $flowDirection): bool
     {
         $positions = $this->filledWells()
-            /**
-             * @param TWell $content
-             */
             ->map(
-                fn ($content, string $coordinateString): int => Coordinate::fromString($coordinateString, $this->coordinateSystem)->position($flowDirection)
+                /** @param TWell $content */
+                fn ($content, string $coordinatesString): int => Coordinates::fromString($coordinatesString, $this->coordinateSystem)->position($flowDirection)
             );
 
         return ($positions->max() - $positions->min() + 1) === $positions->count();

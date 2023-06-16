@@ -11,7 +11,7 @@ use function Safe\preg_match;
 /**
  * @template TCoordinateSystem of CoordinateSystem
  */
-final class Coordinate
+final class Coordinates
 {
     public const MIN_POSITION = 1;
 
@@ -19,14 +19,10 @@ final class Coordinate
 
     public int $column;
 
-    /**
-     * @var TCoordinateSystem
-     */
+    /** @var TCoordinateSystem */
     public CoordinateSystem $coordinateSystem;
 
-    /**
-     * @param TCoordinateSystem $coordinateSystem
-     */
+    /** @param TCoordinateSystem $coordinateSystem */
     public function __construct(string $row, int $column, CoordinateSystem $coordinateSystem)
     {
         $rows = $coordinateSystem->rows();
@@ -53,7 +49,7 @@ final class Coordinate
      *
      * @return static<TCoord>
      */
-    public static function fromString(string $coordinateString, CoordinateSystem $coordinateSystem): self
+    public static function fromString(string $coordinatesString, CoordinateSystem $coordinateSystem): self
     {
         $rows = $coordinateSystem->rows();
         $rowsOptions = \implode('|', $rows);
@@ -66,15 +62,15 @@ final class Coordinate
 
         $valid = preg_match(
             "/^({$rowsOptions})({$columnsOptions})\$/",
-            $coordinateString,
+            $coordinatesString,
             $matches
         );
 
-        if (0 === $valid) {
+        if ($valid === 0) {
             $firstValidExample = Arr::first($rows) . Arr::first($columns);
             $lastValidExample = Arr::last($rows) . Arr::last($columns);
             $coordinateSystemClass = \get_class($coordinateSystem);
-            throw new \InvalidArgumentException("Expected a coordinate between {$firstValidExample} and {$lastValidExample} for {$coordinateSystemClass}, got: {$coordinateString}.");
+            throw new \InvalidArgumentException("Expected coordinates between {$firstValidExample} and {$lastValidExample} for {$coordinateSystemClass}, got: {$coordinatesString}.");
         }
 
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
@@ -85,9 +81,7 @@ final class Coordinate
         return $this->row . $this->column;
     }
 
-    /**
-     * Format the coordinate with the column 0-padded so all are the same length.
-     */
+    /** Format the coordinates with the column 0-padded so all are the same length. */
     public function toPaddedString(): string
     {
         return $this->row . $this->coordinateSystem->padColumn($this->column);

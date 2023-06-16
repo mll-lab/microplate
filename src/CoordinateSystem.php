@@ -4,14 +4,10 @@ namespace Mll\Microplate;
 
 abstract class CoordinateSystem
 {
-    /**
-     * @return list<string>
-     */
+    /** @return list<string> */
     abstract public function rows(): array;
 
-    /**
-     * @return list<int>
-     */
+    /** @return list<int> */
     abstract public function columns(): array;
 
     /**
@@ -29,9 +25,7 @@ abstract class CoordinateSystem
         return $paddedColumns;
     }
 
-    /**
-     * 0-pad column to be as long as the longest column in the coordinate system.
-     */
+    /** 0-pad column to be as long as the longest column in the coordinate system. */
     public function padColumn(int $column): string
     {
         $maxColumnLength = strlen((string) $this->columnsCount());
@@ -69,13 +63,13 @@ abstract class CoordinateSystem
      *
      * e.g. A1, A2, B1, B2
      *
-     * @return iterable<int, Coordinate<$this>>
+     * @return iterable<int, Coordinates<$this>>
      */
     public function all(): iterable
     {
         foreach ($this->columns() as $column) {
             foreach ($this->rows() as $row) {
-                yield new Coordinate($row, $column, $this);
+                yield new Coordinates($row, $column, $this);
             }
         }
     }

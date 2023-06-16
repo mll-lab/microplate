@@ -9,27 +9,19 @@ use Illuminate\Support\Collection;
  */
 abstract class AbstractSection
 {
-    /**
-     * @var SectionedMicroplate<TSectionWell, CoordinateSystem, static>
-     */
+    /** @var SectionedMicroplate<TSectionWell, CoordinateSystem, static> */
     public SectionedMicroplate $sectionedMicroplate;
 
-    /**
-     * @var Collection<int, TSectionWell|null>
-     */
+    /** @var Collection<int, TSectionWell|null> */
     public Collection $sectionItems;
 
-    /**
-     * @param SectionedMicroplate<TSectionWell, CoordinateSystem, static> $sectionedMicroplate
-     */
+    /** @param SectionedMicroplate<TSectionWell, CoordinateSystem, static> $sectionedMicroplate */
     public function __construct(SectionedMicroplate $sectionedMicroplate)
     {
         $this->sectionedMicroplate = $sectionedMicroplate;
         $this->sectionItems = new Collection();
     }
 
-    /**
-     * @param TSectionWell $content
-     */
+    /** @param TSectionWell $content */
     abstract public function addWell($content): void;
 }

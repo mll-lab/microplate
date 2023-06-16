@@ -15,14 +15,10 @@ use Illuminate\Support\Collection;
  */
 final class SectionedMicroplate extends AbstractMicroplate
 {
-    /**
-     * @var Collection<string, TSection>
-     */
+    /** @var Collection<string, TSection> */
     public Collection $sections;
 
-    /**
-     * @param TCoordinateSystem $coordinateSystem
-     */
+    /** @param TCoordinateSystem $coordinateSystem */
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         parent::__construct($coordinateSystem);
@@ -43,9 +39,7 @@ final class SectionedMicroplate extends AbstractMicroplate
         return $this->sections[] = new $sectionClass($this);
     }
 
-    /**
-     * @param TSection $section
-     */
+    /** @param TSection $section */
     public function removeSection(AbstractSection $section): void
     {
         foreach ($this->sections as $i => $s) {
@@ -64,10 +58,10 @@ final class SectionedMicroplate extends AbstractMicroplate
             ->zip($this->coordinateSystem->all())
             ->map(fn (Collection $mapping): array => $mapping->all())
             ->mapWithKeys(function (array $mapping): array {
-                [$sectionItem, $coordinate] = $mapping;
-                assert($coordinate instanceof Coordinate);
+                [$sectionItem, $coordinates] = $mapping;
+                assert($coordinates instanceof Coordinates);
 
-                return [$coordinate->toString() => $sectionItem];
+                return [$coordinates->toString() => $sectionItem];
             });
     }
 

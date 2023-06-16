@@ -4,26 +4,26 @@ namespace Mll\Microplate\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
-use Mll\Microplate\Coordinate;
+use Mll\Microplate\Coordinates;
 use Mll\Microplate\CoordinateSystem96Well;
 
 /**
- * @implements CastsAttributes<Coordinate<CoordinateSystem96Well>, Coordinate<CoordinateSystem96Well>>
+ * @implements CastsAttributes<Coordinates<CoordinateSystem96Well>, Coordinates<CoordinateSystem96Well>>
  */
-final class Coordinate96Well implements CastsAttributes
+final class Coordinates96Well implements CastsAttributes
 {
     /**
      * @param  Model  $model
      * @param  string  $key
      * @param  array<array-key, mixed> $attributes
      *
-     * @return Coordinate<CoordinateSystem96Well>
+     * @return Coordinates<CoordinateSystem96Well>
      */
-    public function get($model, $key, $value, $attributes): Coordinate
+    public function get($model, $key, $value, $attributes): Coordinates
     {
         assert(is_string($value));
 
-        return Coordinate::fromString($value, new CoordinateSystem96Well());
+        return Coordinates::fromString($value, new CoordinateSystem96Well());
     }
 
     /**
@@ -33,7 +33,7 @@ final class Coordinate96Well implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes): string
     {
-        assert($value instanceof Coordinate);
+        assert($value instanceof Coordinates);
 
         return $value->toString();
     }
