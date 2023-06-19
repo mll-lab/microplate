@@ -145,6 +145,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "7.4"
@@ -182,7 +183,7 @@ jobs:
         run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
       - name: "Remove conflicting dependencies that are not needed here"
-        run: composer remove --dev --no-update rector/rector
+        run: composer remove --dev --no-update mll-lab/rector-config
 
       - name: "Remove PHP 8 dependencies"
         if: "! startsWith(matrix.php-version, 8)"
