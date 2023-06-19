@@ -185,7 +185,7 @@ jobs:
         run: composer remove --dev --no-update rector/rector
 
       - name: "Remove PHP 8 dependencies"
-        if: ! startsWith(matrix.php-version, 8)
+        if: "! startsWith(matrix.php-version, 8)"
         run: composer remove --dev --no-update webonyx/graphql-php
 
       - name: "Install lowest dependencies with composer"
