@@ -187,7 +187,7 @@ jobs:
 
       - name: "Remove PHP 8 dependencies"
         if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update webonyx/graphql-php
+        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
