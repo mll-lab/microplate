@@ -3,11 +3,21 @@
 namespace Mll\Microplate\Tests\Unit\Scalars;
 
 use GraphQL\Error\Error;
+use GraphQL\Type\Definition\ScalarType;
 use Mll\Microplate\Scalars\Column96Well;
 use PHPUnit\Framework\TestCase;
 
 final class Column96WellTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (! class_exists(ScalarType::class)) {
+            self::markTestSkipped('Our webonyx/graphql-php version requires PHP 8');
+        }
+    }
+
     public function testSerializeThrowsIfColumn96WellIsNotAnInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);

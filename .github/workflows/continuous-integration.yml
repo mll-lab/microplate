@@ -145,11 +145,13 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         php-version:
-          - 7.4
-          - 8.0
-          - 8.1
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
         dependencies:
           - lowest
           - highest
@@ -157,9 +159,14 @@ jobs:
           - ^7
           - ^8
           - ^9
+          - ^10
         exclude:
-          - php-version: 7.4
+          - php-version: "7.4"
             illuminate: ^9
+          - php-version: "7.4"
+            illuminate: ^10
+          - php-version: "8.0"
+            illuminate: ^10
 
     steps:
       - name: "Checkout"
@@ -170,10 +177,17 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: ${{ matrix.php-version }}
+          php-version: "${{ matrix.php-version }}"
 
       - name: "Install illuminate"
         run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
+
+      - name: "Remove conflicting dependencies that are not needed here"
+        run: composer remove --dev --no-update mll-lab/rector-config
+
+      - name: "Remove PHP 8 dependencies"
+        if: "! startsWith(matrix.php-version, 8)"
+        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'

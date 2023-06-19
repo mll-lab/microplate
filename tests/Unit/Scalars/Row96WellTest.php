@@ -4,11 +4,21 @@ namespace Mll\Microplate\Tests\Unit\Scalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
+use GraphQL\Type\Definition\ScalarType;
 use Mll\Microplate\Scalars\Row96Well;
 use PHPUnit\Framework\TestCase;
 
 final class Row96WellTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (! class_exists(ScalarType::class)) {
+            self::markTestSkipped('Our webonyx/graphql-php version requires PHP 8');
+        }
+    }
+
     public function testSerializeThrowsIfRow96WellIsInvalid(): void
     {
         $this->expectException(InvariantViolation::class);
