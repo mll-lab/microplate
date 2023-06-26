@@ -113,6 +113,7 @@ abstract class AbstractMicroplate
 
     /**
      * @deprecated use toWellWithCoordinatesMapper
+     *
      * @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem>
      */
     public function toWellWithCoordinateMapper(): callable
