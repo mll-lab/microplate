@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.1.0
+
+### Added
+
+- Deprecate method `AbstractMicroplate::toWellWithCoordinateMapper()` in favor of method `AbstractMicroplate::toWellWithCoordinatesMapper()`
+
 ## v6.0.0
 
 ### Changed
