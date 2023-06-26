@@ -111,8 +111,18 @@ abstract class AbstractMicroplate
         };
     }
 
-    /** @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem> */
+    /**
+     * @deprecated use toWellWithCoordinatesMapper
+     *
+     * @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem>
+     */
     public function toWellWithCoordinateMapper(): callable
+    {
+        return $this->toWellWithCoordinatesMapper();
+    }
+
+    /** @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem> */
+    public function toWellWithCoordinatesMapper(): callable
     {
         return fn ($content, string $coordinatesString): WellWithCoordinates => new WellWithCoordinates(
             $content,

@@ -78,7 +78,7 @@ final class MicroplateTest extends TestCase
         self::assertFalse($matchColumn('foo', $coordinateColumn2));
     }
 
-    public function testtoWellWithCoordinateMapper(): void
+    public function testtoWellWithCoordinatesMapper(): void
     {
         $coordinateSystem = new CoordinateSystem96Well();
         $microplate = new Microplate($coordinateSystem);
@@ -88,7 +88,7 @@ final class MicroplateTest extends TestCase
         $microplate->addWell($coordinates, $content);
 
         $wellWithCoordinates = $microplate->wells()
-            ->map($microplate->toWellWithCoordinateMapper())
+            ->map($microplate->toWellWithCoordinatesMapper())
             ->first();
 
         // @phpstan-ignore-next-line inaccurate
