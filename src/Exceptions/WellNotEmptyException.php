@@ -2,6 +2,4 @@
 
 namespace Mll\Microplate\Exceptions;
 
-final class WellNotEmptyException extends \Exception
-{
-}
+final class WellNotEmptyException extends \Exception {}
