@@ -2,6 +2,8 @@
 
 namespace Mll\Microplate;
 
+use Illuminate\Support\Arr;
+
 abstract class CoordinateSystem
 {
     /** @return list<string> */
@@ -72,6 +74,46 @@ abstract class CoordinateSystem
                 yield new Coordinates($row, $column, $this);
             }
         }
+    }
+
+    /**
+     * Returns the coordinates of the first row and first column.
+     *
+     * @return Coordinates<$this>
+     */
+    public function first(): Coordinates
+    {
+        $firstRow = Arr::first($this->rows());
+        if (! is_string($firstRow)) {
+            throw new \Exception('First row must be string.');
+        }
+
+        $firstColumn = Arr::first($this->columns());
+        if (! is_int($firstColumn)) {
+            throw new \Exception('First column must be string.');
+        }
+
+        return new Coordinates($firstRow, $firstColumn, $this);
+    }
+
+    /**
+     * Returns the coordinates of the last row and last column.
+     *
+     * @return Coordinates<$this>
+     */
+    public function last(): Coordinates
+    {
+        $lastRow = Arr::last($this->rows());
+        if (! is_string($lastRow)) {
+            throw new \Exception('Last row must be string.');
+        }
+
+        $lastColumn = Arr::last($this->columns());
+        if (! is_int($lastColumn)) {
+            throw new \Exception('Last column must be string.');
+        }
+
+        return new Coordinates($lastRow, $lastColumn, $this);
     }
 
     public function rowsCount(): int

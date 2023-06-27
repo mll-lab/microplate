@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.2.0
+
+### Added
+
+- Add `CoordinateSystem::first()` and `CoordinateSystem::last()`
+
 ## v6.1.0
 
 ### Added
