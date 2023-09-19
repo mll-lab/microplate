@@ -4,6 +4,9 @@ namespace Mll\Microplate;
 
 final class CoordinateSystem96Well extends CoordinateSystem
 {
+    /** Duplicates @see CoordinateSystem::positionsCount() for static contexts. */
+    public const POSITIONS_COUNT = 96;
+
     public function rows(): array
     {
         return range('A', 'H');
