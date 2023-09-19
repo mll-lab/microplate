@@ -29,4 +29,11 @@ final class CoordinateSystemTest extends TestCase
         yield [new CoordinateSystem48Well(), 'A1', 'F8'];
         yield [new CoordinateSystem96Well(), 'A1', 'H12'];
     }
+
+    public function testPositionsCount(): void
+    {
+        self::assertSame(CoordinateSystem12Well::POSITIONS_COUNT, (new CoordinateSystem12Well())->positionsCount());
+        self::assertSame(CoordinateSystem48Well::POSITIONS_COUNT, (new CoordinateSystem48Well())->positionsCount());
+        self::assertSame(CoordinateSystem96Well::POSITIONS_COUNT, (new CoordinateSystem96Well())->positionsCount());
+    }
 }
