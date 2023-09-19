@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add constants `CoordinateSystem*Well::POSITIONS_COUNT`
+- Add constants `MicroplateSet*::PLATE_COUNT`
 
 ## v6.2.0
 

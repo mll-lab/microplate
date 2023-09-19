@@ -11,6 +11,9 @@ use Mll\Microplate\CoordinateSystem;
  */
 final class MicroplateSetABCDE extends MicroplateSet
 {
+    /** Duplicates @see MicroplateSet::plateCount() for static contexts. */
+    public const PLATE_COUNT = 5;
+
     public function plateIDs(): array
     {
         return ['A', 'B', 'C', 'D', 'E'];
