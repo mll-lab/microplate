@@ -99,6 +99,8 @@ final class MicroplateSetABCDTest extends TestCase
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
         self::assertSame($coordinatesString, $location->coordinates->toString());
         self::assertSame($plateID, $location->plateID);
+
+        self::assertSame($position, $microplateSet->positionFromLocation($location, FlowDirection::COLUMN()));
     }
 
     /** @return iterable<array{position: int, coordinatesString: string, plateID: string}> */

@@ -20,7 +20,7 @@ abstract class MicroplateSet
         $this->coordinateSystem = $coordinateSystem;
     }
 
-    /** @return list<string> */
+    /** @return array<int,string> */
     abstract public function plateIDs(): array;
 
     public function plateCount(): int
@@ -49,5 +49,19 @@ abstract class MicroplateSet
             Coordinates::fromPosition($positionOnSinglePlate, $direction, $this->coordinateSystem),
             $this->plateIDs()[$plateIndex]
         );
+    }
+
+    /**
+     * @param Location<TCoordinateSystem> $location
+     */
+    public function positionFromLocation(Location $location, FlowDirection $direction): int
+    {
+        $positionOnPlate = $location->coordinates
+            ->position($direction);
+
+        $positionOnSet = $positionOnPlate * array_keys($this->plateIDs())[$location->plateID];
+        assert(is_int($positionOnSet));
+
+        return $positionOnSet;
     }
 }
