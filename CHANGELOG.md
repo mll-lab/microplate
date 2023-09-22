@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## v6.3.0
+## v6.4.0
+
+### Added
+
+- Add method `$microplateSet->positionFromLocation($location, $direction)`
+
+- ## v6.3.0
 
 ### Added
 
