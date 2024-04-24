@@ -1,5 +1,9 @@
 # microplate
 
+## Deprecated
+
+This library is deprecated in favor of https://github.com/mll-lab/php-utils.
+
 [![Continuous Integration](https://github.com/mll-lab/microplate/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/microplate/actions)
 [![Code Coverage](https://codecov.io/gh/mll-lab/microplate/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/microplate)
 
